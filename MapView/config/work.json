@@ -1,0 +1,67 @@
+[
+  {
+    "id": "123456",
+    "assetName": "苏D1AB5493",
+    "terminalName": "1381234567",
+    "terminalStatus": "OnLine",
+    "work": "装货",
+    "regionName": "堆垛A",
+    "RegionPoint": "",
+    "RoadPoint": "",
+    "idAsset": "1212432",
+    "idTerminal": "1212432",
+	"IdRegion":"as12411"
+  },
+  {
+    "id": "堆垛A装货",
+    "assetName": "苏D1AC346",
+    "terminalName": "1381233457",
+    "terminalStatus": "OnLine",
+    "work": "装货",
+    "regionName": "堆垛A",
+    "RegionPoint": "",
+    "RoadPoint": "",
+    "idAsset": "1666894",
+    "idTerminal": "1666894",
+	"IdRegion":"as12345"
+  },
+  {
+    "id": "1234567",
+    "assetName": "装载机01",
+    "terminalName": "1377000011",
+    "terminalStatus": "离线",
+    "work": "装货",
+    "regionName": "堆垛A",
+    "RegionPoint": "",
+    "RoadPoint": "",
+    "idAsset": "1212432",
+    "idTerminal": "1212432",
+	"IdRegion":"as12411"
+  },
+  {
+    "id": "1234568",
+    "assetName": "装载机02",
+    "terminalName": "1392222666",
+    "terminalStatus": "OnLine",
+    "work": "卸货",
+    "regionName": "堆垛A",
+    "RegionPoint": "",
+    "RoadPoint": "",
+    "idAsset": "1212432",
+    "idTerminal": "1212432",
+	"IdRegion":"as12345"
+  },
+  {
+    "id": "1234569",
+    "assetName": "装载机03",
+    "terminalName": "1381234567",
+    "terminalStatus": "OnLine",
+    "work": "装货",
+    "regionName": "堆垛A",
+    "RegionPoint": "",
+    "RoadPoint": "",
+    "idAsset": "1212432",
+    "idTerminal": "1212432",
+	"IdRegion":"as12421"
+  }
+]

@@ -1,0 +1,934 @@
+
+/*.fa {
+    font-size: 35px;
+    line-height: 35px;
+}*/
+
+.fa-bars {
+    color: #3498db;
+}
+
+pre {
+    font-family: Consolas, Liberation Mono, Courier, monospace;
+    font-size: 8px;
+}
+
+@media screen and (orientation: portrait) {
+    pre {
+        overflow-x: scroll;
+    }
+}
+
+#lefttop {
+    border-radius:4px;
+    z-index: 2;
+    position: absolute;
+    width: 210px;
+    height: 418px;
+    background: rgba(56, 58, 60, 1);
+    opacity: 0.9;
+    top: 72px;
+    right: 60px;
+}
+
+
+
+
+#yincang {
+    margin-top: 100px;
+}
+
+/*#newmap3d {
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    height: auto;
+}*/
+
+#caidan {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    margin-top: 200px;
+}
+
+#html {
+    width: 100%;
+    height: 100%;
+}
+
+#body {
+    width: 100%;
+    height: 100%;
+}
+
+#a2 {
+    /*border: 1px solid #DDDDDD;*/
+    width: 212px;
+    height: 30px;
+    margin-top: 20px;
+    margin-left: 35px;
+}
+
+#a3 {
+    /* border: 1px solid #4cff00; */
+    width: 230px;
+    height: 26px;
+    margin-top: 6px;
+    margin-left: 0px;
+    overflow-y: auto;
+    /* margin-bottom: 6px; */
+}
+
+.b1 {
+    height: 30px;
+    width: 150px;
+    float: right;
+    border: 1px solid #DDDDDD;
+}
+
+#a4 {
+    /*border:1px solid #ff0000;*/
+    width: 200px;
+    margin-left: 40px;
+    margin-top: 5px;
+}
+
+    #a4 input {
+        margin-left: 5px;
+    }
+
+#a5 {
+    margin-top: 3px;
+    padding-left: 37px;
+    position: relative;
+    height: 94px;
+}
+/*
+#allqb {
+    width: 80px;
+    height: 21.5px;
+    position: absolute;
+    top: 5px;
+    left: 30px;
+    padding-top: 2.5px;
+}
+
+#allzx {
+    width: 80px;
+    height: 21.5px;
+    position: absolute;
+    top: 5px;
+    left: 120px;
+    padding-top: 2.5px;
+}
+
+#alllx {
+    width: 80px;
+    height: 21.5px;
+    position: absolute;
+    top: 34px;
+    left: 30px;
+    padding-top: 2.5px;
+}
+
+#allsx {
+    width: 80px;
+    height: 21.5px;
+    position: absolute;
+    top: 34px;
+    left: 120px;
+    padding-top: 2.5px;
+}
+
+#videoStart {
+    width: 170px;
+    height: 21.5px;
+    position: absolute;
+    top: 63px;
+    left: 30px;
+    padding-top: 2.5px;
+}*/
+
+/*.back_color {
+    border: 1px solid #3498db;
+    background: -webkit-linear-gradient(#D8E2FD, #FDFFFC,#D8E2FD);
+    background: -o-linear-gradient(#D8E2FD, #FDFFFC,#D8E2FD);
+    background: -moz-linear-gradient(#D8E2FD, #FDFFFC,#D8E2FD);
+    background: linear-gradient(#D8E2FD, #FDFFFC,#D8E2FD);
+    outline: none;
+    border-radius: 3px;
+    color: #1A5AA7;
+}*/
+
+/*.color_front {
+    color: #1A5AA7;
+    background: -webkit-linear-gradient(#D8E2FD, #FDFFFC,#D8E2FD);
+    background: -o-linear-gradient(#D8E2FD, #FDFFFC,#D8E2FD);
+    background: -moz-linear-gradient(#D8E2FD, #FDFFFC,#D8E2FD);
+    background: linear-gradient(#D8E2FD, #FDFFFC,#D8E2FD);
+    border: 1px solid #3498db;
+    border-radius: 3px;
+    outline: none;
+}*/
+
+/*.color_queen {
+    color: #FFFFFF;
+    background: #397CD8;
+    border: 1px solid #3498db;
+    outline: none;
+    border-radius: 3px;
+}*/
+
+#a6 {
+    padding-left:10px;
+    margin-top: 5px;
+    padding-top: 5px;
+}
+
+#a7 {
+    border: 1px solid #DDDDDD;
+    height: 20px;
+    /*margin-top: 4px;*/
+}
+
+.oneRow {
+    border: 1px solid #DDDDDD;
+    height: 20px;
+}
+
+.mrow {
+    margin-bottom: 1px;
+    margin-left: 10px;
+}
+
+.mchkrow {
+    margin-bottom: 6px;
+    margin-left: 10px;
+}
+
+.dl1 {
+    /*padding-left: 20px;*/
+    /*border: 1px solid #4cff00;*/
+}
+
+.dd1 {
+    display: none;
+    padding-left: 30px;
+    border: 1px solid #b9c720;
+}
+
+.dtE {
+    /*width:30px;*/
+    /*border: 1px solid #4cff00;*/
+    margin-left: -10px;
+}
+
+#img432 {
+    float: left;
+    /*padding-top: 7px;
+            padding-right: 5px;*/
+}
+
+.span_N {
+    /*display:block;*/
+    float: left;
+    /*padding-left:10px;*/
+    /*width:10px;*/
+    /*margin-left:-20px;*/
+    border: 1px solid #4cff00;
+}
+
+.span_M {
+    /*display: block;*/
+    float: left;
+    width: 170px;
+    padding-left: -20px;
+    border: 1px solid #4cff00;
+}
+/*#img111 {
+            float: left;
+            padding-top: 7px;
+            padding-right: 5px;
+        }*/
+.ll {
+    /*float: left;*/
+    width: 170px;
+    /*border: 1px solid #ff0000;*/
+    float: left;
+    /*height:200px;*/
+    /*padding-left:5px;*/
+}
+
+.chk {
+    /*border: 1px solid #ff0000;*/
+    float: left;
+    /*margin-left:10px;*/
+}
+
+#d {
+    /*border: 1px solid #4cff00;*/
+    /*height:30px;*/
+    width: 250px;
+}
+
+#lc {
+    float: left;
+    width: 210px;
+}
+
+.labelMN {
+    /*border:2px solid #360836;*/
+    /*width:100px;*/
+    padding-left: 20px;
+    /*margin-top:30px;*/
+}
+/*label {
+            vertical-align: middle;
+        }*/
+/*#input1 {
+    width: 150px;
+    margin-left: 3px;
+}*/
+
+.tip {
+    float: left;
+    /*border: 1px solid #0f0b67;*/
+}
+
+.h6 {
+    float: left;
+    /*border: 1px solid #ffd800;*/
+    width: 180px;
+}
+
+#companys {
+    max-height: 30px;
+}
+
+#sousuo {
+    width: 50px;
+}
+
+#divRight {
+    float: right;
+}
+/*.title_B{
+            border:1px solid #4cff00;
+            width:100%;
+            height:20px;
+
+        }*/
+#pos {
+    /*width: 40px;
+    float: left;
+    height: 20px;*/
+}
+
+#s1 {
+    float: left;
+    padding-top: 2px;
+    /*border: 1px solid #ff0000;*/
+}
+
+#device {
+    /*width: 40px;
+    float: left;
+    height: 20px;*/
+}
+
+#s2 {
+    float: left;
+    padding-top: 2px;
+    margin-left: 10px;
+    /*border: 1px solid #ff0000;*/
+}
+
+#hisfind {
+    width: 180px;
+    height: 21.5px;
+    position: absolute;
+    top: 5px;
+    left: 30px;
+    padding-top: 2.5px;
+}
+
+.finddiv {
+    /*border: 1px solid #4cff00;*/
+    margin-top: 3px;
+    padding-left: 37px;
+    position: relative;
+    height: 34px;
+}
+
+
+.leftfa {
+    padding-left: 10px;
+    padding-right: 4px;
+    padding-top: 2px;
+}
+
+.rightfa {
+    padding-left: 1px;
+    padding-right: 4px;
+    padding-top: 2px;
+}
+
+.playdiv {
+    border: 2px solid #DDDDDD;
+    height: 23px;
+    /* margin-top: 4px; */
+    padding-top: 2px;
+}
+
+.fontSE {
+    float: left;
+    padding-top: 5px;
+    padding-right: 3px;
+    font-weight: bold;
+    font-size: 11.9px;
+}
+
+#lefthisTree {
+    /* height: 100%; */
+    /* width: 240px; */
+    /* display: none; */
+    /* border: 1px solid #DDDDDD; */
+    /* opacity: 1; */
+    position: absolute;
+    right: 26px;
+    top: 5px;
+    /* background-color: #ffffff; */
+    /* z-index: 2; */
+}
+/************************ZH新样式*********************************************/
+.selectcss {
+    width: 77px;
+    height: 26px;
+    background: rgba(56, 58, 60, 1);
+    opacity: 0.9;
+    border-radius: 4px;
+    display: flex;
+    justify-content: flex-end;
+    color: white;
+    font-size: 12px;
+}
+
+#top1 {
+    top: 54px;
+    right: 26px;
+    width: 223px;
+    /*width: 197px;*/
+    /*height: 354px;*/
+    background: rgba(56, 58, 60, 1);
+    opacity: 0.9;
+    border-radius: 4px;
+}
+
+#top2 {
+    top: 413px;
+    right: 26px;
+    width: 223px;
+    /*width: 197px;*/
+    height: 107px;
+    background: rgba(56, 58, 60, 1);
+    opacity: 0.9;
+    border-radius: 4px;
+}
+
+#top3 {
+    /*width: 197px;*/
+    width: 223px;
+    height: 76px;
+    background: rgba(56, 58, 60, 1);
+    opacity: 0.9;
+    border-radius: 4px;
+}
+
+.divOne {
+    width: 260px;
+    height: 18px;
+}
+
+.wrapright {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.wrapright2 {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 6px;
+}
+
+.wrap {
+    display: flex;
+    justify-content: flex-start;
+    padding-top: 6px;
+}
+
+.txt1 {
+    width: 24px;
+    height: 12px;
+    font-size: 12px;
+    font-family: Adobe Heiti Std R;
+    font-weight: normal;
+    color: rgba(255, 255, 255, 1);
+    padding-left: 12px;
+    padding-right: 10px;
+}
+
+.txtOne {
+    width: 24px;
+    height: 12px;
+    font-size: 12px;
+    font-family: Adobe Heiti Std R;
+    font-weight: normal;
+    color: rgba(255, 255, 255, 1);
+    padding-left: 12px;
+    padding-right: 10px;
+}
+.TxtOne {
+    /*width: 24px;*/
+    height: 12px;
+    font-size: 12px;
+    position:absolute;
+    font-family: Adobe Heiti Std R;
+    font-weight: normal;
+    color: rgba(255, 255, 255, 1);
+    padding-left: 12px;
+    padding-right: 10px;
+}
+    .inputOne {
+        width: 137px;
+        height: 12px;
+        font-size: 12px;
+        font-family: Adobe Heiti Std R;
+        font-weight: normal;
+        color: rgba(255, 255, 255, 1);
+        opacity: 1;
+        background-color: rgba(56, 58, 60, 1);
+        border: 0px;
+    }
+
+#divline {
+    width: 137px;
+    height: 1px;
+    background: rgba(255, 255, 255, 1);
+    opacity: 0.1;
+}
+
+/* WebKit browsers */
+
+input::-webkit-input-placeholder {
+    color: #c0c0c04d;
+    font-size: 12px;
+}
+
+/* Mozilla Firefox 4 to 18 */
+
+input:-moz-placeholder {
+    color: #c0c0c04d;
+    opacity: 0.9;
+    font-size: 14px;
+}
+
+/* Mozilla Firefox 19+ */
+
+input::-moz-placeholder {
+    color: #c0c0c04d;
+    opacity: 0.9;
+    font-size: 12x;
+}
+
+/* Internet Explorer 10+ */
+input:-ms-input-placeholder {
+    color: #c0c0c04d;
+    font-size: 12px;
+}
+
+
+
+.wrap2 {
+    display: flex;
+    justify-content: flex-start;
+    padding-top: 2px;
+    margin-top: 5px;
+}
+
+.wrap3 {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.btnCss {
+    width: 55px;
+    height: 19px;
+    background: rgba(245,245,245,1);
+    border-radius: 3px;
+    font-size: 13px;
+    font-family: Adobe Heiti Std R;
+    font-weight: normal;
+    color: rgba(9,9,9,1);
+    text-align: center;
+    margin-right: 11px;
+    margin-top:3px;
+}
+/**********************************实时信息*******************************************/
+
+.rtmain {
+    width: 210px;
+    height: 418px;
+    background: rgba(56, 58, 60, 1);
+    opacity: 0.9;
+}
+
+.linecss1 {
+    margin-left: 5px;
+    margin-right: 5px;
+    height: 1px;
+    background: rgba(255, 255, 255, 1);
+    opacity: 0.5;
+}
+.linecss {
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-bottom:3px;
+    margin-right: 5px;
+    height: 1px;
+    background: rgba(255, 255, 255, 1);
+    opacity: 0.5;
+}
+
+#allqb, #allzx, #alllx {
+    width: 38px;
+    border-radius: 3px;
+    font-size: 12px;
+    text-align: center;
+    padding-top: 1px;
+    margin-right: 6px;
+}
+
+#allsx {
+    width: 60px;
+    height: 19px;
+    /*background: rgba(1, 1, 1, 1);
+    border: 1px solid rgba(194, 202, 216, 1);*/
+    border-radius: 3px;
+    font-size: 12px;
+    /*color: rgba(255, 255, 255, 1);*/
+    text-align: center;
+    padding-top: 1px;
+    margin-right: 8px;
+}
+
+.color_front {
+    background: rgba(56,58,60,1);
+    opacity: 0.9;
+    color: rgba(255, 255, 255, 1);
+    border: 1px solid rgba(194, 202, 216, 1);
+}
+
+.back_color {
+    background: rgba(56,58,60,1);
+    opacity: 0.9;
+    color: rgba(255, 255, 255, 1);
+    border: 1px solid rgba(194, 202, 216, 1);
+}
+
+.color_queen {
+    background: rgba(255, 255, 255, 1);
+    color: rgba(1, 1, 1, 1);
+}
+
+/*.txtbtn {
+    width: 38px;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 3px;
+    font-size: 12px;
+    color: rgba(1, 1, 1, 1);
+    text-align: center;
+    padding-top: 1px;
+    margin-right: 6px;
+}*/
+
+/*.txtbtn2 {
+    width: 38px;
+    background: rgba(1, 1, 1, 1);
+    border-radius: 3px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 1);
+    text-align: center;
+    padding-top: 1px;
+    border: 1px solid rgba(194, 202, 216, 1);
+    margin-right: 6px;
+}*/
+
+.wrapF {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 2px;
+    margin-top: 2px;
+    margin-left: 2px;
+}
+
+.txtdiv {
+    width: 24px;
+    height: 12px;
+    font-size: 12px;
+    font-family: Adobe Heiti Std R;
+    font-weight: normal;
+    color: rgba(255, 255, 255, 1);
+    padding-left: 3px;
+}
+
+.wrapend {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 6px;
+}
+
+.txtdiv2 {
+    width: 67px;
+    height: 24px;
+    background: rgba(1, 1, 1, 1);
+    border: 1px solid rgba(194, 202, 216, 1);
+    border-radius: 3px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 1);
+    text-align: center;
+    padding-top: 1px;
+}
+
+#videoStart {
+    width: 80px;
+    height: 19px;
+    /*background: rgba(1, 1, 1, 1);
+    border: 1px solid rgba(194, 202, 216, 1);*/
+    border-radius: 3px;
+    font-size: 12px;
+    /*color: rgba(255, 255, 255, 1);*/
+    text-align: center;
+    padding-top: 1px;
+    margin-right: 12px;
+}
+
+
+/*.txtdept {
+    width: 60px;
+    height: 19px;
+    background: rgba(1, 1, 1, 1);
+    border: 1px solid rgba(194, 202, 216, 1);
+    border-radius: 3px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 1);
+    text-align: center;
+    padding-top: 1px;
+    margin-right: 8px;
+}*/
+
+.txtchk {
+    margin-right:8px;
+    font-size: 12px;
+    font-family: Adobe Heiti Std R;
+    font-weight: normal;
+    color: rgba(255, 255, 255, 1);
+}
+
+
+/************实时右按钮*******************/
+#righttool {
+    top: 66px;
+    right: 23px;
+    z-index: 2;
+    position: absolute;
+}
+
+    #righttool img {
+        width: 28px;
+        height: 28px;
+    }
+
+    #righttool div {
+        margin-bottom: 10px;
+    }
+
+/*****************实时右下角**************/
+.wrapbottom {
+    display: flex;
+    justify-content: space-between;
+    right: 21px;
+    bottom: 11px;
+    width: 445px;
+    z-index: 2;
+    position: absolute;
+}
+
+.divbottomR {
+    width: 353px;
+    height: 26px;
+    background: rgba(56, 58, 60, 1);
+    opacity: 0.9;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.selectbr {
+    width: 77px;
+    height: 26px;
+    background: rgba(56, 58, 60, 1);
+    opacity: 0.9;
+    border-radius: 4px;
+    display: flex;
+    justify-content: flex-end;
+    color: white;
+    font-size: 12px;
+}
+
+.divbottomR div {
+    padding-top: 5px;
+    font-size: 12px;
+    font-family: Adobe Heiti Std R;
+    font-weight: normal;
+    color: rgba(255, 255, 255, 1);
+}
+
+/**************实时报警信息************************/
+
+#alarmDiv {
+    width: 260px;
+    /*height: 275px;*/
+    max-height: 295px;
+    border: 1px solid #999;
+    border-radius: 10px;
+    position: absolute;
+    z-index: 10000;
+    right: 60px;
+    bottom: 80px;
+    background: rgba(70, 94, 145, 0.6);
+    border-radius: 4px 4px 4px 4px;
+}
+
+#topAlarm {
+    width: 100%;
+    height: 32px;
+    background: rgba(48, 112, 138, 1);
+    opacity: 0.9;
+    border-radius: 4px 4px 0px 0px;
+}
+
+.wrapbetween {
+    display: flex;
+    justify-content: space-between;
+}
+
+.wrapsparound {
+    display: flex;
+    justify-content: space-around;
+    background: rgba(48, 112, 138, 1);
+    color: rgba(255, 255, 255, 1);
+     padding-bottom:3px;
+     padding-top:2px;
+    opacity: 0.9;
+}
+
+.txtAlm {
+    font-size: 15px;
+    font-family: MicrosoftYaHei;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 1);
+    opacity: 0.9;
+    margin-right: 100px;
+}
+
+#rtAlarmMesList {
+    width: 100%;
+    height: 240px;
+    max-height:245px;
+    overflow-y: auto;
+}
+
+    #rtAlarmMesList .divtagalm {
+        display: flex;
+        justify-content: space-between;
+        padding-left: 0px;
+    }
+
+    #rtAlarmMesList div {
+        font-size: 13px;
+        font-family: Adobe Heiti Std R;
+        font-weight: normal;
+        color: rgba(254, 254, 254, 1);
+        padding-left: 3px;
+        padding-right: 3px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+
+        #rtAlarmMesList div:last-child {
+            border-bottom-right-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+
+.divodd {
+    background: rgba(99, 145, 99, 1);
+}
+
+.diveven {
+    background: rgba(161, 137, 99, 1);
+}
+.txtRegAlm {
+    color: rgba(0,255,234,1);
+
+}
+.txtPZAlm {
+
+    color: rgba(56,255,17,1);
+   
+}
+
+#a6 .k-widget.k-treeview {
+    /*color: #333;*/
+  color: rgba(255,255,255,.9);
+}
+
+
+/*************实时对话框样式********************************************/
+#rtDialogDiv {
+    background: rgba(58, 60, 60, 1);
+    border-radius: 5px;
+    font-family: Adobe Heiti Std R;
+    font-weight: normal;
+    color: rgba(255, 255, 255, 1);
+    position: absolute;
+    z-index: 10000;
+    display:none;
+}
+
+.wrapdiv {
+    display: flex;
+    justify-content: flex-start;
+    margin: 2px;
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+    .wrapdiv div {
+        margin: 2px;
+    }
+
+    .wrapdiv :first-child {
+        text-align: right;
+    }
+
+
+
+.divhisplay {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 0px;
+}

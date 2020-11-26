@@ -1,0 +1,27 @@
+﻿
+<div name="showDept">
+    <table border="0" width="300" class="table table-border table-bordered table-bg table-hover table-sort">
+        <tr>
+            <td>
+                <select style="width:120px; height:200px" id="ls1" multiple name="list1" size="12" ondblclick="sys.baseNew3D.moveOption(document.getElementById('ls1'), document.getElementById('ls2'))">
+                    <!--<option value="A1点位">A1点位</option>
+                    <option value="A2点位">A2点位</option>-->            
+                </select>
+            </td>
+            <td align="center">
+                <input type="button" value=">>" onclick="sys.baseNew3D.moveOption(document.getElementById('ls1'), document.getElementById('ls2'))"><br />
+                <br />
+                <input type="button" value="<<" onclick="sys.baseNew3D.moveOption(document.getElementById('ls2'), document.getElementById('ls1'))">
+            </td>
+            <td>
+                <select style="width:120px; height:200px" id="ls2"  multiple name="list2" size="12" ondblclick="sys.baseNew3D.moveOption(document.getElementById('ls2'), document.getElementById('ls1'))"></select>
+            </td>           
+        </tr>
+    </table>
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        <input class="btn btn-primary radius" id="btnAdd" type="button" style="height: 27px" width="30px" onclick="sys.baseNew3D.setRtDeptList()" role="button" value="确定" />
+        <label id="lblMessage" style="color:blue">如果设置显示部门，实时人员和实时报警将按设置部门显示，如果不设置将显示所有部门的实时信息 </label>
+    </div>
+</div>
+
+

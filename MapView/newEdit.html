@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>黄石新港</title>
+    <link rel="stylesheet" href="css/ol.css" />
+    <link rel="stylesheet" href="css/ol3-layerswitcher.css" />
+    <link rel="stylesheet" href="css/mapMonitor.css" />
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/ol.js"></script>
+    <script type="text/javascript" src="js/ol3-layerswitcher.js"></script>
+    <script type="text/javascript" src="js/mapMonitor.js"></script>
+    <script type="text/javascript" src="js/TweenMax.min.js"></script>
+    <script src="js/mqttws31.js"></script>
+    <script src="js/eap.core.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/mqttService.js"></script>
+</head>
+
+<body>
+    <div id="map" class="map" style="height:100%"></div>
+    <div class="righttool" style="top:66px;">
+        <div><img onclick="toolbarOpration.measure('Fence')" title="绘制电子围栏" src="img/h_measure.svg" /></div>
+        <div><img onclick="toolbarOpration.measure('station')" title="添加差分基站" src="img/diffstation.svg" /></div>
+        <div><img onclick="toolbarOpration.measure('camera')" title="添加监控点" src="img/video.svg" /></div>
+    </div>
+    <ul class="ui-context-menu" id="uiContextMenu_" style="display: none; width: 100px; background-color: rgb(255, 255, 255);z-index:999;position:absolute;">
+        <li class="ui-context-menu-item"><a href="javascript:void(0);" onclick="changeFeatureName()"><span>修改名称</span></a></li>
+        <li class="ui-context-menu-item"><a href="javascript:void(0);" onclick="deleteFeature()"><span>删除</span></a></li>
+    </ul>
+    <div style="border-radius:4px; bottom: 21px;right: 183px;z-index: 999;color:#fff;background-color:rgba(58,60,60,1);position: absolute;padding-left:20px;padding-right:20px;height:26px;min-width:350px;">
+        <table id="terminalStatistics"><tr><td>当前坐标：</td><td id="mousePosition" style="width:150px;"></td><td id="vehicleterminal"></td></tr></table>
+    </div>
+    <script>
+
+        let config = [], workItems = [], terminalItems = [], layerHtml = '', offlineTerminal = [], warningItems = [], iconItems = [], windowWidth, windowHeight;
+        let showContentMenu = false;
+        $(function () {
+            var configString = $.ajax({
+                url: "config/map.json",
+                async: false
+            });
+            var map = new mapMonitor("map");
+            config = JSON.parse(configString.responseText);
+            map.show(config);
+            
+            //var data = $.ajax({
+            //    url: "config/pologyn.json",
+            //    async: false
+            //});
+            //map.addFeatures("region", "区域", data.responseText);
+
+            var icons = $.ajax({
+                url: "config/icon.json",
+                async: false
+            });
+            iconItems = JSON.parse(icons.responseText);
+			
+			var fences = $.ajax({
+                url: "config/fence.json",
+                async: false
+            });
+			map.addFenceList(fences.responseText);
+            map.addIcon(icons.responseText);
+            map.addMouseMoveListener('camera', inevent, outevent);
+            map.addMouseMoveListener('station', inevent, outevent);
+			map.addMouseMoveListener('fence', inevent, outevent);
+			
+            window.map = map;
+            //map.moveToWithPath(m1, Coordinates, false);
+            windowWidth = $(window).width();
+            windowHeight = $(window).height();
+            $(window).resize(
+                function winSize() {
+                    windowWidth = $(window).width();
+                    windowHeight = $(window).height();
+                }
+            );
+            if ($("#section").is(':checked')) $("#tuli span").css("color", "#fff");
+            $(window.map.map.getViewport()).on("contextmenu",
+                function (n) {
+                    n.preventDefault();
+                    $(".ui-context-menu").hide();
+                    if (showContentMenu) {
+                        $("#uiContextMenu_").css({
+                            left: n.clientX + 2,
+                            top: n.clientY + 2
+                        }).show();
+                    }
+                }),
+                $(this).on("click", function () {
+                    $(".ui-context-menu").hide();
+                });
+        });
+		
+		function changeFeatureName(){			
+			var feature = map.getCurrentFeature();
+			map.setText(feature,"我有一个新名字啦！");			
+		}
+
+		function deleteFeature(){
+			var feature = map.getCurrentFeature();
+			map.removeFeature(feature);
+		}
+		
+        function inevent() {
+            showContentMenu = true;
+        }
+        function outevent() {
+            //隐藏右键菜单
+            showContentMenu = false;
+        }
+
+        let toolbarOpration = {
+            //清除工具
+            clear: function () {
+                $("input[name='radio']").removeAttr("checked");
+                map.addInteraction("None");
+            },
+            measure: function (type) {
+                map.addCustom(type);
+            },
+            rightClick: function () {
+                $(window.map.map.getViewport()).contextMenu({
+                    menu: [{
+                        text: "修改名称",
+                        callback: function () {
+                            toolbarOpration.measure('LineString');
+                        }
+                    },
+                    {
+                        text: "删除图形",
+                        callback: function () {
+                            toolbarOpration.measure('Polygon');
+                        }
+                    }
+                    ]
+                });
+            }
+        }
+
+    </script>
+</body>
+</html>

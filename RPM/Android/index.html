@@ -1,0 +1,285 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="all">
+    <meta name="Description" content="江苏唐恩科技有限公司" />
+    <meta name="Keywords" content="江苏唐恩科技有限公司" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>定位平台信息系统</title>
+    <link href="./css/site.css?v=2" rel="stylesheet">
+    <link rel="stylesheet" href="fonts/css/font-awesome.min.css">
+    <script src="../3DJS/Scripts/Base/eap.core.js?v=20180818"></script>
+    <script src="../3DJS/Scripts/base/nodes/mqttws31.js?v=20180818"></script>
+
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/appdata.js"></script>
+    <script src="./js/applogic.js"></script>
+
+    <script>
+        (function () {
+            window.clickStat = function (url, param) {
+                if (window.MtaH5 && window.MtaH5.clickStat) {
+                    window.clickStat = window.MtaH5.clickStat;
+                    window.clickStat(url, param);
+                } else {
+                    console.log('clickStat not ready');
+                }
+            }
+        }());
+    </script>
+</head>
+
+<body class="home" onload="applogic.loadapp();">
+    <div class="banner">
+        <div class="banner-content">
+            <h3 class="sub-title">潘三电厂人员定位系统</h3>
+       
+        </div>
+    </div>
+    <div id="canvid">
+        <div class="auto-container">
+            <div class="fact-counter">
+                <div class="row clearfix" onclick="applogic.winhref(0)">
+                    <!--Column-->
+                    <div class="column counter-column wow fadeIn col-md-3 col-sm-6 col-xs-12">
+                        <div class="inner">
+                            <span class="icon flaticon-social"></span>
+                            <div class="count-outer">
+                                <span id="rtnum" class="count-text" style="font-size: 200px;">0</span>
+                            </div>
+                            <h4 class="counter-title" style="font-size: 55px;padding-top: 20px;" >实时人员信息</h4>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <!--  <canvas id="rtempnum"  width="1208" height="608"  onclick="applogic.winhref(0)"></canvas>-->
+    </div>
+
+    <div class="section solution-section">
+        <ul class="card-area" id="cardArea">
+            <li class="card-item" onclick="applogic.winhref(1)">
+                <div class="icon-container">
+                    <img alt=""  style="width:300px;height:260px;" src="./img/rtemp128.png">
+                </div>
+                <h2 class="title">实时区域</h2>
+                <div class="note">
+                    人员实时分布信息
+                </div>
+                <!--<a href="./rtempinfo.html" class="btn btn-hollow-white btn-view" onclick="clickStat('official_card_area_personal_scheme');">查看详情</a>-->
+            </li>
+            <li class="card-item" onclick="applogic.winhref(2)">
+                <div class="icon-container">
+                    <img alt="" style="width:300px;height:260px;" src="./img/hisalm.png">
+                </div>
+                <h2 class="title">报警记录</h2>
+                <div class="note">
+                    历史报警记录信息
+                </div>
+               <!-- <a href="./hisalm.html" class="btn btn-hollow-white btn-view" onclick="clickStat('official_card_area_group_scheme');">查看详情</a>-->
+            </li>
+        
+        </ul>
+    </div>
+
+    <script>
+        (function () {
+            var rclass = /[\t\r\n\f]/g;
+            var rnotwhite = (/\S+/g);
+
+            window.util = {
+                trim: function (str) {
+                    return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+                },
+                hasClass: function (ele, className) {
+                    className = " " + className + " ";
+                    return ele.nodeType === 1 && (" " + ele.className + " ").replace(rclass, " ").indexOf(className) >= 0;
+                },
+                addClass: function (ele, value) {
+                    var classes, cur, clazz, j, finalValue;
+                    classes = (value || "").match(rnotwhite) || [];
+                    cur = ele.className ?
+                        (" " + ele.className + " ").replace(rclass, " ") :
+                        " ";
+                    if (cur) {
+                        j = 0;
+                        while ((clazz = classes[j++])) {
+                            if (cur.indexOf(" " + clazz + " ") < 0) {
+                                cur += clazz + " ";
+                            }
+                        }
+
+                        finalValue = window.util.trim(cur);
+                        if (ele.className !== finalValue) {
+                            ele.className = finalValue;
+                        }
+                    }
+                },
+                removeClass: function (ele, value) {
+                    var classes, cur, clazz, j, finalValue;
+
+                    classes = (value || "").match(rnotwhite) || [];
+
+                    cur = ele.className ?
+                        (" " + ele.className + " ").replace(rclass, " ") :
+                        "";
+
+                    if (cur) {
+                        j = 0;
+                        while ((clazz = classes[j++])) {
+                            // Remove *all* instances
+                            while (cur.indexOf(" " + clazz + " ") >= 0) {
+                                cur = cur.replace(" " + clazz + " ", " ");
+                            }
+                        }
+
+                        finalValue = value ? window.util.trim(cur) : "";
+                        if (ele.className !== finalValue) {
+                            ele.className = finalValue;
+                        }
+                    }
+                },
+                addEvent: function (element, type, callback) {
+                    if (element.addEventListener) {
+                        element.addEventListener(type, callback, false);
+                    } else if (element.attachEvent) {
+                        element.attachEvent('on' + type, callback)
+                    }
+                },
+                removeEvent: function (element, type, callback) {
+                    if (element.removeEventListener) {
+                        element.removeEventListener(type, callback, false);
+                    } else if (element.detachEvent) {
+                        element.detachEvent('on' + type, callback);
+                    }
+                },
+                getWinHeight: function () {
+                    return window.innerHeight || document.documentElement.clientHeight;
+                }
+            }
+        }());
+        (function () {
+            var cpYear = document.getElementById('cpYear');
+            if (cpYear) {
+                var y = new Date().getFullYear();
+                if (y > 2017) {
+                    cpYear.innerText = y;
+                }
+            }
+        }());
+        (function (util) {
+            if (!document.querySelectorAll) {
+                return;
+            }
+            var dropdns = document.querySelectorAll('.jsDropDown');
+
+            for (var i = 0; i < dropdns.length; i++) {
+                (function (dropdn) {
+                    util.addEvent(dropdn, 'touchend', function (e) {
+                        var onWinClicked;
+                        var evt = e || window.event;
+                        evt.stopPropagation && evt.stopPropagation();
+                        evt.cancelBubble = true;
+
+                        if (!util.hasClass(dropdn, 'unfold')) {
+                            util.addClass(dropdn, 'unfold');
+                            onWinClicked = function (e) {
+                                var evt = e || window.event;
+                                var target = evt.target || evt.srcElement;
+                                if (target !== dropdn) {
+                                    util.removeClass(dropdn, 'unfold');
+                                    util.removeEvent(window, 'touchend', onWinClicked);
+                                }
+                            }
+                            util.addEvent(window, 'touchend', onWinClicked)
+                        }
+                    });
+                }(dropdns[i]));
+            }
+        }(util));
+    </script>
+    <script defer>
+        var _mtac = {
+            "performanceMonitor": 1,
+            "senseQuery": 1
+        };
+        //(function () {
+        //    var mta = document.createElement("script");
+        //    mta.src = "./stats.js?v2.0.4";
+        //    mta.setAttribute("name", "MTAH5");
+        //    mta.setAttribute("sid", "500404339");
+        //    mta.setAttribute("cid", "500435601");
+        //    var s = document.getElementsByTagName("script")[0];
+        //    s.parentNode.insertBefore(mta, s);
+        //})();
+    </script>
+    <script>
+        (function (util) {
+            var winScrollWatcher = function () {
+                var isScrolling = false;
+                var cbs = {};
+
+                function onWinScroll() {
+                    if (isScrolling) {
+                        return;
+                    }
+                    isScrolling = true;
+
+                    for (var p in cbs) {
+                        var func = cbs[p];
+                        if (Object.prototype.toString.call(func) === '[object Function]') {
+                            func();
+                        }
+                    }
+
+                    setTimeout(function () {
+                        isScrolling = false;
+                    }, 100);
+                }
+
+                return {
+                    subscribe: function (key, cb) {
+                        cbs[key] = cb;
+                    },
+                    unSubscribe: function (key) {
+                        delete cbs[key];
+                    },
+                    init: function () {
+                        util.addEvent(window, 'scroll', onWinScroll);
+                    }
+                };
+            }(util);
+
+            //var statisticSection = document.getElementById('statisticSection');
+            //var statisticSectionContent = document.getElementById('statisticSectionContent');
+
+            //winScrollWatcher.subscribe('statisticSection', function () {
+            //    var top = statisticSection.getBoundingClientRect().top;
+            //    var winH = util.getWinHeight();
+            //    if (top < winH + 200 && !util.hasClass(statisticSection, 'animate')) {
+            //        statisticSectionContent.style.backgroundImage = 'url(img/bg-statistic-map.jpg)';
+            //        util.addClass(statisticSection, 'animate');
+            //        winScrollWatcher.unSubscribe('statisticSection');
+            //    }
+            //});
+
+            //var capabilitySection = document.getElementById('capabilitySection');
+            //winScrollWatcher.subscribe('capabilitySection', function () {
+            //    var top = capabilitySection.getBoundingClientRect().top;
+            //    var winH = util.getWinHeight();
+            //    if (top < winH + 200) {
+            //        capabilitySection.style.backgroundImage = 'url(img/bg-capability.jpg)';
+            //        winScrollWatcher.unSubscribe('capabilitySection');
+            //    }
+            //});
+            //winScrollWatcher.init();
+
+        }(window.util));
+    </script>
+</body>
+
+</html>

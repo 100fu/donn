@@ -1,0 +1,124 @@
+﻿@{
+    Layout = "~/Views/shared/_LayoutWK.cshtml";
+
+    var scriptitems = ViewBag.Scripts as List<string>;
+    if (scriptitems == null)
+    {
+        scriptitems = new List<string>();
+    }
+}
+
+<div id="Container" style="height:100%;">
+    <div id="assetPane2" style="border: 1px solid rgb(204,204,204);">
+
+    </div>
+    <div id="gridContainer" style="overflow-y:hidden;height:100%;">
+        @*222*@
+        <div id="gridContainerToolbar"></div>
+        <div style="height:100%;box-sizing:border-box;width:100%;">
+            <div id="gridContainerView"  style="height:100%;width:100%;">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Resource/Scripts/ts/eap.uicore.js"></script>
+<script src="~/Resource/Scripts/ts/Applications.js"></script>
+<script src="~/Resource/Scripts/ts/Controller.js"></script>
+<script>
+    System.CultureInfo.LanguageName = System.Cookies.get('EAMLANGUAGE')
+    //window.ViewBag = {
+    //    "EntityId": '@ViewBag.EntityId',
+    //    "ServiceId": '@ViewBag.Service',
+    //    "ViewCode": '@ViewBag.ViewCode',
+    //    "FunCode": '@ViewBag.FuncCode'
+    //};
+    window.ViewBag = {
+        entityId: '@ViewBag.EntityId',
+        serviceId: '@ViewBag.Service',
+        viewCode: '@ViewBag.ViewCode',
+        funCode: '@ViewBag.FuncCode'
+    };
+</script>
+<style>
+    #foot {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .gAppOtherTool_div {
+        display: none;
+    }
+
+    .formFilter {
+        display: none;
+    }
+</style>
+@foreach (var item in scriptitems)
+{
+    <script src="@item"></script>
+}
+<script>
+    //window.onload = function () {
+    //    //alert(123);
+    //        let that = this;
+    //        deptTreeControl = {};
+    //        let treeoption = {};
+    //        treeoption.selector = '#assetPane2';
+    //        //treeoption.selector = '#assetPanel';
+    //        //treeoption.selector = '#lefttop';
+    //        treeoption.showCheckBox = false;
+    //        treeoption.expand = true;
+    //        treeoption.check = function (e) {
+    //            that.selectRtEmpIds = e.sender.dataItem(e.node);
+    //            deptTreeControl.checkItemsDownward(e.node);
+    //            if (deptTreeControl.tree.dataItem(e.node).checked)
+    //                return;
+    //            deptTreeControl.checkItemsUpward(e.node);
+    //        }
+    //        deptTreeControl = new EAP.UI.TreeControl(treeoption);
+    //        // this._loadAuthorityData();
+    //        loadDeptTree();
+
+    //}
+    //function loadDeptTree() {
+    //    var clientMode = new System.Net.HttpClient();
+    //    // var urlPath = '/Graphic/GetDeptTree';
+    //    var urlPath = '/Graphic/GetDutyInfoTree';
+    //    clientMode.post(urlPath, "", function (data) {
+    //        if (data.length > 0)
+    //            initData(data);
+
+    //    });
+    //}
+    //function initData(data) {
+    //    if (data == undefined)
+    //        return;
+
+    //    let totalEmp = 0;
+    //    $.each(data[0].items, function (i, n) {
+    //        //data[0].items[i].text = n.text + "(" + n.items.length + ")";
+    //        data[0].items[i].text = n.text;
+    //        totalEmp += n.items.length;
+
+    //    });
+    //    let rtBtnState = "";
+    //    if (isInOut) {
+    //        rtBtnState = "";
+    //    } else if (isInOut == false)
+    //    { rtBtnState = ""; }
+
+    //    data[0].text = data[0].text;
+
+    //    kendo.ui.progress($('#splitContainer'), true);
+    //    kendo.ui.progress($('#splitContainer'), false);
+    //    deptTreeControl.setTreeData("");
+    //    deptTreeControl.setTreeData(data);
+    //    deptTreeControl.tree.expand('.k-item:first');
+
+    //    if (!this.selectRtEmpIds)
+    //        return;
+
+    //    kendo.ui.progress($('#splitContainer'), true);
+    //}
+</script>

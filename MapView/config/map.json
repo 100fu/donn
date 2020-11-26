@@ -1,0 +1,35 @@
+{
+  "center": [
+    115.2766,
+    30.1330
+  ],
+  "initZoom": 16,
+  "minZoom": 13,
+  "maxZoom": 18,
+
+  "mapList": [
+    {
+      "name": "街景图",
+      "id": "street",
+      "visible": true,
+      "extent": [
+		  115.19989,
+		  30.0543,
+		  115.38872,
+		  30.20656
+      ],
+       "type":"openstreetmap",
+      "url": "http://b.tile.openstreetmap.org/{z}/{x}/{y}.png"
+    },
+    {
+      "name": "实景图",
+      "id": "section",
+      "visible": false,
+      "extent": [
+       115.29585,30.15559,115.25774,30.10838
+      ],
+       "type":"GeoServer",
+      "url": "http://192.168.8.45:8080/geoserver/gwc/service/wmts"
+    }
+  ]
+}

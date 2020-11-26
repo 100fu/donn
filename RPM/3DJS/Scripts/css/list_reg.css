@@ -1,0 +1,159 @@
+
+/*#rtvideolist {
+    position: absolute;
+    z-index: 1001;
+    right: 0px;
+    top: 60px;
+    display: none;
+    border-radius: 4px;
+}*/
+
+/*#rtrollcalllist {
+    position: absolute;
+    z-index: 1001;
+    right: 0px;
+    top: 60px;
+    display: none;
+    border-radius: 4px;
+}*/
+
+/*#rtStationlist {
+    position: absolute;
+    z-index: 1001;
+    right: 0px;
+    top: 60px;
+    display: none;
+    border-radius: 4px;
+}*/
+
+/*#rtreglist {
+    position: absolute;
+    z-index: 1000;
+    right: 0px;
+    top: 60px;
+    display: none;
+    border-radius: 4px;
+}*/
+
+.listreg .listreg_item:first-child {
+    border-radius: 0px 0px 0px 0px;
+    border-top: 1px solid rgb(213,213,213);
+}
+
+.listreg .listreg_item:last-child {
+    border-radius: 0px 0px 10px 10px;
+}
+
+
+
+.listreg .listreg_item {
+    max-width: 200px;
+    list-style: none;
+    padding: 5px;
+    padding-left: 10px;
+    border: 1px solid rgb(213,213,213);
+    border-top: 0px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    color: blue;
+    width: 180px;
+}
+
+    .listreg .listreg_item a {
+        color: blue;
+        margin-right: 5px;
+        text-decoration: none;
+        font-size: 18px;
+    }
+
+    .listreg .listreg_item:hover {
+        background-color: rgb(242,242,242);
+    }
+
+
+
+    /*.list .listreg_item:hover {
+    background-color: rgb(0, 255, 255);
+    color: blue;
+}*/
+
+    .listreg .listreg_item i {
+        color: rgb(0, 255, 33);
+        margin-right: 5px;
+        font-style: normal;
+    }
+
+.listreg_item li {
+    display: inline-block;
+    text-align: center;
+    /*********¥π÷±æ”÷–…Ë÷√*****/
+    display: block;
+    padding: 10px;
+    padding-left: 10px;
+}
+
+.listreg .listreg_item img {
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    /*********”“±ﬂ¡Ù”–5pxæ‡¿Î****/
+    margin-right: 5px;
+}
+
+.listreg .listreg_item input {
+    cursor: pointer;
+    /*********¥π÷±æ”÷–…Ë÷√*****/
+    display: inline;
+}
+
+
+/*.listreg .listreg_item i {
+        text-decoration: none;
+    }*/
+
+.active {
+    max-width: 200px;
+    list-style: none;
+    padding: 5px;
+    padding-left: 10px;
+    border: 1px solid rgb(213,213,213);
+    border-top: 0px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    color: blue;
+    width: 180px;
+    background-color: rgb(47,93,146);
+    border-radius: 10px 10px 0px 0px;
+    font-style: normal;
+    font-size: 16px;
+}
+
+
+
+.listreg .active a {
+    color: rgb(243,229,223);
+}
+
+.listreg .active:hover {
+    background-color: rgb(47,93,146);
+    color: white;
+}
+
+.layer_notice {
+    float: left;
+    height: 75px;
+    width: 230px;
+    overflow: hidden;
+    /*background: #5FB878;*/
+    /*background-color: rgba(95,184,120,0.3);*/
+    background-color: rgba(240,240,240,0.5);
+    padding: 10px;
+}
+
+    .layer_notice a {
+        color: #0088cc;
+    }
+
+    .layer_notice li {
+        line-height: 25px;
+    }

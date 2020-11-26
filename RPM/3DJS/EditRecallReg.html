@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <link rel="stylesheet" href="./Scripts/css/jquery-ui-1.10.4.custom.min.css">
+    <link rel="stylesheet" href="./Scripts/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./Scripts/css/admin.css">
+    <link rel="stylesheet" href="./Scripts/css/tinyImgUpload.css">
+
+    <link rel="stylesheet" href="./lib/font-awesome/css/font-awesome.min.css" />
+
+    <script src="./Scripts/base/libs/jquery.js?v=20180316"></script>
+    <script src="./Scripts/base/libs/jquery-ui-1.10.4.custom.js?v=20180318"></script>
+    <script src="./lib/My97DatePicker/WdatePicker.js?v=20180318"></script>
+
+    <script src="./Scripts/base/three.js?v=20180316"></script>
+    <script src="./Scripts/base/controls/OrbitControls.js?v=20180316"></script>
+    <script src="./Scripts/base/controls/Detector.js?v=20180316"></script>
+    <script src="./Scripts/base/controls/OBJLoader.js?v=20180316"></script>
+
+    <script src="./Scripts/Base/eap.core.js?v=20180318"></script>
+    <script src="./Scripts/Base/common.js?v=20180318"></script>
+    <script src="./lib/layer/layer.js?v=20180318"></script>
+
+    <script src="./Scripts/self/SystemPackage.js?v=20180318"></script>
+    <script src="./Scripts/self/DrawingMap.js?v=20180318"></script>
+    <script src="./Scripts/self/MapData.js?v=20180318"></script>
+    <script src="./Scripts/self/Bsin2D.js?v=20180318"></script>
+    <script src="./Scripts/self/Map2DLayer.js?v=20180318"></script>
+    <script src="./Scripts/self/editRollcall.js?v=20180318"></script>
+    <script src="./Scripts/self/BasicData.js?v=20180318"></script>
+    <style>
+        .call {
+            top: 200px;
+            right: 500px;
+            width: 402px;
+            height: 212px;
+            position: absolute;
+            display: none;
+            background: rgba(56,58,60,1);
+            opacity: 0.9;
+            border-radius: 5px;
+        }
+        .dot {
+            position: absolute;
+            top: 100px;
+            left: 500px;
+            width: 427px;
+            height: 378px;
+            display: none;
+            opacity: 0.9;
+            background: rgba(56,58,60,1);
+        }
+
+        #regps {
+            background-color: transparent;
+            color: white;
+            height:179px;
+            font-weight: 400;
+        }
+        .line {
+            width: 110px;
+            height: 1px;
+            opacity: .5;
+            margin-left: 20px;
+            margin-top: 4px;
+            background-color: #D5D5D5;
+            overflow: hidden;
+        }
+        .t {
+            padding-top: 10px;
+            width: auto;
+        }
+
+        .la {
+            color: white;
+            margin-left: 20px;
+        }
+
+        .img4 {
+            margin-left: 320px;
+            cursor: pointer;
+        }
+
+        .d {
+            float: left;
+            margin-left: 35px;
+            margin-bottom: 40px;
+            margin-top: 40px;
+            display: inline-block;
+        }
+
+        .lab {
+            color: white;
+            margin-left: 32px;
+            padding-top: 10px;
+        }
+
+        .s {
+            width: 122px;
+            height: 23px;
+            background: rgba(255,255,255,1);
+            opacity: 0.9;
+            border-radius: 3px;
+        }
+
+        .but1 {
+            width: 22px;
+            height: 23px;
+            background: rgba(255,255,255,1);
+            opacity: 0.9;
+            border-radius: 3px;
+        }
+
+        .put1 {
+            width: 140px;
+            height: 23px;
+            background: rgba(255,255,255,1);
+            opacity: 0.9;
+            border-radius: 3px;
+        }
+
+        .but2 {
+            width: 73px;
+            height: 22px;
+            background: rgba(245,245,245,1);
+            border-radius: 3px;
+            margin-left: 60px;
+        }
+
+        .up, .down {
+            margin-left: 38px;
+        }
+    </style>
+</head>
+<body onload='editrollcall.LoadMap()'>
+    <div id="map2d">
+        <div id='rtDialogDiv'></div>
+        <div id='formEditDialog'></div>
+        <div id='DialogSelect'></div>
+    </div>
+</body>
+</html>

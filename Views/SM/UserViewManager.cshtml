@@ -1,0 +1,128 @@
+﻿@{
+    Layout = null;
+    string languagename = Donn.EAM.Web.Core.CurrentLoginInfo.Language;
+    var themes = new List<string>() { "metro", "bootstrap", "office365", "default" };
+
+    string style = themes[1];
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>@ViewBag.Title</title>
+    <link href="~/Resource/Scripts/Kendo/Style/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/Resource/Scripts/Kendo/Style/kendo.@{@style}.min.css" rel="stylesheet" />
+    <script src="~/Resource/Scripts/Base/jquery-1.10.2.min.js"></script>
+    <script type='text/javascript' src="~/Resource/Scripts/Kendo/js/kendo.web.min.js"></script>
+
+
+    <script src="~/Resource/Scripts/Base/eap.js@(Html.GetVersion())"></script>
+    @*?r=@System.DateTime.Now.Ticks*@
+    <script src="~/Resource/Scripts/Base/eap.ui1.js@(Html.GetVersion())"></script>
+    @*?r=@System.DateTime.Now.Ticks*@
+    @*<script src="~/Resource/Scripts/Base/eap.kendo1.js@(Html.GetVersion())"></script>*@
+    <script src="~/Resource/Scripts/Base/eap.kendo1.js@(Html.GetVersion())"></script>
+    @*?r=@System.DateTime.Now.Minute*@
+</head>
+
+<body id="mainContent">
+    <div id="grid">
+
+    </div>
+
+    <div id="log"></div>
+</body>
+</html>
+
+
+
+<script>
+
+    EAP.UI.documentReady(InitMain);
+
+    function InitMain() {
+        var ctrl = new EAP.Controller("ViewScheme");
+
+        kendo.ui.progress($(document.body), true);
+        ctrl.ExecuteServerAction("UserViewList", {}, function (data) {
+            kendo.ui.progress($(document.body), false);
+            var cols = [
+                {
+                    field: 'Id', hidden: true, title: "任务名称"
+                },
+                {
+                    field: 'Name', title: "Name"
+                },
+                {
+                    field: 'Code', title: "Code"
+                },
+                {
+                    field: 'IsDefault', title: "默认",
+                    template: function (item) {
+                        if (item.Disabled) {
+                            return "是";
+                        }
+                        else {
+                            return "否";
+                        }
+                    }
+                },
+                {
+                    command: [{
+                        name: 'Delete', click: function (e) {
+
+                            e.preventDefault();
+                            var tr = $(e.target).closest("tr");
+                            var data = this.dataItem(tr);
+                            DeleteItem(data);
+                        }
+                    }]
+                }
+
+            ];
+
+            var gridoption = {
+                height: 600,
+                columns: cols,
+                resizable: true,
+                scrollable: {
+                    virtual: false
+                },
+                pageable: false,
+                DataSource: data.Collection,
+                dom: $('#grid')
+            }
+
+            LoadGrid(gridoption);
+        })
+    }
+
+    function LoadGrid(gridoption) {
+        var grid = gridoption.dom.kendoGrid({
+            height: gridoption.height,
+            pageable: gridoption.pageable,
+            columns: gridoption.columns,
+            resizable: true,
+            scrollable: {
+                virtual: false
+            },
+            dataSource: gridoption.DataSource
+
+        }).getKendoGrid();
+    }
+
+    function DeleteItem(vm) {
+
+
+        var ctrl = new EAP.Controller("ViewScheme");
+       
+        ctrl.ExecuteServerAction("DelUserViewItem", vm, function (data) {
+           
+            InitMain();
+        });
+    }
+
+</script>

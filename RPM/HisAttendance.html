@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html id="html">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="../Resource/Scripts/Kendo/Style/kendo.common-bootstrap.min.css?v=20180318" rel="stylesheet" />
+    <link href="../Resource/Scripts/Kendo/Style/kendo.bootstrap.min.css?v=20180318" rel="stylesheet" />
+    <link href="3DJS/Scripts/css/style_His.css?v=20180318" rel="stylesheet" />
+    <link href="3DJS/lib/font-awesome/css/font-awesome.min.css?v=20180318" rel="stylesheet" />
+    <link href="3DJS/lib/layer/skin/layer.css?v=20180318" rel="stylesheet" />
+
+    <link href="../../Resource/Scripts/Kendo/Style/kendo.common.min.css?v=20180318" rel="stylesheet" />
+    <link href="../../Resource/Scripts/Kendo/Style/kendo.bootstrap.min.css?v=20180318" rel="stylesheet" />
+    <link href="../../Resource/Styles/eap.css?v=20180318" rel="stylesheet" />
+    <link href="../../Resource/Styles/eap.kendo.css?v=20180318" rel="stylesheet" />
+
+    <script src="../Resource/Scripts/Base/jquery-1.10.2.min.js?v=20180318"></script>
+
+
+    <script src="3DJS/Scripts/base/eap.core.js?v=20180318"></script>
+    <script src="3DJS/Scripts/base/common.js?v=20180318"></script>
+    <script src="3DJS/lib/My97DatePicker/WdatePicker.js?v=20180318"></script>
+    <script src="3DJS/Scripts/self/HisAttendance.js?v=20180318"></script>
+    <script src="3DJS/lib/layer/layer.js?v=20180318"></script>
+
+    <link rel="stylesheet" href="./3DJS/Scripts/css/jquery-ui-1.10.4.custom.min.css">
+    <!--<script src="./3DJS/Scripts/base/libs/jquery.js?v=20180316"></script>-->
+    <script src="./3DJS/Scripts/base/libs/jquery-ui-1.10.4.custom.js?v=20180318"></script>
+
+    <style>
+        #c1 {
+            width: 100%;
+          
+        }
+       a {
+           color: blue;
+           text-decoration: none;
+          }
+
+       a:visited {
+           color: blue;
+         }
+
+       a:hover, a:active, a:focus {
+           color: #ff8400;
+           text-decoration: underline;
+       }
+
+        #t {
+            width: 10%;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body id="hisAttendance">
+
+    <div style=" margin: 10px;" class="text-c" id="c1">
+        <div class="radio-mode" id="radHtml"style="margin-bottom:4px;"></div>
+        时间范围：
+        <input type="text" style="width:155px;height:15px;margin-top:3px;" onfocus="WdatePicker({ maxDate: '#F{$dp.$D(\'logmax\')||\'%y-%M-%d %HH:%mm:%ss\'}', dateFmt: 'yyyy-MM-dd HH:mm:ss' })" id="logmin" class="input-text Wdate">
+        -
+        <input type="text" style="width:155px;height:15px;" onfocus="WdatePicker({ minDate: '#F{$dp.$D(\'logmin\')}', maxDate: '%y-%M-%d', dateFmt: 'yyyy-MM-dd HH:mm:ss' })" id="logmax" class="input-text Wdate" >
+
+        <span class="select-box" style="width:100px;height:21px;margin-bottom:3px;">
+            <select id="selectDept" class="select" name="selectType" size="1"></select>
+        </span>
+        <span class="select-box" style="width:110px;height:21px;margin-bottom:3px;">
+            <select id="selectRegs" class="select" name="selectType" size="1"></select>
+        </span>
+        <input type="text" style="width:80px;height:15px;"  placeholder="标签号" id="tagNo" value="" class="input-text ui-autocomplete-input" autocomplete="off">
+        <input type="text" style="width:80px;height:15px;" placeholder="名称" id="empName" value="" class="input-text ui-autocomplete-input"  autocomplete="off">
+        <input type="text" style="width:80px;height:15px;" placeholder="编号" id="empCode" value="" class="input-text ui-autocomplete-input"  autocomplete="off">
+        <button style="height:21px;margin-bottom:3px;" id="btnFind" class="btn btn-success" data-title="查询" _href="article-add.html" type="button"><i class="fa fa-search fa-lg"></i> 查询</button>
+    </div>
+  
+    <div class="k-grid-header-wrap k-auto-scrollable" data-role="resizable" style="height:100%; ">
+        <table id="tMode" frame="border" onmouseover="hisAttFun.mouseover()" onmouseout="hisAttFun.mouseout()" style="height:auto;cursor:pointer;width:100%;" border="1" cellspacing="1" cellpadding="1" role="grid">
+            <thead role="rowgroup">
+                <tr style="width:100%;" role="row">
+                    <th id="t" scope="col" role="columnheader" aria-haspopup="true" class="k-header">序号</th>
+                    <th id="t" scope="col" role="columnheader" aria-haspopup="true" class="k-header">姓名</th>
+                    <th id="t" scope="col" role="columnheader" aria-haspopup="true" class="k-header">编号</th>
+                    <th id="t" scope="col" role="columnheader" aria-haspopup="true" class="k-header">标签号</th>
+                    <th id="t" scope="col" role="columnheader" aria-haspopup="true" class="k-header">部门</th>
+                    <th id="t" scope="col" role="columnheader" aria-haspopup="true" class="k-header">职务</th>
+                    <th id="t" scope="col" role="columnheader" aria-haspopup="true" class="k-header">考勤区域</th>
+                    <th id="t" scope="col" role="columnheader" aria-haspopup="true" class="k-header">总出勤天数</th>
+                    <th id="t" scope="col" role="columnheader" aria-haspopup="true" class="k-header">迟到天数</th>
+                    <th id="t" scope="col" role="columnheader" aria-haspopup="true" class="k-header">早退天数</th>
+                </tr>
+            </thead>
+            <tbody role="rowgroup" id="tbMain"></tbody>
+        </table>
+    </div>
+    <div id='formEditDialog'></div>
+</body>
+
+</html>
+

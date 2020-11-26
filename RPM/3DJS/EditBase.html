@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+    <title>ThreeDemo</title>
+
+    <style>
+        .divstyle {
+            background: rgba(56, 58, 60, 1);
+            opacity: 0.9;
+            z-index: 2;
+            position: absolute;
+            top: 60px;        
+            right: 60px; 
+            border-radius: 4px;
+        }
+
+        #divLeft {
+            top: 60px;
+            right: 20px;
+            z-index: 2;
+            position: absolute;
+        }
+
+            #divLeft img {
+                width: 32px;
+                height: 32px;
+            }
+
+        #configFloor {
+            width: 230px;
+            height: 390px;
+        }
+        div {
+            margin-left: 10px;
+            margin-top: 5px;
+            /*margin-right: 5px;*/
+            font-size: 12px;
+            font-family: Adobe Heiti Std R;
+            font-weight: normal;
+            color: rgba(255,255,255,1);
+        }
+
+        #configFloor select {
+            padding: 5px;
+            width: 98%;
+            height: 262px;
+        }
+
+        .wrap {
+            margin-left: 0px;
+            margin-top: 0px;
+            display: flex;
+            justify-content: flex-start;
+            padding-top: 10px;
+        }
+        .wrapp {
+            margin-left: 0px;
+            margin-top: 0px;
+            display: flex;
+            justify-content: flex-start;
+        }
+        #divline {
+            height: 1px;
+            background: rgba(255, 255, 255, 1);
+            opacity: 0.1;
+        }
+
+        .wrapright {
+            display: flex;
+            justify-content: flex-end;
+            margin-right:10px;
+        }
+
+        .divtext {
+            width: 54px;
+            height: 12px;
+            font-size: 12px;
+            font-family: Adobe Heiti Std R;
+            font-weight: normal;
+            color: rgba(56, 58, 60, 1);
+
+        }
+
+        #layerset {
+            width: 240px;
+            height: 400px;
+        
+        }
+        .divTxt {
+            margin-left: 7px;
+            padding-left: 3px;
+            padding-right: 0px;
+            padding-top: 3px;
+        }
+
+        .labtxt {
+            width: 54px;
+            height: 12px;
+            font-size: 12px;
+            font-family: Adobe Heiti Std R;
+            font-weight: normal;
+            color: rgba(255, 255, 255, 1);
+        }
+
+        .txtcolor {
+            font-size: 13px;
+            font-family: Adobe Heiti Std R;
+            font-weight: normal;
+            color: rgba(0,255,18,1);
+        }
+    </style>
+
+    <link rel="stylesheet" href="./Scripts/css/jquery-ui-1.10.4.custom.min.css">
+    <link rel="stylesheet" href="./Scripts/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./Scripts/css/admin.css">
+    <link rel="stylesheet" href="./Scripts/css/tinyImgUpload.css">
+
+    <link rel="stylesheet" href="./lib/font-awesome/css/font-awesome.min.css" />
+
+    <script src="./Scripts/base/libs/jquery.js?v=20180316"></script>
+    <script src="./Scripts/base/three.js?v=20180316"></script>
+
+    <script src="./Scripts/base/libs/IWSImageLib_min.js?v=20180316"></script>
+    <script src="./Scripts/base/libs/iws.loader_min.js?v=20180316"></script>
+
+
+    <script src="./Scripts/base/controls/OrbitControls.js?v=20180316"></script>
+    <script src="./Scripts/base/controls/Detector.js?v=20180316"></script>
+
+
+    <script src="./Scripts/base/controls/OBJLoader.js?v=20180316"></script>
+
+    <script src="./Scripts/self/SystemPackage.js?v=20180316"></script>
+    <script src="./Scripts/self/DrawingMap.js?v=20180316"></script>
+    <!--<script src="./Scripts/self/Bsin2D.js?v=20180316"></script>
+    <script src="./Scripts/self/Self2D.js?v=20180316"></script>-->
+
+    <script src="./Scripts/self/jquery.popmenu.min.js?v=20180316"></script>
+    <script src="./Scripts/self/jquery.popmenu.js?v=20180316"></script>
+
+
+    <script src="./Scripts/base/libs/jquery-ui-1.10.4.custom.js?v=20180316"></script>
+
+    <script src="./Scripts/base/libs/tinyImgUpload.js?v=20180316"></script>
+    <script src="./Scripts/Base/eap.core.js?v=20180316"></script>
+    <script src="./Scripts/Base/common.js?v=20180316"></script>
+    <script src="./lib/layer/layer.js?v=20180316"></script>
+
+
+    <script src="./Scripts/self/Bsin2D.js?v=20180318"></script>
+    <script src="./Scripts/self/MapData.js?v=20180318"></script>
+    <script src="./Scripts/self/Map2DLayer.js?v=20180318"></script>
+    <script src="./Scripts/self/BasicData.js?v=20180318"></script>
+    <script src="./Scripts/self/editBase.js?v=20180318"></script>
+</head>
+
+<body  onload='editbase.InitScene()'>
+    <div id="map2d">
+        <div id='rtDialogDiv'></div>
+        <div id='formEditDialog'></div>
+        <div id='DialogSelect'></div>
+    </div>
+    <div id="demo_box" style="display:none" class=""></div>
+
+
+</body>
+
+</html>

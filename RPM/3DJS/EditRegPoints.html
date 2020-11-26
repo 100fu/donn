@@ -1,0 +1,51 @@
+﻿
+<div name="myDiv">
+    <table border="0" width="370">
+        <tr>
+            <td>
+                <select style="width:200px; height:300px" id="regps" multiple name="list1" size="12" ondblclick="map2dLayer.selectdblclick()">
+                    <option value="a1"></option>
+                    <option value="a2"></option>
+                </select>
+            </td>
+            <td  style="margin:4px;padding:6px;" align="center" valign="top">
+                <table border="0" width="150">
+                    <tr><td align="center"><a onclick="map2dLayer.moveDiffXY('y',true)"><i class="fa fa-shield fa-2x fa-rotate-180"></i></a></td></tr>
+                    <tr>
+                        <td align="center">
+                            <a onclick="map2dLayer.moveDiffXY('x', false)"><i class="fa fa-shield fa-2x fa-rotate-90"></i> </a>
+                            <i class="fa  fa-2x fa-arrows-alt"></i>
+                            <!--<img id="imgLeft" src="/RPM/3DJS/Scripts/images/find.png" />-->
+                            <a onclick="map2dLayer.moveDiffXY('x',true)"><i class="fa fa-shield fa-2x fa-rotate-270"></i></a>
+                        </td>
+                    </tr>
+                    <tr><td align="center"><a onclick="map2dLayer.moveDiffXY('y', false)"><i class="fa fa-2x fa-shield"></i></a></td></tr>
+                    <tr><td></td></tr>
+                    <tr>
+                        <td>
+                            整体位移量:<select id="seldiff" style="width:70px;margin-bottom:4px;padding:1px;">
+                                <option>100</option>
+                                <option>200</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr><td>X:<span style="padding:8px;"><button class="btncs" onclick="map2dLayer.changeDiffXYZ('txtX',false)">-</button><input id="txtX" type="text" style=" width: 80px;padding: 1px;margin:0px;border-radius: 0px 0px 0px 0px;" /><button class="btncs" onclick="map2dLayer.changeDiffXYZ('txtX',true)">+</button></span></td></tr>
+                    <tr><td>Y:<span style="padding:8px;"><button class="btncs" onclick="map2dLayer.changeDiffXYZ('txtY',false)">-</button><input id="txtY" type="text" style=" width: 80px;padding: 1px;margin:0px;border-radius: 0px 0px 0px 0px;" /><button class="btncs" onclick="map2dLayer.changeDiffXYZ('txtY',true)">+</button></span></td></tr>
+                    <tr><td>Z:<span style="padding:8px;"><button class="btncs" onclick="map2dLayer.changeDiffXYZ('txtZ',false)">-</button><input id="txtZ" type="text" style=" width: 80px;padding: 1px;margin:0px;border-radius: 0px 0px 0px 0px;" /><button class="btncs" onclick="map2dLayer.changeDiffXYZ('txtZ',true)">+</button></span></td></tr>
+                    <tr>
+                        <td>
+                            <input class="btn btn-primary radius" id="btnEdit" type="button" style="height: 27px" width="30px" role="button" onclick="map2dLayer.regPsEdit()" value="修改" />
+                            <input class="btn btn-primary radius" id="btnEdit" type="button" style="height: 27px" width="30px" role="button" onclick="map2dLayer.regPsSave()" value="保存" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+
+        </tr>
+    </table>
+    <!--<div class="cl pd-5 bg-1 bk-gray mt-20">
+        <input class="btn btn-primary radius" id="btnAdd" type="button" style="height: 27px" width="30px" onclick="map2dLayer.setPointList()" role="button" value="确定" />
+    </div>-->
+</div>
+
+

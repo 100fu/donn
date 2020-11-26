@@ -1,0 +1,236 @@
+body {
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.viewmode-group {
+    position: absolute;
+    z-index: 999;
+    bottom: 50px;
+    left: 20px;
+}
+
+
+.btn {
+    width: 45px;
+    height: 20px;
+    border: none;
+    color: #333;
+    background-color: #FFF;
+    line-height: 10px;
+    font-size: 14px;
+    text-align: text-top;
+}
+
+.btn-default {
+    padding-left: 5px;
+    padding-right: 5px;
+    height: 30px;
+    border: 1px solid #ccc;
+    color: #333;
+    background-color: #FFF;
+    line-height: 30px;
+    font-size: 14px;
+    border-radius: 3px;
+}
+
+.airocovMapSwitch .btn-select {
+    background-color: #FFA500 !important;
+    color: #FFF !important;
+    border: 1px solid rgb(255, 145, 0) !important;
+}
+
+.airocovMapSwitch .btn-select:hover {
+    background-color: rgb(255, 145, 0) !important;
+    color: #FFF !important;
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+#table-container {
+    position: fixed;
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    bottom: 0px;
+    background-color: #f1f2f7;
+    display: block;
+    overflow-y: auto;
+    font-size: 14px;
+    text-align: center;
+    z-index: 999;
+}
+
+.title {
+    width: 30px;
+    float: right;
+    right: 0px;
+    cursor: pointer;
+}
+
+.glyphicon {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#table-container table {
+    background-color: white;
+}
+
+.table-bordered {
+    border: 1px solid #ddd;
+}
+
+.table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.bg-success {
+    background-color: #dff0d8;
+}
+
+.scaleCtrl {
+	width: 70px;
+	height: 20px;
+	bottom: 96px;
+	left: 10px;
+	-moz-user-select: none
+}
+
+.scaleCtrl div.scaleTxt {
+	font-size: 11px;
+	font-family: Arial,sans-serif
+}
+
+.scaleCtrl div {
+	position: absolute;
+	overflow: hidden
+}
+
+.scaleBar {
+	background: #000
+}
+
+.scaleBarBG {
+	background: #fff
+}
+
+.scaleHBar {
+	width: 100%;
+	height: 1px;
+	font-size: 0;
+	bottom: 0
+}
+
+.scaleHBarBG {
+	width: 100%;
+	height: 5px;
+	font-size: 0;
+	bottom: -1px
+}
+
+.scaleLBar,.scaleRBar {
+	width: 1px;
+	height: 6px;
+	bottom: 0;
+	font-size: 0
+}
+
+.scaleLBarBG,.scaleRBarBG {
+	width: 3px;
+	height: 7px;
+	bottom: 0;
+	font-size: 0
+}
+
+.scaleLBar {
+	left: 0
+}
+
+.scaleRBar {
+	right: 0
+}
+
+.scaleLBarBG {
+	left: -1px
+}
+
+.scaleRBarBG {
+	right: -1px
+}
+
+.scaleTxt {
+	text-align: center;
+	color: #000;
+	width: 100%;
+	cursor: default;
+	line-height: 18px;
+	text-shadow: -1px -1px 0 #fff,1px -1px 0 #fff,-1px 1px 0 #fff,1px 1px 0 #fff
+}
+
+.scaleTxt.dark {
+	color: #fff;
+	text-shadow: -1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000
+}
+
+.stdMpZoom {
+	top: 45px;
+	overflow: hidden
+}
+
+.stdMpZoom .button_new {
+	box-shadow: 1px 2px 1px rgba(0,0,0,.15);
+	cursor: pointer;
+	width: 40px;
+	height: 40px;
+	left: 30px;
+	overflow: hidden;
+	background-color: #FFF;
+	z-index: 10
+}
+
+.stdMpZoom .button_new .in {
+	width: 10px;
+	height: 10px;
+	top: 8px;
+	left: 8px;
+}
+
+.stdMpZoom .button_new:hover .in {
+	background-position: -20px 0
+}
+
+.stdMpZoom .button_new .out {
+	width: 10px;
+	height: 10px;
+	top: 8px;
+	left: 8px;
+}
+
+.stdMpZoom .button_new:hover .out {
+	background-position: -30px 0
+}
+
+#app-right-top {
+	z-index: 4;
+	position: absolute;
+	top: 60px;
+	right: 10px
+}

@@ -1,0 +1,35 @@
+﻿
+<div name="myDiv">
+    <table border="0" width="300" class="table table-border table-bordered table-bg table-hover table-sort">
+        <tr>
+            <td>
+                <select style="width:100px; height:200px" id="ls1" multiple name="list1" size="12" ondblclick="map2dLayer.moveOption(document.getElementById('ls1'), document.getElementById('ls2'))">
+                    <option value="a1"></option>
+                    <option value="a2"></option>            
+                </select>
+            </td>
+            <td align="center">
+                <input type="button" value=">>" onclick="map2dLayer.moveOption(document.getElementById('ls1'), document.getElementById('ls2'))"><br />
+                <br />
+                <input type="button" value="<<" onclick="map2dLayer.moveOption(document.getElementById('ls2'), document.getElementById('ls1'))">
+            </td>
+            <td>
+                <select style="width:100px; height:200px" id="ls2"  multiple name="list2" size="12" ondblclick="map2dLayer.moveOption(document.getElementById('ls2'), document.getElementById('ls1'))"></select>
+            </td>
+            <!--<td>
+                <button onclick="sys.busi2D.moveUp(document.getElementById('ls2'))" type="button">
+                    ∧
+                </button>
+                <br />
+                <button onclick="sys.busi2D.moveDown(document.getElementById('ls2'))" type="button">
+                    ∨
+                </button>
+            </td>-->
+        </tr>
+    </table>
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        <input class="btn btn-primary radius" id="btnAdd" type="button" style="height: 27px" width="30px" onclick="map2dLayer.setPointList()" role="button" value="确定" />
+    </div>
+</div>
+
+

@@ -1,0 +1,222 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+    <title>ThreeDemo</title>
+
+    <style>
+        .fa {
+            font-size: 35px;
+            line-height: 35px;
+        }
+
+        .fa-bars {
+            color: #3498db;
+        }
+
+        pre {
+            font-family: Consolas, Liberation Mono, Courier, monospace;
+            font-size: 8px;
+        }
+
+        @media screen and (orientation: portrait) {
+            pre {
+                overflow-x: scroll;
+            }
+        }
+        #demo_ul{
+            width:20px;
+        }
+        .demo_li{
+            width:20px;
+        }
+       
+        body {
+           
+            width:99%;
+            height:99%;
+            position:absolute;
+        }
+        #sys_list {
+            height: 452px;
+            position: relative;
+            border: 1px solid #DDDDDD;
+            /*background-color:#00ff21;*/
+        }
+        #list_o {
+            width: 100%;
+            height: 28px;
+            /*border: 1px solid #000000;*/
+            position:relative;
+            /*padding-left:5px;*/
+        }
+
+        #list_e {
+            width: 99%;
+            height: 396px;
+            /*border: 1px solid #ff8400;*/
+            position: relative;
+            top: 0px;
+            left: 0px;
+            background-color: #E7F3DC;
+            opacity:0.7;
+        }
+        #list_s {
+            width: 100%;
+            height: 28px;
+            /*border: 1px solid #ff8400;*/
+            position: relative;
+            top: 0px;
+            left: 0px;
+            background-color: #2B5D92;
+            /*background-color: rgba(255, 255, 255,0.3);*/
+        }
+
+        #message{
+            /*border:1px solid red;*/
+            width:130px;
+            height:20px;
+            float:left;
+            margin-top:8px;
+            font:20px;
+            color:#1ae21a;
+            padding-left:5px;
+
+        }
+        #s_input {
+            /*border: 1px solid #3498db;*/
+            width: 60px;
+            float: left;
+            margin-left: 3px;
+            margin-top: 2px;
+
+        }
+        #s_button {
+            /*background-color: #ff0000;*/
+            background: url(Scripts/images/切图_128-38-1.png);
+            width: 60px;
+            border: 1px solid #3770b4;
+            outline: none;
+        }
+        #itu {
+            float: left;
+            width: 10px;
+            height: 10px;
+            /*margin-right:5px;*/
+            margin-left: 130px;
+            margin-top: 8px;
+            font-size: 12px;
+        }
+        #itu:hover{
+            color:red;
+        }
+        .rttableStyle1 {
+            vertical-align: middle;
+            /*border-radius: 10px;*/
+            -moz-border-radius-topleft: 10px;
+            -moz-border-radius-topright: 10px;
+            /* display: none; */
+            position: absolute;
+            float: left;
+            /*background: rgba(192, 192, 192, 0.5);*/
+            /*background: rgba(255, 255, 255, 0.8);*/
+            background-color: rgba(255, 255, 255,0.3);
+            width: 210px;
+            height: 600px;
+            /*overflow: hidden;*/
+            overflow-y: auto;
+            overflow: auto;
+        }
+        .rttableStyle2 {
+            vertical-align: middle;
+            /*border-radius: 10px;*/
+            -moz-border-radius-bottomleft: 10px;
+            -moz-border-radius-bottomright: 10px;
+            /* display: none; */
+            position: absolute;
+            float: left;
+            /*background: rgba(192, 192, 192, 0.5);*/
+            /*background: rgba(255, 255, 255, 0.8);*/
+            background-color: rgba(255, 255, 255,0.3);
+            width: 210px;
+            height: 600px;
+            /*overflow: hidden;*/
+            overflow-y: auto;
+            overflow: auto;
+        }
+        .rttableStyle3 {
+            vertical-align: middle;
+            /*border-radius: 10px;*/
+            /*-moz-border-radius-topleft: 10px;
+            -moz-border-radius-topright: 10px;*/
+            /* display: none; */
+            position: absolute;
+            float: left;
+            /*background: rgba(192, 192, 192, 0.5);*/
+            /*background: rgba(255, 255, 255, 0.8);*/
+            /*background-color: rgba(255, 255, 255,0.3);*/
+            /*width: 210px;
+            height: 600px;*/
+            /*overflow: hidden;*/
+            overflow-y: auto;
+            overflow: auto;
+        }
+    </style>
+
+    <link rel="stylesheet" href="./Scripts/css/jquery-ui-1.10.4.custom.min.css">
+    <link rel="stylesheet" href="./Scripts/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./Scripts/css/admin.css">
+    <link rel="stylesheet" href="./Scripts/css/tinyImgUpload.css">
+
+    <link rel="stylesheet" href="./lib/font-awesome/css/font-awesome.min.css" />
+
+    <script src="./Scripts/base/libs/jquery.js?v=20180316"></script>
+    <script src="./Scripts/base/three.js?v=20180316"></script>
+
+    <script src="./Scripts/base/libs/IWSImageLib_min.js?v=20180316"></script>
+    <script src="./Scripts/base/libs/iws.loader_min.js?v=20180316"></script>
+
+
+    <script src="./Scripts/base/controls/OrbitControls.js?v=20180316"></script>
+    <script src="./Scripts/base/controls/Detector.js?v=20180316"></script>
+
+
+    <script src="./Scripts/base/controls/OBJLoader.js?v=20180316"></script>
+
+    <script src="./Scripts/self/SystemPackage.js?v=20180316"></script>
+    <script src="./Scripts/self/DrawingMap.js?v=20180316"></script>
+    <script src="./Scripts/self/Bsin2D.js?v=20180316"></script>
+    <script src="./Scripts/self/Self2D.js?v=20180316"></script>
+
+    <script src="./Scripts/self/jquery.popmenu.min.js?v=20180316"></script>
+    <script src="./Scripts/self/jquery.popmenu.js?v=20180316"></script>
+
+
+    <script src="./Scripts/base/libs/jquery-ui-1.10.4.custom.js?v=20180316"></script>
+    <script src="./Scripts/base/nodes/Dialog.js?v=20180316"></script>
+
+    <script src="./Scripts/base/libs/tinyImgUpload.js?v=20180316"></script>
+    <script src="./Scripts/Base/eap.core.js?v=20180316"></script>
+    <script src="./Scripts/Base/common.js?v=20180316"></script>
+    <script src="./Scripts/self/Map2d.js?v=20180316"></script>
+    <script src="./lib/layer/layer.js?v=20180316"></script>
+
+</head>
+
+<body style="overflow:auto">
+        <div id="map2d">
+            <div id='formEditDialog'></div>
+            <div id='DialogSelect'></div>
+        </div>
+        <div id="toolbar" style="display:none" class=""></div>
+        <div id="demo_box" style="display:none" class=""></div>
+        <div id="alarmRegList" style="display:none" class=""></div>
+        <div id="rollCallList" style="display:none" class=""></div>
+        <div id="sys_list1" style="display:none"></div>
+
+</body>
+
+</html>

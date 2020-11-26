@@ -1,0 +1,222 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>系统配置</title>
+
+    <link href="3DJS/lib/layer/skin/layer.css?v=20180318" rel="stylesheet" />
+    <link rel="stylesheet" href="3DJS/Scripts/css/bootstrap.min.css">
+    <link rel="stylesheet" href="3DJS/Scripts/css/rpmconfig.css" />
+
+    <script src="../Resource/Scripts/Base/jquery-1.10.2.min.js?v=20180318"></script>
+    <script src="3DJS/Scripts/base/eap.core.js?v=20180318"></script>
+    <script src="3DJS/Scripts/self/SysConfig.js"></script>
+    <script src="3DJS/Scripts/self/SystemPackage.js"></script>
+    <script src="3DJS/Scripts/self/BasicData.js"></script>
+    <script src="3DJS/lib/layer/layer.js?v=20180318"></script>
+    <script src="3DJS/Scripts/base/common.js?v=20180318"></script>
+
+    <!--<link rel="stylesheet" href="./3DJS/Scripts/css/jquery-ui-1.10.4.custom.min.css">-->
+    <script src="./3DJS/Scripts/base/libs/jquery-ui-1.10.4.custom.js?v=20180318"></script>
+
+</head>
+<body onload="sysconfig.loadrpmconfig()">
+    <div class='maindiv'>
+        <div class='titlemain'>  系统参数设置 </div>
+        <div class='MenuPanel'>
+            <div class='MenuTitle'>
+                <div class='titlediv'>
+                    <div class='titlehide'>历史数据存储设置</div>
+                    <div class='btnhide'>
+                        <button class="btn btn-primary hisconfig" style="padding: 1px 6px;" type="button" onclick="sysconfig.setdefault(1)">默认值</button>
+                        <button class="btn btn-primary hisconfig" style="padding: 1px 6px;" type="button" onclick="sysconfig.savehisalmcf()">保存</button>
+                        <button class="btn btn-primary" id="hisconfig" style="padding: 1px 6px;" type="button" onclick="sysconfig.setbtnhide('hisconfig')">修改</button>
+                    </div>
+                </div>
+            </div>
+            <div id="hisconfig" class='MenuContent'>
+                <div class='divMessage'>
+                    <div>
+                        巡检区域停留:
+                        <input type='text' placeholder='数字' style='width: 100px;' title="巡检区域停留最小有效时长(秒)" id='txt_hispatrol'>(秒)
+                    </div>
+                    <div>
+                        围栏区域停留:
+                        <input type='text' placeholder='数字' style='width: 100px;' title="电子围栏报警有效持续时长(秒)" id='txt_hisalarm'>(秒)
+                    </div>
+                    <div>
+                        考勤区域停留:
+                        <input type='text' placeholder='数字' style='width: 100px;' title="电子考勤最小有效持续时长(秒)" id='txt_hisattendance'>(秒)
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class='MenuPanel'>
+            <div class='MenuTitle'>
+                <!-- <div> 第二菜单</div> -->
+                <div class='titlediv'>
+                    <div class='titlehide'>历史在线时长统计设置</div>
+                    <div class='btnhide'>
+                        <button class="btn btn-primary hisonlineset" style="padding: 1px 6px;" type="button" onclick="sysconfig.setdefault(2)">默认值</button>
+                        <button class="btn btn-primary hisonlineset" type="button" style="padding: 1px 6px;" onclick="sysconfig.savehistrackcf()">保存</button>
+                        <button class="btn btn-primary" id="hisonlineset" style="padding: 1px 6px;" type="button" onclick="sysconfig.setbtnhide('hisonlineset')">修改</button>
+                    </div>
+                </div>
+            </div>
+            <div id="hisonlineset" class='MenuContent'>
+                <div class='divMessage'>
+                    <div>工作开始时间: <input type='text' placeholder='HH:mm:ss' style='width: 80px;' id='txt_stm'></div>
+                    <div>工作结束时间: <input type='text' placeholder='HH:mm:ss' style='width: 80px;' id='txt_etm'></div>
+                    <div>标签视为休眠阈值: <input type='text' placeholder='数字' style='width: 48px;' id='txt_sleep'>(秒)</div>
+                    <div>人员标签有效距离阈值: <input type='text' placeholder='数字' style='width: 48px;' id='txt_empeffdis'>(厘米)</div>
+                    <div>设备标签有效距离阈值: <input type='text' placeholder='数字' style='width: 48px;' id='txt_deveffdis'>(厘米)</div>
+                    <div>统计类型:<select name="selectHisType" style='width: 130px;' id="selectHisType"></select></div>
+                </div>
+            </div>
+        </div>
+        <div class='MenuPanel'>
+            <div class='MenuTitle'>
+                <div class='titlediv'>
+                    <div class='titlehide'>GBT-28181视频服务器设置</div>
+                    <div class='btnhide'>
+                        <button class="btn btn-primary gbt28181" style="padding: 1px 6px;" type="button" onclick="sysconfig.setdefault(3)">默认值</button>
+                        <button class="btn btn-primary gbt28181" type="button" style="padding: 1px 6px;" onclick="sysconfig.savegbt28181()">保存</button>
+                        <button class="btn btn-primary" style="padding: 1px 6px;" type="button" id="gbt28181" onclick="sysconfig.setbtnhide('gbt28181')">修改</button>
+                    </div>
+                </div>
+            </div>
+            <div id="gbt28181" class='MenuContent'>
+                <div class='divMessage'>
+                    <div>SIP服务器: <input type='text' placeholder='SIP终端ID' style='width: 190px;' id='txt_sip'></div>
+                    <div>LiveCMS服务器: <input type='text' placeholder='192.168.8.1' style='width: 150px;' id='txt_livecmsip'></div>
+                    <div>LiveCMS服务端口: <input type='text' placeholder='数字' style='width: 135px;' id='txt_livecmsport'></div>
+                </div>
+            </div>
+        </div>
+
+        <div class='MenuPanel'>
+            <div class='MenuTitle'>
+                <div class='titlediv'>
+                    <div class='titlehide'>视频联动设置</div>
+                    <div class='btnhide'>
+                        <button class="btn btn-primary trackvs" style="padding: 1px 6px;" type="button" onclick="sysconfig.setdefault(4)">默认值</button>
+                        <button class="btn btn-primary trackvs" type="button" style="padding: 1px 6px;" onclick="sysconfig.savevideovs()">保存</button>
+                        <button class="btn btn-primary" style="padding: 1px 6px;" id="trackvs" type="button" onclick="sysconfig.setbtnhide('trackvs')">修改</button>
+                    </div>
+                </div>
+            </div>
+            <div id="trackvs" class='MenuContent'>
+                <div class='divMessage'>
+                    <div>联动服务IP: <input type='text' placeholder='192.168.8.1' title='即TaskServer所在电脑IP' style='width: 150px;' id='txt_taskip'></div>
+                    <div>联动服务端口: <input type='text' placeholder='数字' style='width: 133px;' id='txt_taskport'></div>
+                    <div>定位平台服务IP: <input type='text' placeholder='192.168.8.1' style='width: 117px;' id='txt_iisip'></div>
+                    <div>定位平台端口: <input type='text' placeholder='数字' style='width: 132px;' id='txt_iisport'></div>
+                </div>
+            </div>
+        </div>
+
+        <div class='MenuPanel'>
+            <div class='MenuTitle'>
+                <div class='titlediv'>
+                    <div class='titlehide'>实时报警联动设置</div>
+                    <div class='btnhide'>
+                        <button class="btn btn-primary rtalmopenset" style="padding: 1px 6px;" type="button" onclick="sysconfig.setdefault(5)">默认值</button>
+                        <button class="btn btn-primary rtalmopenset" type="button" style="padding: 1px 6px;" onclick="sysconfig.savertalmopenset()">保存</button>
+                        <button class="btn btn-primary" style="padding: 1px 6px;" id="rtalmopenset" type="button" onclick="sysconfig.setbtnhide('rtalmopenset')">修改</button>
+                    </div>
+                </div>
+            </div>
+            <div id="rtalmopenset" class='MenuContent'>
+                <div class='divMessage'>
+                    <div><input type='checkbox' id='chk_IsRttagalm'>电围报警联动标签震动</div>
+                    <div><input type='checkbox' id='chk_IsAreaBjqAlm'>电围报警联动声光报警器</div>
+                    <div><input type='checkbox' id='chk_IsPZYJAlm'>车辆碰撞预警</div>
+                    <div><input type='checkbox' id='chk_IsHelpAlm'>显示求救报警</div>
+                    <div><input type='checkbox' id='chk_IsStaAlm'>记录分站故障信息</div>
+                    <div><input type='checkbox' id='chk_IsLowTagAlm'>标签低电量报警</div>
+                </div>
+            </div>
+        </div>
+
+        <div class='MenuPanel'>
+            <div class='MenuTitle'>
+                <div class='titlediv'>
+                    <div class='titlehide'>车辆碰撞预警参数设置</div>
+                    <div class='btnhide'>
+                        <button class="btn btn-primary pzyj" style="padding: 1px 6px;" type="button" onclick="sysconfig.setdefault(6)">默认值</button>
+                        <button class="btn btn-primary pzyj" type="button" style="padding: 1px 6px;" onclick="sysconfig.save()">保存</button>
+                        <button class="btn btn-primary" style="padding: 1px 6px;" id="pzyj" type="button" onclick="sysconfig.setbtnhide('pzyj')">修改</button>
+                    </div>
+                </div>
+            </div>
+            <div id="pzyj" class='MenuContent'>
+                <div class='divMessage'>
+                    <div>安全距离: <input id="inputDis" placeholder="数字" style='width: 100px;' title="单位(cm)" type="text" />(cm)</div>
+                    <div>扫描范围: <input id="inputArc" placeholder="数字" style='width: 100px;' title="扫描角度范围0-360°" type="text" />(°)</div>
+                    <div>执行周期: <input id="inputInterval" placeholder="数字" style='width: 100px;' title="时间间隔:毫秒" type="text" />(毫秒)</div>
+                    <div><input id="chklight" type="checkbox" />绿灯是否长亮</div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class='MenuPanel'>
+            <div class='MenuTitle'>
+                <div class='titlediv'>
+                    <div class='titlehide'>扩展功能选项</div>
+                    <div class='btnhide'>
+                        <button class="btn btn-primary extefun" style="padding: 1px 6px;" type="button" onclick="sysconfig.setdefault(7)">默认值</button>
+                        <button class="btn btn-primary extefun" type="button" style="padding: 1px 6px;" onclick="sysconfig.saveextefun()">保存</button>
+                        <button class="btn btn-primary" style="padding: 1px 6px;" id="extefun" type="button" onclick="sysconfig.setbtnhide('extefun')">修改</button>
+                    </div>
+                </div>
+            </div>
+            <div id="extefun" class='MenuContent'>
+                <div class='divMessage'>
+                    <div><input type='checkbox' id='chk_headmap'>启用历史轨迹热力图</div>
+                </div>
+            </div>
+        </div>
+
+        <div class='MenuPanel'>
+            <div class='MenuTitle'>
+                <div class='titlediv'>
+                    <div class='titlehide'>考勤全局设置</div>
+                    <div class='btnhide'>
+                        <button class="btn btn-primary attfun" style="padding: 1px 6px;" type="button" onclick="sysconfig.setdefault(8)">默认值</button>
+                        <button class="btn btn-primary attfun" type="button" style="padding: 1px 6px;" onclick="sysconfig.saveAttSet()">保存</button>
+                        <button class="btn btn-primary" style="padding: 1px 6px;" id="attfun" type="button" onclick="sysconfig.setbtnhide('attfun')">修改</button>
+                    </div>
+                </div>
+            </div>
+            <div id="attfun" class='MenuContent'>
+                <div class='divMessage'>
+                    <div>考勤开始时间: <select id='selIn' onchange='changeSelOp()'  class='txtcss'></select></div>
+                    <div>考勤结束时间: <select id='selOut' onchange='changeSelOp()' class='txtcss' style='margin-left:9px;'></select></div>
+                    <div>标签视为不活动状态阈值: <input type="number" min="1" max="120" placeholder="数字" style="width: 100px;" onkeyup="chknumminmax(this)" data-txt="活动阀值" data-default="30" value="30"  id='txt_endAttVal'>(分钟)</div>
+                    <div>考勤结束逻辑执行频率: <input type="number" min="1" max="120" placeholder="数字" style="width: 100px;" onkeyup="chknumminmax(this)" data-txt="执行周期" data-default="30" value="30"  id='txt_runtime'>(分钟)</div>
+                    <div>考勤开始时间提前量: <input type="number" min="1" max="120" placeholder="数字" style="width: 100px;" onkeyup="chknumminmax(this)" data-txt="考勤开始时间提前量" data-default="30" value="30"  id='txt_EarlySt'>(分钟) </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!--<div class='MenuPanel'>
+            <div class='MenuTitle'>
+                <div class='titlediv'>
+                    <div class='titlehide'>其他链接</div>
+                    <div class='btnhide'>
+                    </div>
+                </div>
+            </div>
+            <div class='MenuContent'>
+                <div class='divlist'>
+                    <div>    <a href='/RPM/SystemConfig.html' target='_blank'>碰撞预警参数设置</a> </div>
+                </div>
+            </div>
+        </div>-->
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+﻿@{
+    Layout = null;
+}
+
+
+
+<ul>
+    <li>
+        @Html.ActionLink("OldPage-Employee", "Index/People", "Commpage", new { Code = "USER03" }, new { })
+    </li>
+    <li>
+        @Html.ActionLink("NewPage-Employee", "Employee", "Archives", new { Code = "USER03" }, new { })
+    </li>
+</ul>
+<ul>
+    <li>
+        @Html.ActionLink("OldPage-Organization", "PeopleOrganization", "People")
+    </li>
+    <li>
+        @Html.ActionLink("NewPage-Organization", "Organization", "Archives")
+    </li>
+</ul>
+<ul>
+    <li>
+        @Html.ActionLink("OldPage-Reporting-EquipmentPerformance", "EquipmentPerformance", "Reporting", new { Code = "KPI05" }, new { })
+    </li>
+    <li>
+        @Html.ActionLink("NewPage-Reporting-EquipmentPerformance", "DevicePerformance", "Reporting", new { Code = "KPI05" }, new { })
+    </li>
+    <li>
+        @Html.ActionLink("OldPage-Reporting-DailyServiceWork", "DailyServiceWork", "PM")
+    </li>
+    <li>
+        @Html.ActionLink("NewPage-Reporting-DailyServiceWork", "DailyServiceWork", "Reporting")
+    </li>
+</ul>
+<ul>
+    <li>
+        @Html.ActionLink("NewAdd-License-AssetLicense", "LicenseAsset", "License", new { Code = "LIC06" }, new { })
+    </li>
+</ul>
+<ul>
+    <li>
+        @Html.ActionLink("NewAdd-Reporting-AreaBrandWeekCharts", "AreaBrandWeekCharts", "Reporting", new { }, new { })
+    </li>
+</ul>
+<ul>
+    <li>
+        @Html.ActionLink("New-CheckItemCondition", "CheckItemCondition", "PM", new { Code = "PM18"} ,new{ target="_blank"})
+    </li>
+</ul>
+<ul>
+    <li>
+        @Html.ActionLink("New-EMReportItem", "NewEMReport", "EM", new { Code = "EM07"} ,new{ target="_blank"})
+    </li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+

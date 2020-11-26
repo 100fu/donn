@@ -1,0 +1,11 @@
+﻿{
+  "IsDebugModel": false,
+  "LogLevel": 2,
+  "DeploymentMode": "IISHost",
+  "HttpServices": [
+    {
+      "Name": "TaskServer",
+      "Url": "http://127.0.0.1:12002"
+    }
+  ]
+}

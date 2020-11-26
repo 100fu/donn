@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Active Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <!--标准mui.css-->
+    <link rel="stylesheet" href="../css/mui.min.css" />
+    <link rel="stylesheet" href="../css/demo.css" />
+    <link rel="stylesheet" href="../css/MapMain.css" />
+    <!--App自定义的css-->
+    <!--<link rel="stylesheet" type="text/css" href="../css/app.css"/>-->
+</head>
+<body>
+    <!-- <header class="mui-bar mui-bar-nav">
+        <h1 class="mui-title">实时地图</h1>
+    </header> -->
+    <!--人员跟踪-->
+    <div id="userDetails" class="userinfo animated  bounceOutUp" style="bottom:15px;">
+        <img class="userinfoIco" src="../images/椭圆 1 拷贝.png" style="border:none;width:95px;height:95px;" alt="" />
+        <div class="userinfoTop">
+            <table style="width:100%;height:100%;line-height:10px;font-size:9pt;" border="0" frame="void">
+                <tbody>
+                    <tr>
+                        <td style="border-bottom:0.3px solid #EAEAEA;" colspan="2">
+                            <table><tr><td style="padding:0px 0px 4px 5px;"><embed src="../images/实时地图_人员信息.svg" style="display:block;width:15px;height:15px" /></td><td style="padding:4px 0px 4px 5px;font-size:15px;font-weight:bold;">人员信息</td></tr></table>
+                        </td>
+                        <td style="border-bottom:0.3px solid #EAEAEA"></td>
+                        <td style="border-bottom:0.3px solid #EAEAEA"></td>
+                        <td style="border-bottom:0.3px solid #fff"></td>
+                    </tr>
+                    <tr><td colspan="5" style="height:10px;"></td></tr>
+                    <tr>
+                        <td style="color:darkgrey;width:40px;text-align:right">姓名：</td>
+                        <td id="targetName" style="width:100px"></td>
+                        <td style="color:darkgrey;width:40px;text-align:right">性别：</td>
+                        <td id="targetGender" style="width:40px;"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="color:darkgrey;text-align:right">电量：</td>
+                        <td colspan="4" id="targetVoltage"></td>
+                    </tr>
+                    <tr>
+                        <td style="color:darkgrey;text-align:right">职位：</td>
+                        <td colspan="4" id="targetDuty"></td>
+                    </tr>
+                    <tr>
+                        <td style="color:darkgrey;text-align:right">区域：</td>
+                        <td colspan="4" id="targetFloor"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" style="text-align:center;">
+                            <input type="button" value="目标跟踪" style="width:250px;border:none" id="targetTarget" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--人员跟踪-->
+    <!---->
+    <div id='following' class="sample animated  bounceOutUp" style="bottom:15px;">
+        <div class="userinfoTop">
+            <table style="line-height:10px;font-size:9pt;width:100%">
+                <tbody>
+                    <tr>
+                        <td> <img src="../images/椭圆 1 拷贝.png" width="32" alt="" /></td>
+                        <td style="padding-left:20px;padding-right:20px;" id="targetName2"></td>
+                        <td style="padding-left:10px;padding-right:10px;">
+                            <input type="button" style="background-color:darkgray;border:none" value="展开信息"
+                                   onclick="ExpodeInfo()" />
+                        </td>
+                        <td style="padding-left:10px;"><input type="button" value="取消跟踪" style="border:none" onclick="CancelFollow()" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!---->
+    <!--搜索框-->
+    <div id="dialogBg" class="dialogBg"></div>
+    <div id="dialog" class="dialog animated claseDialogBtn bounceOutUp" style="display: none;">
+        <embed class="dialogIco" src="../images/实时地图_搜索图标.svg" />
+        <div class="dialogTop">
+            <section class="section">
+                <div class="wrap">
+                    <div class="col-left c1 divborder" style="line-height:40px;height:40px;width:270px;">
+                        <input type="text" id="keyword" placeholder="输入关键字" />
+                    </div>
+                    <div class="col-right c2 " style="padding-left:10px;">
+                        <input type="button" class="search" style="width:78px;margin-top:3px;border:none;" value="搜索" onclick="fuzzySearch()" />
+                    </div>
+                </div>
+                <div id="searchResult" style="overflow-y:auto;height:300px;width:105%">
+                </div>
+            </section>
+        </div>
+        <img class="dialogbottomIco" src="../images/关闭.svg" style=" cursor: pointer;" onclick="javascript:$('#dialogBg').fadeOut(100,function(){
+                $('#dialog').addClass('bounceOutUp').fadeOut(100);
+            });" />
+    </div>
+    <!--搜索框-->
+    <!--电子围栏报警弹出框-->
+    <div id="warningdialogBg" class="dialogBg"></div>
+    <div id="warningdialog" class="dialog animated claseDialogBtn bounceOutUp">
+        <embed class="dialogIco" src="../images/实时地图_报警_图标.svg" />
+        <div class="dialogTop">
+            <section class="section">
+                <div class="wrap">
+                    <div class="col-left c1 divborder" style="line-height:40px;height:40px;width:270px;">
+                        <input type="text" placeholder="状态：电子围栏报警" />
+                    </div>
+                    <div class="col-right c2 " style="padding-left:10px;">
+                        <input type="button" class="search" style="background:#f95e60;width:78px;margin-top:3px;border:none;" value="区域锁定" />
+                    </div>
+                </div>
+                <div style="overflow-y:auto;height:300px;width:105%" id="warnResult">
+                </div>
+            </section>
+        </div>
+        <img class="dialogbottomIco" src="../images/关闭.svg" style=" cursor: pointer;" onclick="javascript:$('#warningdialogBg').fadeOut(100,function(){
+                $('#warningdialog').addClass('bounceOutUp').fadeOut(100);
+            });" />
+    </div>
+    <!--电子围栏报警弹出框-->
+    <div class="viewmode-group">
+
+
+    </div>
+    <div unselectable="on" id="CtrlScale" class="scaleCtrl anchorBL" style="display:none;text-size-adjust: none; bottom: auto; right: 10px; top: 210px; left: auto; width: 90px; position: absolute; z-index: 10;">
+        <div class="scaleTxt" id="scaleTxt" unselectable="on">
+            4&nbsp;米
+        </div>
+        <div class="scaleBarBG scaleHBarBG"></div>
+        <div class="scaleBarBG scaleRBarBG"></div>
+        <div class="scaleBarBG scaleLBarBG"></div>
+        <div class="scaleBar scaleHBar"></div>
+        <div class="scaleBar scaleLBar"></div>
+        <div class="scaleBar scaleRBar"></div>
+    </div>
+    <!--右上角导航-->
+    <div unselectable="on" class="show-3d">
+        <div style="position: absolute; z-index: 10; bottom: auto; left: auto; top: 5px; right: 10px;width:92px;">
+            <nav>
+                <ul>
+                    <li>
+                        <div style="line-height: 26px; height: 30px;padding-left:7px;">
+                            <table>
+                                <tr>
+                                    <td style="padding-left:7px;"><embed style="margin-top:6px;height:18px;" src="../images/搜索.svg" /></td>
+                                    <td style="font-size:16px;"><label class="nav-btn" style="padding-left: 12px;" onclick="ClickSearch()">搜索</label></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </li>
+                    <li>
+                        <div style="line-height: 26px; height: 30px; cursor: pointer;padding-left:7px;">
+                            <table>
+                                <tr>
+                                    <td style="padding-left:7px;">
+                                        <embed style="margin-top:6px;height:20px" src="../images/图层.svg" />
+                                    </td>
+                                    <td style="font-size:16px;"> <label for="control" style="padding-left: 12px;" class="nav-btn" id="floatfloors">楼层</label></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div>
+                            <input type="checkbox" name="" id="control" class="nav-con" />
+                            <ul class="nav-box">
+                                <li><span onclick="GoFloor('ZH',this)" style="display:block;text-align:right;margin-right:20px">ZH</span></li>
+                                <!-- <li><a onclick="GoFloor('F2')">F2</a></li>
+                                <li><a onclick="GoFloor('F3')">F3</a></li> -->
+                                <li><span onclick="ListFloor(this)" style="display:block;text-align:right;margin-right:20px">总楼层</span></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div style="line-height: 26px; height: 30px;padding-left:7px;">
+                            <table>
+                                <tr>
+                                    <td style="padding-left:7px;font-size:16px;padding-top:3px;"><a id="CurrentPersonNumber">人数：0</a></td>
+
+                                </tr>
+                            </table>
+                        </div>
+                    </li>
+                    <li>
+                        <div style="line-height: 26px; height: 30px;">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td style="padding-left:5px;"><img src="../images/减号.svg" style="width:20px;height:20px;margin-top:5px; cursor: pointer;" onclick="ZoomOut()" /></td>
+
+                                    <td style="padding-right:8px;"><img src="../images/加号.svg" style="width:18px;height:18px;margin-top:5px; cursor: pointer;" onclick="ZoomIn()" /></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </li>
+                    <li>
+                        <div style="line-height: 26px; height: 30px;">
+                            <table>
+                                <tr>
+                                    <td style="padding-left:6px;padding-top:5px;padding-right:3px;"> <button class="btn" id="2d" onclick="To2D()" style="font-size:16px;width:35px;">2D</button></td>
+                                    <td>/</td>
+                                    <td style="padding-top:5px;"><button class="btn" id="3d" onclick="To3D()" style="font-size: 16px; width: 35px; padding-left: 5px; color: rgb(34, 123, 243);">3D</button></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </li>
+                    <li id="updown">
+                        <div style="line-height: 26px; height: 30px;">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td style="padding-left:5px;"><img src="../images/下移.svg" style="width:20px;height:20px;margin-top:5px; cursor: pointer;" onclick="TopOut()" /></td>
+
+                                    <td style="padding-right:8px;"><img src="../images/上移.svg" style="width:18px;height:18px;margin-top:5px; cursor: pointer;" onclick="TopIn()" /></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="mui-content">
+        <div id="canvas" style="width: 100%;height: 100%;position: absolute;">
+        </div>
+    </div>
+    <script src="../js/mui.min.js"></script>
+    <script src="../js/jquery-1.8.3.min.js"></script>
+    <script src="../js/AirocovMap.js"></script>
+    <script src="../js/mqttws31.js"></script>
+    <script src="../js/eap.core.js"></script>
+    <script src="../js/common.js"></script>
+    <script type="text/javascript">
+        String.prototype.startWith = function (s) {
+            if (s == null || s == "" || this.length == 0 || s.length > this.length)
+                return false;
+            if (this.substr(0, s.length) == s)
+                return true;
+            else
+                return false;
+            return true;
+        }
+    </script>
+    <script type="text/javascript" charset="utf-8">
+        var mqttServerConfig = { Server: "192.168.8.46", Port: 8080, User: "admin", Password: "password", Topic: "rpm/sfloc" };
+        mui.init();
+        var init = false;
+        var animationTime = 0.2;
+        var clientMode = new System.Net.HttpClient();
+        //创建画线类
+        var PolyLine = new AirocovMap.Markers.PolyLine();
+        var TagList = {}; //标签列表
+        var FenceDataList = {}; //从接口中获取围栏列表
+        var ShowTagList = {}; //已经存在的标签列表  标签ID -> 标签的坐标
+        var modelList = {}; //实体列表 标签ID -> model
+        var fenceList = []; //电子围栏列表
+        var modelTarget; //已选中的模型,用于模型点击变色
+        var modelLock; //已锁定的模型,用于模型追踪
+        var tweenObjectList = {}; //记录动画效果返回的object,循环使用，减少内存开销
+        var ind = 0;
+        var textList = {}; //标签名称列表,标签ID -> text实体
+        var timeList = {}; //存储标签的最后更新时间
+
+        window.onload = function () {
+            document.getElementById("canvas").style.maxHeight = window.innerHeight * 1 + "px";
+            var curve, fence;
+            var fencePoints = [
+                [-12, 10.464],
+                [-12, 12.5],
+                [-10.675, 12.5],
+                [-10.675, 10.464]
+            ];
+            AirocovMap.Config.set({
+                showViewMode: "MODE_3D",
+                showAllFloor: true,
+                defaultFloor: "ZH",
+                defaultGap: 100,
+                zoom: 15,
+                bgColor: "#deecf9",
+                theta: 20,
+                theta3D: 0,
+                phi3D: 10
+            });
+            var map = new AirocovMap.Map({
+                container: document.getElementById("canvas"),
+                pointScale: .1,
+                mapList: [{
+                    name: "ZH",
+                    mapUrl: "../data/q-geojson.json"
+                }]
+            });
+
+            let man, direct = new map.THREE.Vector2(0, 1),
+                animateTween;
+            map.event.on("controlMap", function (e) {
+                if (map.control === undefined)
+                    return;
+                DispatchControlMapEvent(map.control.object.zoom);
+            });
+
+
+            map.event.on("loaded", function () {
+                map.isEnableZoom(true);
+                map.control.object.position.set(52.619, 81.590, 185.404);//初始位置
+                map.control.center.set(-1, 1, -2.5);
+                map.hiddenLayer("ZH", "nameGroup");
+                //AddFence(map);
+
+                map.addOBJMTLModel({
+                    //模型文件名
+                    objName: '999.obj',
+                    //材质文件名
+                    mtlName: '999.mtl',
+                    //模型与材质所在文件夹路径
+                    modelPath: '../models/obj/',
+                    //模型缩放大小
+                    size: 0.0014,
+                    //模型位置
+                    position: [0, 0, 0],
+                    //加入楼层
+                    floorName: "ZH",
+                    //加入图层
+                    layerName: "testlayer",
+                    //模型加载完成的回调函数
+                    callback: function (model) {
+                        //console.log(model);
+
+                        //map.hideTheFloor("ZH"); //隐藏ZH所有图层
+                        map.showLayer("ZH", "testlayer"); //显示模型
+                        map.control.clearClickModels();
+                        initMqtt();
+                        window.setInterval("RemoveTimeOut()", 1000);
+                    }
+                });
+                //
+                LoadTagList();
+                LoadFenceList();
+            });
+            map.event.on("click", function (e) {
+                if ($('.sample')[0].style.display == 'block') {
+                    return;
+                }
+                if (modelTarget != undefined) {
+                    modelTarget.traverse(function (t) {
+                        modelTarget.material.forEach(function (i, r) {
+                            modelTarget.material[r].color.r = modelTarget.material[r].tag.r;
+                            modelTarget.material[r].color.g = modelTarget.material[r].tag.g;
+                            modelTarget.material[r].color.b = modelTarget.material[r].tag.b;
+                        })
+                    });
+                }
+                if (e.target.info.layerName === "OBJMTLModel") {
+                    map.clearHighLightModel();
+                    map.clearHighLight();
+                    var div = document.getElementById("userDetails");
+                    if (div.style.display == "block") {
+                        return;
+                    }
+                    e.target.traverse(function (t) {
+                        e.target.material.forEach(function (i, r) {
+                            e.target.material[r].tag = {};
+                            e.target.material[r].tag.r = e.target.material[r].color.r;
+                            e.target.material[r].tag.g = e.target.material[r].color.g;
+                            e.target.material[r].tag.b = e.target.material[r].color.b;
+                            e.target.material[r].color.set("#fa5f61");
+                            // TweenMax.to(e.target.material[r], .1, {
+                            //     opacity: .3,
+                            //     onComplete: function () {
+                            //         TweenMax.to(e.target.material[r], .5, {
+                            //             opacity: 1
+                            //         })
+                            //     }
+                            // });
+                        })
+                    });
+                    modelTarget = e.target;
+                    TagList[e.target.tagId].floor = e.target.info.floorName;
+                    UserInfoShow(e.target.tagId);
+                } else {
+                    if (e.target.info.layerName === "FenceLayer") {
+                        map.clearHighLight();
+                        map.clearHighLightModel();
+                        $('#warningdialogBg').fadeIn(300);
+                        $('#warningdialog').removeAttr('class').addClass('dialog animated bounceIn').fadeIn();
+                        $("#warnResult").empty();
+                        var item = e.target.parent;
+                        var tagAdd = [];
+                        for (var tagPoint in ShowTagList) {
+                            if (TagList[tagPoint] != undefined) {
+                                var ttt = JSON.parse(ShowTagList[tagPoint][ShowTagList[tagPoint].length - 1]);
+                                TagList[tagPoint].floor = ttt.floor;
+                                TagList[tagPoint].updatetime = ttt.CollectTime;
+                                TagList[tagPoint].voltage = (ttt.Voltage == undefined ? "N/A" : ttt.Voltage);
+                                var p = [ttt.X, ttt.Y];
+                                var a = AirocovMap.Tools.verdictFence(p, item.points);
+                                if (a == 1 || a == 0) {
+                                    tagAdd.push(TagList[tagPoint]);
+                                }
+                            }
+                        }
+
+                        tagAdd.forEach(function (item) {
+                            $("#warnResult").append(
+                                "<div class='wrap'>" +
+                                "<div class='col-left c1 divborder' style='height:100px;font-size:12px;'>"
+                                + "<table>"
+                                + "<tr><td rowspan=4 valign='middle' style='padding-top:10px;padding-left:5px;' ><img src='../images/椭圆 1 拷贝.png' style = 'height:70px;'/></td><td style='padding:2px 0px 2px 5px'>姓名：</td><td>" + item.tName + "</td></tr>"
+                                + "<tr><td style='padding:2px 0px 2px 5px'>电话：</td><td style='width:97px;'>" + item.tele + "</td></tr>"
+                                + "<tr><td style='padding:2px 0px 2px 5px'>电量：</td><td>" + item.voltage + "</td></tr>"
+                                + "<tr><td style='padding:2px 0px 2px 5px'>区域：</td><td>" + item.floor + "</td></tr>"
+                                + "</table></div>"
+                                + "<div class='col-right c2 '><input type='button' onclick='QuickFollow(" + item.tCode + ")' style='height:100px;width:100%;border:none;border-radius:0px;border-top-right-radius:25px;border-bottom-right-radius:25px;background:#f95e60;' value='快速跟踪' /></div>"
+                                + "</div>"
+                            );
+                        });
+                    } else {
+                        map.highLightObject(e.target, "#c2dd86", true);
+                    }
+                }
+            });
+
+            document.addEventListener('mousedown', function () {
+                if (document.eventMouseup) {
+                    return false;
+                } else {
+                    document.addEventListener('mouseup', (event) => {
+                        var div = document.getElementById("userDetails");
+                        if (div.style.display == "block") {
+                            var x = event.clientX;
+                            var y = event.clientY;
+                            var divx1 = div.offsetLeft;
+                            var divy1 = div.offsetTop;
+                            var divx2 = div.offsetLeft + div.offsetWidth;
+                            var divy2 = div.offsetTop + div.offsetHeight;
+                            if (x < divx1 || x > divx2 || y < divy1 || y > divy2) {
+                                if (modelLock == undefined) {
+                                    $('.userinfo').addClass('bounceOutUp').fadeOut(300,
+                                        function () {
+                                            //$('.viewmode-group')[0].style.bottom = '70px';
+                                            //$('#CtrlScale')[0].style.bottom = '46px';
+                                            //$('#iploc')[0].style.bottom = '105px';
+                                        });
+                                    if (modelTarget != undefined) {
+                                        modelTarget.traverse(function (t) {
+                                            modelTarget.material.forEach(function (i, r) {
+                                                modelTarget.material[r].color.r = modelTarget.material[r].tag.r;
+                                                modelTarget.material[r].color.g = modelTarget.material[r].tag.g;
+                                                modelTarget.material[r].color.b = modelTarget.material[r].tag.b;
+                                            })
+                                        });
+                                    }
+                                }
+                                else {
+                                    if ($('.sample')[0].style.display != 'block') {
+                                        $('.userinfo').addClass('bounceOutUp').fadeOut();
+                                        $('.sample').removeAttr('class').addClass('sample animated bounceIn').fadeIn();
+                                        //$('.viewmode-group')[0].style.bottom = '95px';
+                                        //$('#CtrlScale')[0].style.bottom = '70px';
+                                        //$('#iploc')[0].style.bottom = '120px';
+                                    }
+                                }
+                            }
+                        }
+                    }, false);
+                    document.eventMouseup = true;
+                }
+            }, false)
+            window.map = map;
+        }
+
+        //转2D
+        function To2D() {
+            for (var k in modelList) {
+                modelList[k].position.y = 6;
+                textList[k].position.y = modelList[k].position.y - 1;
+            }
+            map.control.object.zoom = 26;
+            $('#CtrlScale')[0].style.display = '';
+            $("#CtrlScale").css("top", "180px");
+            $('#updown')[0].style.display = 'none';
+            $("#2d").css("color", "#227BF3");
+            $("#3d").css("color", "#000");
+            window.map.mapTo3D();
+            window.map.mapTo2D();
+            map.control.object.zoom = 26;
+            DispatchControlMapEvent(map.control.object.zoom);
+			if(modelLock != undefined)
+				map.control.object.up.z = -1;
+        }
+
+        //转3D
+        function To3D() {
+            for (var k in modelList) {
+                modelList[k].position.y = JSON.parse(ShowTagList[k][ShowTagList[k].length - 1]).Z;
+                textList[k].position.y = modelList[k].position.y;
+            }
+            //map.control.object.zoom = 1.11;
+            $('#CtrlScale')[0].style.display = 'none';
+            $("#CtrlScale").css("top", "210px");
+            $('#updown')[0].style.display = '';
+            $("#3d").css("color", "#227BF3");
+            $("#2d").css("color", "#000");
+            window.map.mapTo2D();
+            window.map.mapTo3D();
+            map.control.object.position.set(52.619, 81.590, 185.404);//初始位置
+            map.control.center.set(-1, 1, -2.5);
+			if(modelLock != undefined)
+				map.control.object.up.z = 0;
+        }
+
+
+
+        //ZH层创建电子围栏
+        function AddFence(data) {
+            //围栏的配置
+            var config = {
+                //围栏高度
+                height: 1,
+                //围栏平面颜色
+                color: "#2878ff",
+                //围栏平面透明度
+                opacity: 0.3,
+                //围栏线的颜色
+                lineColor: "#2878ff",
+                str: data.showName,
+                //文字大小
+                size: 10,
+                fontColor: "#ff0000",
+                //文字坐标
+                wordsPosition: data.word,
+                //文字/图片到平面的距离
+                gap: 0,
+            };
+            //创建围栏，传入围栏坐标及配置，返回围栏对象
+            var fence = PolyLine.drawWordsFence(data.pointslist, config);
+            fence.points = data.pointslist;
+            fence.config = config;
+            fence.floor = data.floor;
+            //添加到对应楼层中图层
+            var fenceId = map.addToLayer(fence, fence.floor, "FenceLayer", true);
+            if (fence.parent != null)
+                fenceList.push(fence);
+        }
+
+        //放大
+        function ZoomIn() {
+            if (map.control._2d) {
+                if (map.control.object.zoom + 0.3 > map.control.maxZoom) {
+                    map.control.object.zoom = map.control.maxZoom;
+                } else {
+                    map.control.object.zoom = map.control.object.zoom + 0.3;
+                }
+                DispatchControlMapEvent(map.control.object.zoom);
+            }
+            else {
+                map.control.setQ(Math.pow(.95, map.control.zoomSpeed));
+            }
+        }
+
+        //更改比例尺
+        function DispatchControlMapEvent(zoom) {
+            var length = 1 / zoom.toFixed(2) * 65;
+            if (length < 1000) {
+                $('#scaleTxt')[0].innerText = length.toFixed(2) + '米';
+            } else {
+                $('#scaleTxt')[0].innerText = (length / 1000).toFixed(2) + ' 公里';
+            }
+        }
+        //缩小
+        function ZoomOut() {
+            if (map.control._2d) {
+                if (map.control.object.zoom - 0.3 < map.control.minZoom) {
+                    map.control.object.zoom = map.control.minZoom;
+                } else {
+                    map.control.object.zoom = map.control.object.zoom - 0.3;
+                }
+                DispatchControlMapEvent(map.control.object.zoom);
+            }
+            else {
+                map.control.setQ(1 / Math.pow(.95, map.control.zoomSpeed));
+            }
+        }
+
+        //计算角度
+        function getAngle(v1, v2) {
+
+            var cosTheta = v1.dot(v2) / (v1.length() * v2.length());
+
+            if (cosTheta > 1) {
+                cosTheta = 1;
+            } else if (cosTheta < -1) {
+                cosTheta = -1;
+            }
+
+            var theta = Math.acos(cosTheta);
+
+            return v1.x * v2.y - v1.y * v2.x > 0 ? -theta : theta;
+        }
+
+        //跳转楼层
+        function GoFloor(floor, obj) {
+            window.map.showOneFloor();
+            window.map.showFloor(floor);
+            if ($('#control')[0].checked)
+                $('#floatfloors').click();
+            $('#floatfloors')[0].innerText = floor;
+            SumPerson($('#floatfloors')[0].innerText);
+            $(".nav-box li").find("span").css("color", "#000000");
+            $(obj).css("color", "#227BF3");
+        }
+
+        //展示所有楼层
+        function ListFloor(obj) {
+            $('#CtrlScale')[0].style.display = 'none';
+            To3D();
+            window.map.showAllFloor();
+            if ($('#control')[0].checked)
+                $('#floatfloors').click();
+            $('#floatfloors')[0].innerText = "楼层";
+            SumPerson($('#floatfloors')[0].innerText);
+            $(".nav-box li").find("span").css("color", "#000");
+            $(obj).css("color", "#227BF3");
+        }
+
+        //初始化MQ
+        function initMqtt() {
+            let host = "222.185.143.37";//mqttServerConfig.Server; //mqttConfig.Server;// 'mqtt.dev.portsys.cn';//$("#connect_host").val();
+            let port = mqttServerConfig.Port; //mqttConfig.Port;//$("#connect_port").val();
+            let clientId = new Date().getTime().toString(); //$("#connect_clientId").val();
+            let user = mqttServerConfig.User; //mqttConfig.UserId; // $("#connect_user").val();
+            let password = mqttServerConfig.Password; //mqttConfig.Password;// $("#connect_password").val();
+
+
+            let destination = mqttServerConfig.Topic; //mqttConfig.rtPs; // rpm/sfloc
+            let mqttClient = new Messaging.Client(host, Number(port), clientId);
+            mqttClient.onConnect = () => {
+                mqttClient.subscribe(destination);
+            };
+            mqttClient.onMessageArrived = onRtMessage;
+            mqttClient.onConnectionLost = onConnectionLost;
+            mqttClient.connect({
+                userName: user,
+                password: password,
+                onSuccess: () => {
+                    console.log('mqtt connected successFull.');
+                    mqttClient.subscribe(destination);
+                },
+                onFailure: () => {
+                    console.log('mqtt failure  onFailure');
+                }
+            });
+        }
+
+        //获取MQ消息后的处理
+        function onRtMessage(event) {
+            let rtEmpMsg = '[' + event.payloadString + ']';
+            let rtList = JSON.parse(rtEmpMsg);
+            let mm, dd = new map.THREE.Vector2(0, 1),
+                undefined;
+            rtList.forEach(function (item) {
+                CoorConvert(item);
+                if (TagList[item.UniqueId] == undefined)
+                    return true;
+                if (!ShowTagList[item.UniqueId]) {
+                    var p = [];
+                    p.push(convertItemToJson(item));
+                    ShowTagList[item.UniqueId] = p;
+                    map.addJSONModel({
+                        src: '../models/man/3dlocation.js',
+                        size: 0.0015,
+                        position: [item.X, window.map.control._2d ? 6 : item.Z, item.Y],
+                        callback: function (model) {
+                            model.visible = false;
+                            map.addToLayer(model, item.Region, "OBJMTLModel", true);
+                            model.visible = true;
+                            modelList[item.UniqueId] = model;
+                            timeList[item.UniqueId] = (new Date()).getTime();
+                            model.tagId = item.UniqueId;
+                            FenceJudge();
+
+                            // map.createLine({
+                            //     points: [new map.THREE.Vector3(model.position.x, model.position.z, model.position.y), new map.THREE.Vector3(model.position.x, model.position.z + 0.001, model.position.y)],
+                            //     linewidth: 1
+                            // });
+                        }
+                    });
+
+                    new AirocovMap.Markers.TextMarker({
+                        text: TagList[item.UniqueId].tName,
+                        color: "#000",
+                        zoom: 0.4,
+                        center: [0.25, 0],
+                        position: [item.X, window.map.control._2d ? 6.5 : item.Z + 0.5, map.control._2d ? item.Y - 0.5 : item.Y],
+                        callback: function (textMarker) {
+                            textList[item.UniqueId] = textMarker;
+                            map.addToLayer(textMarker, item.Region, "text", false, false, false); //最后一个参数设置该模型是否可点击
+                        }
+                    });
+                } else {
+                    var tempModel = modelList[item.UniqueId];
+                    var lastPosition = ShowTagList[item.UniqueId][ShowTagList[item.UniqueId].length - 1];
+                    if (JSON.parse(lastPosition).floor != item.Region) { //跑到了别的楼层
+                        map.deleteObjectById(modelList[item.UniqueId].id);
+                        map.deleteObjectById(textList[item.UniqueId].id);
+                        map.addJSONModel({
+                            src: '../models/man/3dlocation.js',
+                            size: 0.0015,
+                            position: [item.X, window.map.control._2d ? 6 : item.Z, item.Y],
+                            callback: function (model) {
+                                model.visible = false;
+                                map.addToLayer(model, item.Region, "OBJMTLModel", true);
+                                model.visible = true;
+                                modelList[item.UniqueId] = model;
+                                model.tagId = item.UniqueId;
+                                ShowTagList[item.UniqueId].push(convertItemToJson(item));
+                                timeList[item.UniqueId] = (new Date()).getTime();
+                                FenceJudge();
+                            }
+                        });
+                        new AirocovMap.Markers.TextMarker({
+                            text: TagList[item.UniqueId].tName,
+                            color: "#000",
+                            zoom: 0.4,
+                            center: [0.25, 0],
+                            position: [item.X, window.map.control._2d ? 6.5 : item.Z + 0.5, map.control._2d ? item.Y - 0.5 : item.Y],
+                            callback: function (textMarker) {
+                                textList[item.UniqueId] = textMarker;
+                                map.addToLayer(textMarker, item.Region, "text", false, false, false); //最后一个参数设置该模型是否可点击
+                            }
+                        });
+
+                        if (modelLock != undefined && modelLock.tagId == item.UniqueId) { //自动跟踪到当前位置
+                            GoFloor(item.Region);
+                            //map.control.object.zoom = 10;
+                            TweenMaxTo("MapControlTarget", map.control.target, animationTime, {
+                                x: ShowTagList[item.UniqueId][ShowTagList[item.UniqueId].length - 1].X,
+                                y: 0,
+                                z: ShowTagList[item.UniqueId][ShowTagList[item.UniqueId].length - 1].Y,
+                                ease: Linear.easeNone
+                            });
+                        }
+                    } else { //该楼层的下一次行走
+                        if (LimitSpeed(item, tempModel)) //如果速度在限制范围内,则不进行移动
+                            return;
+                        TweenMaxTo(item.UniqueId, tempModel.position, animationTime, {
+                            x: item.X,
+                            z: item.Y,
+                            y: window.map.control._2d ? 6 : item.Z,
+                            ease: Power0.easeNone,
+                            onStart: function () {
+                                timeList[item.UniqueId] = (new Date()).getTime();
+                                //tempModel.rotation.y = getAngle(dd, new map.THREE.Vector2(item.X - tempModel.position.x,
+                                //    item.Y - tempModel.position.z));
+                            },
+                            onUpdate: function (e) { },
+                            onComplete: function () {
+                                ShowTagList[item.UniqueId].push(convertItemToJson(item));
+                                FenceJudge();
+                            }
+                        });
+                        TweenMaxTo(textList[item.UniqueId].id, textList[item.UniqueId].position, animationTime, {
+                            x: item.X,
+                            z: map.control._2d ? item.Y - 0.5 : item.Y,
+                            y: window.map.control._2d ? 6.5 : item.Z + 0.5,
+                            ease: Power0.easeNone
+                        });
+
+                        if (modelLock != undefined && modelLock.tagId == item.UniqueId) { //自动跟踪到当前位置
+                            //map.control.object.zoom = 10;
+
+                            TweenMaxTo("MapControlTarget", map.control.target, animationTime, {
+                                x: item.X,
+                                y: 0,
+                                z: item.Y,
+                                ease: Linear.easeNone
+                            });
+                        }
+                    }
+                }
+            });
+            SumPerson($('#floatfloors')[0].innerText);
+        }
+
+        //MQ连接失败后的处理
+        function onConnectionLost() {
+            console.log('mqtt failure!! reStart!!');
+            initMqtt();
+        }
+
+        //从数据库获取标签列表
+        function LoadTagList() {
+            /*
+            var urlPath = '../../../ThreeModel/GetEmpInfo';  //GetTagAllInfo
+            clientMode.post(urlPath, null, function (data) {
+                if (data.length > 0) {
+                    TagList = {};
+                    $.each(data, function (i) {
+                        let rtMes = data[i];
+                        if (rtMes.TName !== null) {
+                            var tag = {
+                                tName: rtMes.EmpName,
+                                tCode: rtMes.TagNo,
+                                gender: rtMes.Sex,
+                                useState: "",
+                                voltage: "",
+                                duty: rtMes.DutyName,
+                                floor: "",
+                                tele: rtMes.Telephone,
+                                updatetime:""
+                            };
+                            TagList[tag.tCode] = tag;
+                        }
+                    });
+                }
+            });
+            */
+            var mJson = $.ajax({
+                url: "../data/tag.json",
+                async: false
+            });
+            var temp = JSON.parse('[' + mJson.responseText + ']');
+            TagList = {};
+            $.each(temp[0].Data, function (i) {
+                //description
+                let rtMes = temp[0].Data[i];
+                if (rtMes.TName !== null) {
+                    var tag = {
+                        tName: rtMes.EmpName,
+                        tCode: rtMes.TagNo,
+                        gender: rtMes.Sex,
+                        useState: "",
+                        voltage: "",
+                        duty: rtMes.DutyName,
+                        floor: "",
+                        tele: rtMes.Telephone == null ? "未设置" : rtMes.Telephone,
+                        updatetime: ""
+                    };
+                    TagList[tag.tCode] = tag;
+                }
+            });
+
+        }
+
+        //获取围栏列表
+        function LoadFenceList() {
+            /*
+            var urlPath = '../../../ThreeModel/GetAppRegion';
+            clientMode.post(urlPath, null, function (data) {
+                if (data.length > 0) {
+                    FenceDataList = {};
+                    $.each(data, function (i) {
+                        let rtMes = data[i];
+                        if (rtMes.Floor !== null) {
+
+                            var tag = {
+                                showName: rtMes.showName,
+                                drawType: rtMes.drawType,
+                                floor: rtMes.Floor,
+                            };
+                            FenceDataList[tag.showName] = tag;
+                        }
+                    });
+                }
+            });
+            */
+            var mJson = $.ajax({
+                url: "../data/fence.json",
+                async: false
+            });
+            var temp = JSON.parse('[' + mJson.responseText + ']');
+            FenceDataList = {};
+            $.each(temp[0].Data, function (i) {
+                let rtMes = temp[0].Data[i];
+                if (rtMes.Floor !== null) {
+                    var drawJson = JSON.parse(rtMes.DrawJson);
+                    var tag = {
+                        showName: drawJson.showName,
+                        drawType: drawJson.drawType,
+                        floor: rtMes.Floor
+                    };
+                    tag.pointslist = new Array();
+                    tag.word = new Array();
+                    tag.word[0] = 0;
+                    tag.word[1] = 0;
+                    for (var i = 0; i < drawJson.pointList.length; i++) {
+                        tag.pointslist[i] = new Array();
+                        CoorConvertSmall(drawJson.pointList[i]);
+                        tag.pointslist[i][0] = drawJson.pointList[i].x;
+                        tag.pointslist[i][1] = drawJson.pointList[i].y;
+                        tag.word[0] += drawJson.pointList[i].x;
+                        tag.word[1] += drawJson.pointList[i].y;
+                    }
+                    tag.word[0] = tag.word[0] / drawJson.pointList.length;
+                    tag.word[1] = tag.word[1] / drawJson.pointList.length;
+                    if (drawJson.drawType == 2) {  //多边形
+                        tag.pointslist[drawJson.pointList.length] = new Array();
+                        tag.pointslist[drawJson.pointList.length][0] = tag.pointslist[0][0];
+                        tag.pointslist[drawJson.pointList.length][1] = tag.pointslist[0][1];
+                    }
+                    else if (drawJson.drawType == 3) {  //矩形
+                        tag.pointslist[2] = new Array();
+                        tag.pointslist[3] = new Array();
+                        tag.pointslist[4] = new Array();
+                        //对角赋值
+                        tag.pointslist[2][0] = tag.pointslist[1][0];
+                        tag.pointslist[2][1] = tag.pointslist[1][1];
+                        //横坐标不同,纵坐标相同
+
+                        tag.pointslist[1][1] = tag.pointslist[0][1];
+                        //横坐标相同,纵坐标不同
+                        tag.pointslist[3][0] = tag.pointslist[0][0];
+                        tag.pointslist[3][1] = tag.pointslist[2][1];
+                        //起点
+                        tag.pointslist[4][0] = tag.pointslist[0][0];
+                        tag.pointslist[4][1] = tag.pointslist[0][1];
+                    }
+                    if (drawJson.drawType != 4) { //不是圆形
+                        FenceDataList[tag.showName] = tag;
+                        AddFence(tag);
+                    }
+                }
+            });
+        }
+
+
+
+        //	计算某楼层的总人数
+        function SumPerson(floor) {
+            var count = 0;
+            if (floor == '楼层') {
+                count = Object.keys(ShowTagList).length;
+            } else {
+                for (var tag in ShowTagList) {
+                    if (JSON.parse(ShowTagList[tag][ShowTagList[tag].length - 1]).floor == floor)
+                        count++;
+                }
+            }
+            document.getElementById('CurrentPersonNumber').innerText = '人数：' + count;
+        }
+
+        //展示目标信息
+        function UserInfoShow(code) {
+            if (modelLock == undefined) {
+                $('#targetTarget')[0].value = "目标跟踪";
+                $('#targetTarget')[0].onclick = function () {
+                    FollowTarget(TagList[code].tCode);
+                };
+            }
+            else {
+                $('#targetTarget')[0].value = "取消跟踪";
+                $('#targetTarget')[0].onclick = function () {
+                    CancelFollow();
+                };
+            }
+            if ($('#userDetails')[0].style.display != "block" && $('#following')[0].style.display != "block") {
+                $('.dialogbottomIco').click();
+                $('.userinfo').removeAttr('class').addClass('userinfo animated bounceIn').fadeIn();
+                //$('.viewmode-group')[0].style.bottom = '250px';
+                //$('#CtrlScale')[0].style.bottom = '226px';
+                //$('#iploc')[0].style.bottom = '275px';
+                $('#targetName')[0].innerText = TagList[code].tName;
+                $('#targetName2')[0].innerText = TagList[code].tName;
+                $('#targetFloor')[0].innerText = TagList[code].floor;
+                $('#targetVoltage')[0].innerText = TagList[code].voltage;
+                $('#targetDuty')[0].innerText = TagList[code].duty;
+                $('#targetGender')[0].innerText = TagList[code].gender;
+            }
+        }
+
+        //按下搜索按钮
+        function ClickSearch() {
+            $('#keyword')[0].value = "";
+            $('#searchResult').empty();
+            $('#dialogBg').fadeIn(300);
+            $('#dialog').removeAttr('class').addClass('dialog animated bounceIn').fadeIn();
+            $('#userDetails')[0].style.display = 'none';
+            //modelLock = undefined;
+        }
+
+        //按下目标跟踪
+        function FollowTarget(code) {
+            $('.userinfo').addClass('bounceOutUp').fadeOut();
+            $('.sample').removeAttr('class').addClass('sample animated bounceIn').fadeIn();
+            //$('.viewmode-group')[0].style.bottom = '95px';
+            //$('#CtrlScale')[0].style.bottom = '70px';
+            //$('#iploc')[0].style.bottom = '120px';
+
+            var tempM = JSON.parse(ShowTagList[code][ShowTagList[code].length - 1]);
+            GoFloor(tempM.floor);
+            map.control.setQ(0.35);
+            if(map.control._2d)
+				map.control.object.up.z = -1;
+            TweenMaxTo("MapControlTarget", map.control.target, animationTime, {
+                x: tempM.X,
+                y: 0,
+                z: tempM.Y,
+                ease: Linear.easeNone
+            });
+            modelLock = modelList[code];
+        }
+
+        //取消跟踪
+        function CancelFollow() {
+            $('.sample').addClass('bounceOutUp').fadeOut();
+            $('.userinfo').addClass('bounceOutUp').fadeOut();
+            modelLock = undefined;
+			if(map.control._2d)
+				map.control.object.up.z = 0;
+            //$('.viewmode-group')[0].style.bottom = '50px';
+            //$('#CtrlScale')[0].style.bottom = '26px';
+            //$('#iploc')[0].style.bottom = '75px';
+            if (modelTarget != undefined) {
+                modelTarget.traverse(function (t) {
+                    modelTarget.material.forEach(function (i, r) {
+                        modelTarget.material[r].color.r = modelTarget.material[r].tag.r;
+                        modelTarget.material[r].color.g = modelTarget.material[r].tag.g;
+                        modelTarget.material[r].color.b = modelTarget.material[r].tag.b;
+                    })
+                });
+            }
+        }
+
+        //展开信息
+        function ExpodeInfo() {
+            $('.userinfo').removeAttr('class').addClass('userinfo animated bounceIn').fadeIn();
+            $('.sample').addClass('bounceOutUp').fadeOut();
+            //$('.viewmode-group')[0].style.bottom = '250px';
+            //$('#CtrlScale')[0].style.bottom = '226px';
+            //$('#iploc')[0].style.bottom = '275px';
+            UserInfoShow(modelLock.tagId);
+        }
+
+        //电子围栏判断是否有人进入
+        function FenceJudge() {
+            fenceList.forEach(function (item) {
+                var currentFlag = -1;
+                for (var tagPoint in ShowTagList) {
+                    var tempM = JSON.parse(ShowTagList[tagPoint][ShowTagList[tagPoint].length - 1]);
+                    var p = [tempM.X, tempM.Y];
+                    var a = AirocovMap.Tools.verdictFence(p, item.points);
+                    if (a == 1 || a == 0) {
+                        currentFlag = 0;
+                    }
+                }
+                if (currentFlag == 0) { //电子围栏警戒
+                    if (item.config.color != "#ff0000") {
+                        item.config.color = "#ff0000";
+                        item.config.lineColor = "#ff0000";
+                        item.config.opacity = 0.3;
+                        RefreshFence(item, true);
+                    }
+                } else { //电子围栏取消警戒
+                    if (item.config.color != "#2878ff") {
+                        item.config.color = "#2878ff";
+                        item.config.lineColor = "#2878ff";
+                        item.config.opacity = 0.3;
+                        RefreshFence(item, true);
+                    }
+                }
+            });
+        }
+        //重绘电子围栏
+        function RefreshFence(item, enableClick) {
+            var tempConfig = item.config;
+            var tempPoints = item.points;
+            var tIndex = 0;
+            for (; tIndex < map.getLayer('ZH', 'FenceLayer').children.length; tIndex++) {
+                if (map.getLayer('ZH', 'FenceLayer').children[tIndex].children[0].config.str == item.config.str)
+                    break;
+            }
+            map.getLayer('ZH', 'FenceLayer').children.splice(tIndex, 1);
+            item = PolyLine.drawWordsFence(item.points, item.config);
+            item.config = tempConfig;
+            item.points = tempPoints;
+            map.addToLayer(item, "ZH", "FenceLayer", enableClick);
+        }
+
+        //锁定电子围栏
+        function fenceLock(fence) {
+            $('.dialogbottomIco').click();
+            for (var j = 0; j < fenceList.length; j++) {
+                var item = fenceList[j];
+                if (item.config.str == fence) {
+                    var xS = 0,
+                        yS = 0;
+                    for (var i = 0; i < item.points.length; i++) {
+                        xS += item.points[i][0];
+                        yS += item.points[i][1];
+                    }
+                    map.control.object.zoom = 1.5;
+                    GoFloor(item.floor);
+                    TweenMaxTo("MapControlTarget", map.control.target, animationTime, {
+                        x: xS / item.points.length,
+                        y: 10,
+                        z: yS / item.points.length,
+                        ease: Linear.easeNone
+                    });
+                    break;
+                }
+            }
+        }
+
+        //模糊搜索 区域+标签
+        function fuzzySearch() {
+            var text = $('#keyword')[0].value;
+            $('#searchResult').empty();
+
+            var fenceAdd = [];
+            fenceList.forEach(function (item) {
+                if (item.config.str.indexOf(text) >= 0)
+                    fenceAdd.push(item);
+            });
+
+            var tagAdd = [];
+            for (var tag in ShowTagList) {
+                if (TagList[tag].tName.indexOf(text) >= 0) {
+                    TagList[tag].floor = JSON.parse(ShowTagList[tag][ShowTagList[tag].length - 1]).floor;
+                    tagAdd.push(TagList[tag]);
+                }
+            }
+
+            fenceAdd.forEach(function (item) {
+                $("#searchResult").append(
+                    "<div class='wrap'>" +
+                    "<div class='col-left c3 divborder' style='height:60px;line-height:60px'><div style='padding-left:15px'>" + "区   域：" + item.config.str + "</div></div>" +
+                    "<div class='col-right c4'><input type='button' onclick='fenceLock(\"" + item.config.str +
+                    "\")' style='height:60px;width:100%;border:none;border-radius:0px;border-top-right-radius:15px;border-bottom-right-radius:15px' value='目标锁定' /></div>" +
+                    "</div>");
+            });
+
+            tagAdd.forEach(function (item) {
+                $("#searchResult").append(
+                    "<div class='wrap'>" +
+                    "<div class='col-left c1 divborder' style='height:100px;font-size:12px;'>"
+                    + "<table>"
+                    + "<tr><td rowspan=4 valign='middle' style='padding-top:10px;padding-left:5px;' ><img src='../images/椭圆 1 拷贝.png' style = 'height:70px;'/></td><td style='padding:2px 0px 2px 5px'>姓名：</td><td>" + item.tName + "</td></tr>"
+                    + "<tr><td style='padding:2px 0px 2px 5px'>电话：</td><td style='width:97px;'>" + item.tele + "</td></tr>"
+                    + "<tr><td style='padding:2px 0px 2px 5px'>电量：</td><td>" + item.voltage + "</td></tr>"
+                    + "<tr><td style='padding:2px 0px 2px 5px'>区域：</td><td>" + item.floor + "</td></tr>"
+                    + "</table></div>"
+                    + "<div class='col-right c2 '><input type='button' onclick='QuickFollow(" + item.tCode + ")' style='height:100px;width:100%;border:none;border-radius:0px;border-top-right-radius:25px;border-bottom-right-radius:25px;' value='快速跟踪' /></div>"
+                    + "</div>"
+                );
+            });
+        }
+
+        function QuickFollow(code) {
+            if (modelTarget != undefined) {
+                modelTarget = undefined;
+                modelLock = undefined;
+                $('#userDetails')[0].style.display = "none";
+                $('#following')[0].style.display = "none";
+            }
+            modelList[code].traverse(function (t) {
+                modelList[code].material.forEach(function (i, r) {
+                    modelList[code].material[r].tag = {};
+                    modelList[code].material[r].tag.r = modelList[code].material[r].color.r;
+                    modelList[code].material[r].tag.g = modelList[code].material[r].color.g;
+                    modelList[code].material[r].tag.b = modelList[code].material[r].color.b;
+                    modelList[code].material[r].color.set("#6dc2f1"),
+                        TweenMax.to(modelList[code].material[r], .5, {
+                            opacity: .3,
+                            onComplete: function () {
+                                TweenMax.to(modelList[code].material[r], .5, {
+                                    opacity: 1
+                                })
+                            }
+                        })
+                })
+            });
+            modelTarget = modelList[code];
+            UserInfoShow(code);
+        }
+
+        function convertItemToJson(item) {
+            return "{" +
+                "\"floor\":\"" + item.Region + "\"," +
+                "\"X\":\"" + item.X + "\"," +
+                "\"Y\":\"" + item.Y + "\"," +
+                "\"Z\":\"" + item.Z + "\"" +
+                "}";
+        }
+
+        function TweenMaxTo(id, target, duration, vars) {
+            if (tweenObjectList[id] == undefined) {
+                tweenObjectList[id] = TweenMax.to(target, duration, vars);
+            }
+            else {
+                tweenObjectList[id].invalidate();
+                tweenObjectList[id].target = target;
+                tweenObjectList[id].duration = duration;
+                tweenObjectList[id].vars = vars;
+                tweenObjectList[id].restart();
+            }
+        }
+
+        function TopOut() {
+            map.control.setBigQ(0.2);
+        }
+
+        function TopIn() {
+            map.control.setBigQ(-0.2);
+        }
+
+        function RemoveTimeOut() {
+            var nowTime = (new Date()).getTime();
+            for (var unId in timeList) {
+                if (timeList[unId] != 0 && (nowTime - timeList[unId] > 1000 * 60)) {
+                    timeList[unId] = 0;
+                    window.map.deleteObjectById(modelList[unId].id);
+                    window.map.deleteObjectById(textList[unId].id);
+                    delete ShowTagList[unId];
+                    SumPerson();
+                }
+            }
+        }
+
+        //坐标与地图之间的转换
+        function CoorConvert(item) {
+            item.X = item.X / 100 - 4.5;
+            item.Y = item.Y / 100 + 1;
+            item.Z = item.Z / 100 + 1;
+            // item.X=item.X/100-34.5;
+            // item.Y= item.Y/100-6;
+            // item.Z=item.Z/100;
+        }
+        function CoorConvertSmall(item) {
+            item.x = item.x / 100 - 4.5;
+            item.y = item.y / 100 + 1;
+            item.z = item.z / 100 + 1;
+        }
+
+        //限制速度
+        function LimitSpeed(item, mmdl) {
+            var timeSpan = (new Date()).getTime() - timeList[item.UniqueId];
+            var distance = Math.sqrt(Math.pow(item.X - mmdl.position.x, 2) + Math.pow(item.Z - mmdl.position.y, 2));
+            var speed = distance / timeSpan * 1000;
+			var verticalSpeed= Math.sqrt(Math.pow(item.Y - mmdl.position.z, 2))/timeSpan * 1000;
+            //console.log(speed);
+            if (speed < 0.1 || speed > 5 ||  verticalSpeed>1) //速度在5 m/s 到 0.1 m/s之间,垂直速度超过1m/s
+                return true;
+            return false;
+        }
+    </script>
+</body>
+</html>

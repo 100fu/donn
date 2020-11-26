@@ -1,0 +1,31 @@
+﻿<script src="~/Resource/Scripts/ts/eap.uicore.js"></script>
+<script src="~/Resource/Scripts/ts/Applications.js"></script>
+<script src="~/Resource/Scripts/ts/Controller.js"></script>
+<script src="~/Resource/Scripts/Kendo/js/jszip.min.js"></script>
+@{
+    Layout = "~/Views/Shared/_LayoutWK.cshtml";
+    var scriptitems = (ViewBag.Scripts as List<string>) ?? new List<string>();
+    <script type="text/javascript">
+        System.CultureInfo.LanguageName = System.Cookies.get('EAMLANGUAGE');
+
+        window.ViewBag = {
+            entityId: '@ViewBag.EntityId',
+            serviceId: '@ViewBag.Service',
+            viewCode: '@ViewBag.ViewCode',
+            funCode: '@ViewBag.FuncCode'
+        };
+    </script>
+    foreach (var item in scriptitems)
+    {
+        <script src="@item"></script>
+    }
+    <script type="text/javascript">
+
+        if ('@ViewBag.ControllerPath') { //不使用onload是因为angularjs 也是在onload时进行的
+            var controllerConstructor = System.Reference(window, '@ViewBag.ControllerPath');
+            if (controllerConstructor) var controller=new controllerConstructor();
+        }
+    </script>
+}
+
+@*@RenderBody()*@

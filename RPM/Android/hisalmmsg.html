@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="keywords" content="" />
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <!-- Custom Theme files -->
+    <link href="css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
+    <link href="css/style.css" type="text/css" rel="stylesheet" media="all">
+
+    <link href="css/jquery.mobile-1.4.2.min.css" type="text/css" rel="stylesheet" />
+    <link href="css/base.css" type="text/css" rel="stylesheet" />
+
+    <script src="../3DJS/Scripts/Base/eap.core.js?v=20180818"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>
+    <script src="./js/applogic.js"></script>
+
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top" onload="applogic.loadhisinfo()">
+
+    <div data-role="page">
+        <div data-role="header" data-position="fixed">
+            <div class="top">
+                <a href="index.html" data-ajax="false" class="ui-icon-home ui-btn-icon-left ui-btn-active">历史报警信息</a>
+            </div>
+        </div>
+
+        <div role="main" class="ui-content">
+            <div id="tab1" class="content">
+                <div class="ui-corner-all" id="hismsg">
+                    <!--<div class="ui-bar ui-bar-a music_list">
+                        <span><a href="geshou/thwxdj.htm" data-ajax="false">张振宇</a></span>
+                        <h3><a href="mp3/jxlrgo.htm" data-ajax="false">长恨歌</a></h3>
+                    </div>               
+                    <div class="wthree-list-grid d-flex flex-wrap">
+                        <div class="wthree-list-icon">
+                            <span class="num-list" data-blast="color">02</span>
+                        </div>
+                        <div class="wthree-list-desc">                       
+                            <span>长恨歌</span><h5>张振宇</h5>
+                            <p> 2018-11-11 10:15:00--2018-11-11 10:25:00 </p>
+                        </div>
+                    </div>
+                    <div class="wthree-list-grid d-flex flex-wrap">
+                        <div class="wthree-list-icon">
+                            <span class="num-list" data-blast="color">200</span>
+                        </div>
+                        <div class="wthree-list-desc">                      
+                            <span>长恨歌</span><h5>张振宇</h5>
+                            <p> 2018-11-11 10:15:00--2018-11-11 10:25:00 </p>
+                        </div>
+                    </div>
+                    <div class="wthree-list-grid d-flex flex-wrap">
+                        <div class="wthree-list-icon">
+                            <span class="num-list" data-blast="color">3010</span>
+                        </div>
+                        <div class="wthree-list-desc">
+                            <span>汽车房1层</span><h5>张三四</h5>
+                            <p> 2018-11-11 10:15:00--2018-11-11 10:25:00 </p>    
+                        </div>
+                    </div>-->
+
+                </div>
+                <a href="" id="findhis" data-role="button" data-ajax="false" onclick="applogic.refreshHisalm()">查看更多</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({
+                    scrollTop: $(this.hash).offset().top
+                }, 1000);
+            });
+        });
+    </script>
+
+    <script>
+        //$(document).ready(function () {
+        //    $().UItoTop({
+        //        easingType: 'easeOutQuart'
+        //    });
+        //});
+    </script>
+
+</body>
+
+</html>

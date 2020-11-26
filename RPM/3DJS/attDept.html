@@ -1,0 +1,26 @@
+﻿<!--<div name="attdept" style="width:480px;height:350px">
+    <div style="width:100%;height:98%; ">
+        <div id="treeDept" data-role="treeview" class="k-widget k-treeview" tabindex="0">
+        </div>
+        <div class="leftcss1" >
+            <span class="spancss">开始时间:<select id="selIn"  onclick="map2dLayer.changeSelOption()" class="txtcss" ></select></span><br />
+            <span class="spancss">结束时间:<select id="selOut" class="txtcss"></select></span>
+        </div>
+        <div class="leftcss2 cl pd-5 bg-1 bk-gray mt-20">
+            <input class="btn btn-primary radius" id="btnAdd" type="button" style="height: 27px" width="30px" onclick="editattend.saveDeptEmp()" role="button" value="确定" />
+        </div>
+    </div>
+</div>-->
+
+
+<div class='t1'  onmousedown='map2dLayer.moveBind(this, event)'>
+    <label class='txt'>设置报警人员</label>
+    <img class='img2' src='/rpm/3djs/scripts/css/images/x.png' onclick='editattend.dele()' />
+</div>
+<div id='treeDept' data-role='treeview' class='k-widget k-treeview' style='width: 227px;height: 313px; margin-left: 20px;margin-top: 5px; border-radius: 5px;border: 1px solid rgba(255,255,255, 0.5);'></div>
+<div class='wrap2' style='margin-top:330px;'><label class='txt1'>开始时间</label> <select id='selIn' onclick='map2dlayer.changeseloption()' class='txtcss'></select></div>
+<div class='wrap2'><label class='txt1'>结束时间</label><select id='selOut' class='txtcss' style='margin-left:9px;'></select></div>
+<div class='b4'><button id='btnadd' class='btncss' onclick='editattend.saveDeptEmp()'>确定</button></div>
+
+
+

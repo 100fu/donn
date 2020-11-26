@@ -1,0 +1,299 @@
+﻿@{
+    Layout = "~/Views/Permission/_Layout.cshtml";
+}
+<style>
+    #splitContainer, #groupTreeView {
+        height: 100%;
+    }
+</style>
+<div id="splitContainer">
+    <div id="groupTreePanel">
+        <div id="groupTreeToolbar"></div>
+        <div id="groupTreeView"></div>
+    </div>
+    <div id="innerViewsPanel">
+        <div id="innerViewsTitle"></div>
+        <div id="innerViewsToolbar"></div>
+        <div id="innerViewsGridView"></div>
+    </div>
+
+    <div id="outerViewsPanel">
+        <div id="outerViewsTitle"></div>
+        <div id="outerViewsToolbar">   </div>
+        <div id="outerViewsGridView"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    System.CultureInfo.LanguageName = '@ViewBag.LanguageName';
+    System.Declare('EAP.UI');
+    EAP.UI.GroupViewSetting = System.Object.Extends({
+        groupTreeControl: {},
+        innerToolbarControl: {},
+        outerToolbarControl: {},
+        innerViewsGridControl: {},
+        outerViewsGridControl: {},
+        prompt: System.CultureInfo.GetDisplayText('Prompt'),
+        ctor: function () {
+            this._initLayout();
+            this._initGroupTree();
+            this._initInnerViews();
+            this._initOuterView();
+            this._resize();
+        },
+        _initLayout: function () {
+            jQuery("#splitContainer").kendoSplitter({
+                panes: [
+                    { collapsible: true, size: '20%', scrollable: false },
+                    { collapsible: false, size: "45%", scrollable: false },
+    { collapsible: false, size: "35%", scrollable: false }
+                ]
+            }, false);
+        },
+        _initGroupTree: function () {
+            var that = this;
+            var toolbarOption = new EAP.UI.ToolbarOption();
+            toolbarOption.items = [{ template: "<span>&nbsp" + System.CultureInfo.GetDisplayText("UserGroup") + "&nbsp</span>" }];//
+            toolbarOption.owner = this;
+            toolbarOption.selector = "#groupTreeToolbar";
+
+            new EAP.UI.ToolbarControl(toolbarOption);
+            var option = new EAP.UI.TreeOption();
+            option.selector = "#groupTreeView";
+            option.nodeClick = function (e) {
+                that.currentGroup = e.sender.dataItem(e.node);
+                that._loadInnerGrid();
+                that._loadOuterGrid();
+            };
+            this.groupTreeControl = new EAP.UI.TreeControl(option);
+            this._loadGroupTree();
+            this.groupTreeControl.expandall();
+        },
+        _initInnerViews: function () {
+            var titleOption = new EAP.UI.ToolbarOption();
+            titleOption.items = [{ template: "<span>&nbsp" + System.CultureInfo.GetDisplayText("ingroup") + System.CultureInfo.GetDisplayText("Views") + "&nbsp</span>" }];
+            titleOption.owner = this;
+            titleOption.selector = "#innerViewsTitle";
+
+            new EAP.UI.ToolbarControl(titleOption);
+
+            var toolbarOption = new EAP.UI.ToolbarOption();
+            toolbarOption.owner = this;
+            toolbarOption.selector = "#innerViewsToolbar";
+            toolbarOption.items = [{ type: "button", text: System.CultureInfo.GetDisplayText("delete"), id:"delete_InnerViewss"},
+            { type: "button", text: System.CultureInfo.GetDisplayText("set") + System.CultureInfo.GetDisplayText("Acquiesce"), id: "setDefault" },
+            { type: "button", text: System.CultureInfo.GetDisplayText("takeout") + System.CultureInfo.GetDisplayText("Acquiesce"), id: "dropDefault" }];
+            this.innerToolbarControl = new EAP.UI.ToolbarControl(toolbarOption);
+
+            var gridOption = new EAP.UI.GridOption();
+            gridOption.showrowcheckbox = true;
+            gridOption.selector = "#innerViewsGridView";
+            gridOption.columns = [
+                 {
+                     field: 'Name', title: System.CultureInfo.GetDisplayText("Views") + System.CultureInfo.GetDisplayText("Name"), width: 100, sortable: true,
+                     template: function (value, row, i) {
+                         if (value.UserDisplaySetting)
+                             return value.UserDisplaySetting.ViewName
+                         if (value.GridViewModel) return value.GridViewModel.ViewName
+                         return '';
+                     }
+                 },
+                 {
+                     field: 'Code', title: System.CultureInfo.GetDisplayText("Module's"), width: 100, sortable: true,
+                     template: function (value) {
+                         if (value.UserDisplaySetting)
+                             return System.CultureInfo.GetDisplayText(value.UserDisplaySetting.ModuleName)
+                         if (value.GridViewModel) return System.CultureInfo.GetDisplayText(value.GridViewModel.Code)
+                         return value.Code;
+                     }
+                 }, {
+                     field: 'isDefault', title: System.CultureInfo.GetDisplayText("isorno") + System.CultureInfo.GetDisplayText("Acquiesce"), width: 100,
+                     template: function (value, row, index) {
+                         if (value.IsDefault) {
+                             return '<img alt="" src="/Scripts/jquery-easyui-1.3.1/themes/icons/tip.png" />';
+                         }
+                         else {
+                             return "";
+                         }
+                     },
+                     width:'50px'
+                 }
+            ];
+            this.innerViewsGridControl = new EAP.UI.GridControl(gridOption);
+        },
+        _initOuterView: function () {
+            var titleOption = new EAP.UI.ToolbarOption();
+            titleOption.items = [{ template: "<span>&nbsp" + System.CultureInfo.GetDisplayText("Non") + System.CultureInfo.GetDisplayText("ingroup") + System.CultureInfo.GetDisplayText("Views") + "&nbsp</span>" }];//
+            titleOption.owner = this;
+            titleOption.selector = "#outerViewsTitle";
+
+            new EAP.UI.ToolbarControl(titleOption);
+
+           var toolbarOption = new EAP.UI.ToolbarOption();
+            toolbarOption.owner = this;
+            toolbarOption.selector = "#outerViewsToolbar";
+            toolbarOption.items = [{ type: "button", text: System.CultureInfo.GetDisplayText("AppendToGroup"), id: "add_ToCurrentGroup" }];
+            this.outerToolbarControl = new EAP.UI.ToolbarControl(toolbarOption);
+
+            var gridOption = new EAP.UI.GridOption();
+            gridOption.showrowcheckbox = true;
+            gridOption.selector = "#outerViewsGridView";
+            gridOption.columns = [
+               {
+                   field: 'Name', title: System.CultureInfo.GetDisplayText("Views") + System.CultureInfo.GetDisplayText("Name"), width: 100, sortable: true,
+                   template: function (value, row, i) {
+                       if (value.UserDisplaySetting)
+                           return value.UserDisplaySetting.ViewName
+                       if (value.GridViewModel) return value.GridViewModel.ViewName
+                           return '';
+                   }
+               },
+               {
+                   field: 'Code', title: System.CultureInfo.GetDisplayText("Module's"), width: 100, sortable: true,
+                   template: function (value) {
+                       if (value.UserDisplaySetting)
+                           return System.CultureInfo.GetDisplayText(value.UserDisplaySetting.ModuleName)
+                       if (value.GridViewModel) return System.CultureInfo.GetDisplayText(value.GridViewModel.Code)
+                           return value.Code;
+                   }
+               }
+            ];
+            this.outerViewsGridControl = new EAP.UI.GridControl(gridOption);
+        },
+        _loadGroupTree: function () {
+            var that = this;
+            new EAP.EAMController("Privilege").ExecuteServerAction("GetAllGroupTree", {}, function (data) {
+                that.groupTreeControl.setTreeData(data);
+                that.groupTreeControl.expandall();
+            });
+        },
+        _loadInnerGrid: function () {
+            var that = this;
+            var requestOption = new EAP.UI.GridDataRequest();
+            requestOption.url = { controller: "Commpage", action: "GroupViewList" }
+            requestOption.postdata = { id: this.currentGroup.id };
+            that.innerViewsGridControl.setData(requestOption);
+        },
+        _loadOuterGrid: function () {
+            var that = this;
+            var requestOption = new EAP.UI.GridDataRequest();
+            requestOption.url = { controller: "Commpage", action: "GroupViewAddList" }
+            requestOption.postdata = { id: this.currentGroup.id };
+            that.outerViewsGridControl.setData(requestOption);
+        },
+    delete_InnerViewss: function () {
+            if (!this._exitedGroup()) return;
+            var viewsId = this.innerViewsGridControl.getSelectedId();
+            if (viewsId.length <= 0) {
+                EAP.UI.MessageBox.alert(this.prompt, System.CultureInfo.GetDisplayText("SelectViewsFirst") + "!");
+                return;
+            }
+            var that = this;
+            var confirmOption = {
+                title:this.prompt,
+                content: System.CultureInfo.GetDisplayText("isorno") + System.CultureInfo.GetDisplayText("delete") + System.CultureInfo.GetDisplayText("Views"), OK: function () {
+                    kendo.ui.progress($('#splitContainer'), true);
+
+                    new EAP.EAMController("Commpage").ExecuteServerActionSync("GroupViewSave", { viewids: viewsId, GroupId: that.currentGroup.id, oper: "DEL" }, function (data) {
+                        kendo.ui.progress($('#splitContainer'), false);
+
+                        EAP.UI.MessageBox.alert(that.prompt, System.CultureInfo.GetDisplayText("saveSuccess"));
+                        that._loadInnerGrid();
+                        that._loadOuterGrid();
+                    });
+                }
+            };
+            EAP.UI.MessageBox.confirm(confirmOption);
+        },
+        setDefault: function () {
+            if (!this._exitedGroup()) return;
+            var viewsId = this.innerViewsGridControl.getSelectedId();
+            if (viewsId.length <= 0) {
+                EAP.UI.MessageBox.alert(this.prompt, System.CultureInfo.GetDisplayText("SelectViewsFirst") + "!");
+                return;
+            }
+            var that = this;
+            var confirmOption = {
+                title: this.prompt,
+                content: System.CultureInfo.GetDisplayText("IsSetDefault"),
+                OK: function () {
+                    kendo.ui.progress($('#splitContainer'), true);
+                    new EAP.EAMController("Commpage").ExecuteServerActionSync("GroupDefaultView", { viewIds: viewsId, groupId: that.currentGroup.id, isDefault: true },
+                        function (data) {
+                        kendo.ui.progress($('#splitContainer'), false);
+                        that._loadInnerGrid();
+                        }, function (msg) {
+                            EAP.UI.MessageBox.alert(that.prompt, msg);
+                            kendo.ui.progress($('#splitContainer'), false);
+                        });
+                }
+            }
+
+            EAP.UI.MessageBox.confirm(confirmOption);
+        },
+        dropDefault: function () {
+            if (!this._exitedGroup()) return;
+            var viewsId = this.innerViewsGridControl.getSelectedId();
+            if (viewsId.length <= 0) {
+                EAP.UI.MessageBox.alert(this.prompt, System.CultureInfo.GetDisplayText("SelectViewsFirst") + "!");
+                return;
+            }
+            var that = this;
+            var confirmOption = {
+                title:System.CultureInfo.GetDisplayText("DropDefault"),
+                content: System.CultureInfo.GetDisplayText("isorno") + System.CultureInfo.GetDisplayText("DropDefault"), OK: function () {
+                    kendo.ui.progress($('#splitContainer'), true);
+                    new EAP.EAMController("Commpage").ExecuteServerActionSync("GroupDefaultView", { viewIds: viewsId, groupId: that.currentGroup.id, isDefault: false }, function (data) {
+                        kendo.ui.progress($('#splitContainer'), false);
+                        that._loadInnerGrid();
+                    });
+                }
+            };
+
+            EAP.UI.MessageBox.confirm(confirmOption);
+
+        },
+    add_ToCurrentGroup: function () {
+            if (!this._exitedGroup()) return;
+            var viewsId = this.outerViewsGridControl.getSelectedId();
+            if (viewsId.length <= 0) {
+                EAP.UI.MessageBox.alert(this.prompt, System.CultureInfo.GetDisplayText("SelectViewsFirst") + "!");
+                return;
+            }
+            var that = this;
+            var confirmOption = {
+                title: System.CultureInfo.GetDisplayText("Add") + System.CultureInfo.GetDisplayText("Views"),
+                content: System.CultureInfo.GetDisplayText("isorno") + System.CultureInfo.GetDisplayText("Add") + System.CultureInfo.GetDisplayText("Views"), OK: function () {
+                    kendo.ui.progress($('#splitContainer'), true);
+
+                    new EAP.EAMController("Commpage").ExecuteServerActionSync("GroupViewSave", { viewids: viewsId, GroupId: that.currentGroup.id, oper: "ADD" }, function (data) {
+                        kendo.ui.progress($('#splitContainer'), false);
+
+                        EAP.UI.MessageBox.alert(that.prompt, System.CultureInfo.GetDisplayText("saveSuccess"));
+                        that._loadInnerGrid();
+                        that._loadOuterGrid();
+                    });
+                }
+            };
+
+            EAP.UI.MessageBox.confirm(confirmOption);
+        },
+        _exitedGroup: function () {
+            if (!this.currentGroup) {
+                EAP.UI.MessageBox.alert(this.prompt,System.CultureInfo.GetDisplayText("SelectGroupFirst"));
+                return false;
+            }
+            return true;
+        },
+        _resize: function () {
+            var that = this;
+            window.onresize = function () {
+                that.innerViewsGridControl.grid.setOptions({ height: $("#innerViewsPanel").innerHeight() - that.innerToolbarControl.toolbar.wrapper.outerHeight() - $('#innerViewsTitle').outerHeight() })
+                that.outerViewsGridControl.grid.setOptions({ height: $("#outerViewsPanel").innerHeight() - that.outerToolbarControl.toolbar.wrapper.outerHeight()  -$('#outerViewsTitle').outerHeight()});
+            };
+            $(window).trigger("resize");
+        }
+    });
+
+    var control = new EAP.UI.GroupViewSetting();
+</script>

@@ -1,0 +1,17 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "removeComments": false,
+    "module": "amd",
+    "sourceMap": false,
+    "target": "es5"
+  },
+  "include": [
+    "**/*"
+  ],
+  "exclude": [ // 被 include 中文件引用的文件不能被排除，没有include则exclude不起作用
+    "Scripts/**/*"
+  ]
+}

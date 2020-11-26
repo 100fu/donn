@@ -1,0 +1,39 @@
+[2020-11-25 09:15:43.5920] [Error] [1] []  超时时间已到。超时时间已到，但是尚未从池中获取连接。出现这种情况可能是因为所有池连接均在使用，并且达到了最大池大小。
+   在 System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   在 System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   在 System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   在 System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   在 System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   在 System.Data.SqlClient.SqlConnection.Open()
+   在 Donn.EAP.Data.SqlServerRepositorySession.OpenConnection()
+   在 Donn.EAP.Data.SqlServerRepositorySession.Execute[T](QueryCommand queryCommand, Func`2 query)
+   在 Donn.EAP.Data.SqlServerRepositorySession.ExecuteScalar(QueryCommand queryCommand)
+   在 Donn.EAP.Data.Repository.QueryCount(EntityQueryCommand command)
+   在 Donn.EAP.Server.DefaultRuntimeDataProvider.QueryItems[T]()
+   在 Donn.EAP.Server.DefaultRuntimeDataProvider.Services()
+   在 Donn.EAP.Server.ServicesFactory.Init(IRuntimeDataProvider provider)
+   在 Donn.EAP.Server.RuntimeDataExtension.UseRuntimeData(IEAPServerBuilder builder, RuntimeDataOption option)
+   在 Donn.EAP.IISHost.WebAppEAPExtension.<>c__DisplayClass0_0.<SetupEAP>b__0(IEAPServerBuilder b)
+   在 Donn.EAP.Server.EAPServer.Start(Action`1 setup) 
+[2020-11-25 09:17:40.3210] [Error] [1] []  超时时间已到。超时时间已到，但是尚未从池中获取连接。出现这种情况可能是因为所有池连接均在使用，并且达到了最大池大小。
+   在 System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   在 System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   在 System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   在 System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   在 System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   在 System.Data.SqlClient.SqlConnection.Open()
+   在 Donn.EAP.Data.SqlServerRepositorySession.OpenConnection()
+   在 Donn.EAP.Data.SqlServerRepositorySession.Execute[T](QueryCommand queryCommand, Func`2 query)
+   在 Donn.EAP.Data.SqlServerRepositorySession.ExecuteScalar(QueryCommand queryCommand)
+   在 Donn.EAP.Data.Repository.QueryCount(EntityQueryCommand command)
+   在 Donn.EAP.Server.DefaultRuntimeDataProvider.QueryItems[T]()
+   在 Donn.EAP.Server.DefaultRuntimeDataProvider.Services()
+   在 Donn.EAP.Server.ServicesFactory.Init(IRuntimeDataProvider provider)
+   在 Donn.EAP.Server.RuntimeDataExtension.UseRuntimeData(IEAPServerBuilder builder, RuntimeDataOption option)
+   在 Donn.EAP.IISHost.WebAppEAPExtension.<>c__DisplayClass0_0.<SetupEAP>b__0(IEAPServerBuilder b)
+   在 Donn.EAP.Server.EAPServer.Start(Action`1 setup) 
+[2020-11-25 09:31:26.6890] [Info] [1] [ Started]   
+[2020-11-25 09:43:49.2270] [Info] [1] [ Started]   
+[2020-11-25 11:02:30.1230] [Info] [1] [ Started]   
+[2020-11-25 14:56:05.2840] [Info] [1] [ Started]   
+[2020-11-25 18:24:04.8950] [Info] [1] [ Started]   

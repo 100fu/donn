@@ -1,0 +1,87 @@
+﻿
+<div class="wrapright">
+    <div>
+        <select id="selectid" class="selectcss" ondblclick="map2dLayer.selectShow()" onchange="map2dLayer.selchanged()"></select>
+    </div>
+</div>
+<div style="height: 11px;"></div>
+<div id="top1">
+    <div class="wrap">
+        <div style="width:70px;padding-top: 7px;">
+            <label class="TxtOne">单人</label>
+        </div>
+
+        <div id="a3">
+
+            <input id="input1" type="text" autocomplete="off" list="companys" onclick="map2dLayer.selectInfoShow()" placeholder="请输入人员名称" class="inputOne" />
+            <div id="divline"></div>
+            <datalist id="companys"></datalist>
+        </div>
+
+    </div>
+    <div>
+        <label class="txt1">多人选择(最多3人)</label>
+    </div>
+    <div id="a6" style="height: 280px;">
+
+    </div>
+</div>
+<div style="height: 5px;"></div>
+<div id="top2">
+    <div>
+        <label class="txt1">时间范围</label>
+    </div>
+    <div class="wrap2">
+        <div>
+            <label class="txt1">开始</label>
+        </div>
+        <div>
+            <input type="text" onfocus="WdatePicker({ maxDate: '#F{$dp.$D(\'logmax\')||\'%y-%M-%d %HH:%mm:%ss\'}', dateFmt: 'yyyy-MM-dd HH:mm:ss', onpicking: hisTrack.cLogminFun })" id="logmin" placeholder="" class="Wdate">
+        </div>
+    </div>
+    <div class="wrap2">
+        <div>
+            <label class="txt1">结束</label>
+        </div>
+        <div>
+            <input type="text" onfocus="WdatePicker({ minDate: '#F{$dp.$D(\'logmin\')}', maxDate: '%y-%M-%d', dateFmt: 'yyyy-MM-dd HH:mm:ss', onpicking: hisTrack.cLogmaxFun })" id="logmax" placeholder="" class="Wdate" title="结束时间">
+        </div>
+
+    </div>
+    <div class="wrapright2">
+        <div>
+            <div id="hisSearch" class="btnCss" onclick="hisTrack.searchHisMes()">搜索</div>
+        </div>
+    </div>
+</div>
+<div style="height: 5px;"></div>
+<div id="top3">
+    <div>
+        <label class="txt1" id="hisProIndex">播放 0/0</label>
+    </div>
+    <div>
+        <div id="box">
+            <div id="text">100%</div>
+            <div id="bg">
+                <div id="bgcolor"></div>
+            </div>
+            <div id="btn"></div>
+        </div>
+    </div>
+    <div>
+        <div class="wrap3">
+            <div>
+                <a id="hisBackward"><i class="fa fa-fast-backward fa-lg icon-a" onclick="hisTrack.hisBackward()" title="慢速播放"></i></a>
+            </div>
+            <div>
+                <a id="hisPlay"><i class="fa fa-play fa-lg icon-a" id="btnPlay" onclick="hisTrack.hisPlay()" title="播放"></i></a>
+            </div>
+            <div>
+                <a id="hisForward"><i class="fa fa-fast-forward fa-lg icon-a" onclick="hisTrack.hisForward()" title="快速播放"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

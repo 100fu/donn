@@ -1,0 +1,59 @@
+﻿@{
+
+    string languagename = Donn.EAM.Web.Core.CurrentLoginInfo.Language;
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>@ViewBag.Title</title>
+    <link href="~/Resource/Scripts/Kendo/Style/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/Resource/Scripts/Kendo/Style/kendo.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Resource/Styles/eap.css" rel="stylesheet" />
+    <link href="~/Resource/Styles/eap.kendo.css" rel="stylesheet" />
+
+    <script src="~/Resource/Scripts/Base/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/angular/angular.min.js"></script>
+    <script src="~/Resource/Scripts/Base/kendoDirectives.js"></script>
+    <script src="~/Scripts/angular/angular-sanitize.min.js"></script>
+    <script src="~/Resource/Scripts/Kendo/js/kendo.web.js"></script>
+
+    @if (languagename == "CHS")
+    {
+        <script src="~/Resource/Scripts/Kendo/js/cultures/kendo.culture.zh-CHS.min.js"></script>
+        <script src="~/Resource/Scripts/Kendo/js/messages/kendo.messages.zh-CN.min.js"></script>
+    }
+    
+    @if (languagename == "CHT")
+    {
+        <script src="~/Resource/Scripts/Kendo/js/cultures/kendo.culture.zh-CHT.min.js"></script>
+        <script src="~/Resource/Scripts/Kendo/js/messages/kendo.messages.zh-HK.min.js"></script>
+    }
+
+
+    <script src="~/Resource/Scripts/Base/eap.js@(Html.GetVersion())"></script>
+    @*?r=@System.DateTime.Now.Ticks*@
+    <script src="~/Resource/Scripts/Base/eap.ui1.js@(Html.GetVersion())"></script>
+    <script src="~/Resource/Scripts/Base/eap.kendo1.js@(Html.GetVersion())"></script>
+    @*?r=@System.DateTime.Now.Minute*@
+</head>
+
+<style>
+    html, body {
+        width: 100%;
+        height: 100%;
+    }
+
+    /*html {
+        font-size: 75%;
+    }*/
+</style>
+
+<body>
+    @RenderBody()
+</body>
+</html>

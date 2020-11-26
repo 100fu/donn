@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>黄石新港</title>
+    <link rel="stylesheet" href="css/ol.css" />
+    <link rel="stylesheet" href="css/ol3-layerswitcher.css" />
+    <link rel="stylesheet" href="css/mapMonitor_white.css" id="defaultcss" />
+     <link rel="stylesheet" href="css/flatpickr.min.css" />
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/ol.js"></script>
+    <script type="text/javascript" src="js/ol3-layerswitcher.js"></script>
+     <script type="text/javascript" src="js/ol3-loadingpanel.js"></script>
+    <script type="text/javascript" src="js/mapMonitor.js"></script>
+     <script type="text/javascript" src="js/mapOpration.js"></script>
+	<script type="text/javascript" src="js/TweenMax.min.js"></script>
+    <script type="text/javascript"  src="js/flatpickr.js"></script>
+</head>
+<style type="text/css">
+.searchContent td{
+color: #fff;
+font-size: 12px;
+padding:3px 10px 3px 10px;
+    }
+.searchContent    td button{
+        width: 100%;
+        text-align: center;
+        background-color: #fff;
+        height: 26px;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+    }
+  .searchContent   td input[type="text"]{
+        height:20px;
+    }
+</style>
+<body>
+     <div class="righttool" style="top:30px;">
+        <div class="blackbackgd" style="display:none">
+            <div class="searchBtn"><img onclick="toolBar.opration('viewContent')" title="搜索" src="img/search.svg" /></div>
+            <div><img onclick="toolBar.opration('mapMeasure')" title="地图工具" src="img/measure.svg" /></div>
+            <div><img onclick="toolBar.opration('mapLayeredit')" title="地图图层" src="img/layeredit.svg" /></div>
+        </div>
+        <div class="hightbackgd" style="display:none">
+            <div class="searchBtn"><img onclick="toolBar.opration('viewContent')" title="搜索" src="img/h_search.svg" /></div>
+            <div><img onclick="toolBar.opration('mapMeasure')" title="地图工具" src="img/h_measure.svg" /></div>
+            <div><img onclick="toolBar.opration('mapLayeredit')" title="地图图层" src="img/h_layeredit.svg" /></div>
+        </div>
+    </div>
+     <div class="toolContent mapMeasure" style="display: none;top: 80px;">
+        <table style="width:100%;padding-left:10px;">
+            <tr><td>测量</td><td><a href="javascript:void(0)" onclick="toolbarOpration.clear()" >清空</a></td></tr>
+        </table>
+        <div class="radio">
+            <input id="radio-1" name="radio" type="radio" data-type="Polygon" onchange="toolbarOpration.measure('Polygon')" />
+            <label for="radio-1" class="radio-label">测面积</label>
+        </div>
+        <div class="radio">
+            <input id="radio-2" name="radio" type="radio" data-type="LineString" onchange="toolbarOpration.measure('LineString')" />
+            <label for="radio-2" class="radio-label">测距离</label>
+        </div>
+    </div>
+    <div class="toolContent mapLayeredit" style=" top: 145px;display: none;">
+        <table style="width:100%;border-collapse:separate; border-spacing:0px 10px;padding-left:10px;font-size:14px;" id="tblayer"></table>
+
+    </div>
+    <ul class="ui-context-menu" id="uiContextMenu_" style="display: none; width: 120px; left: 393px; top: 85px;border-radius: 10px;">
+        <li class="ui-context-menu-item"><a href="javascript:void(0);" onclick="toolbarOpration.measure('LineString')"><span>测距离</span></a></li>
+        <li class="ui-context-menu-item"><a href="javascript:void(0);" onclick="toolbarOpration.measure('Polygon')"><span>测面积</span></a></li>
+        <li class="ui-context-menu-item"><a href="javascript:void(0);" onclick="toolbarOpration.clear()"><span>清除图形</span></a></li>
+    </ul>
+<div  class="toolContent viewContent" style="display: none;top: 20px;width:250px;height:400px;padding: 5px;">
+    <table style="font-size: :12px;width: 100%">
+        <tr><td>时间</td></tr>
+         <tr><td>开始：<input type="text" class="flatpickr" id="beginDate" data-enable-time=true data-time_24hr=true></td></tr>
+          <tr><td>结束：<input  type="text" class="flatpickr" id="endDate" data-enable-time=true data-time_24hr=true></td></tr>
+           <tr><td><button >搜索</button></td></tr>
+            <tr><td>车辆</td></tr>
+             <tr>
+                <td>
+                <div class="toolOverFlow" style="overflow-x: hidden;overflow-y: auto;border: solid 1px #fff;height: 250px;border-radius: 5px;">
+                <ul class="record"></ul>
+             </div></td>
+         </tr>
+    </table>
+</div>
+    <div id="map" class="map" style="height:100%"></div>
+    <script>
+        $(function () {
+            var configString = $.ajax({
+                url: "config/map.json",
+                async: false
+            });
+            var map = new mapMonitor("map");
+            config = JSON.parse(configString.responseText);
+            map.show(config);
+            window.map = map;
+
+            toolBar.layerInit();
+            toolBar.refreshLayer();
+            toolbarOpration.load();
+            toolBar.Highlight();
+
+            var Coordinates = [{ "time": 3, "coords": [12831272.976596948, 3522577.508783181] }, { "time": 1, "coords": [12831182.35104447, 3522210.365424902] }, { "time": 1, "coords": [12832255.710231094, 3520534.3501345143] }, { "time": 1, "coords": [12832677.329336673, 3519985.594803843] }];
+            var m1 = map.addSingleIcon('man', '人员', 'img/truck.svg', 1, [0.5, 30], Coordinates[0]["coords"] , { "tag": "苏DJT1029", "Name": "D123456", "type": "vehicleterminal" });
+            map.moveToWithPath(m1, Coordinates,true);
+            $(window.map.map.getViewport()).on("contextmenu",
+                function (n) {
+                    n.preventDefault()
+                    $("#uiContextMenu_").css({
+                        left: n.clientX + 2,
+                        top: n.clientY + 2
+                    }).show();
+                }),
+                $(this).on("click", function () {
+                    $(".ui-context-menu").hide();
+                });
+           $(".flatpickr").flatpickr();
+           recordItem=[{"Id":"1231245","Name":"苏DJT1029","beginDate":"9/05 12:00","endDate":"9/05 12:29"},{"Id":"1231256","Name":"苏DJT1029","beginDate":"9/05 13:00","endDate":"9/05 13:29"}];
+           $.each(recordItem,function(i,item){
+                var html="";
+                html +='<li><input type="radio" name="rd" class="rd" id="'+item.Id+'" data-id="'+item.Id+'"><label for="'+item.Id+'"></label><span style="margin-left: 10px;height:30px;line-height:30px;font-size:14px;">'+item.Name+'</span><br><span style="padding-left:35px;letter-spacing:1px;">'+item.beginDate+'~'+item.endDate+'</span></li>';
+                $(".record").append(html);
+           });
+            $("input[name='rd']").on("click", function () {
+                   if( $(this).is(':checked'))alert($(this).data("id"));
+                });
+        });
+    </script>
+</body>
+</html>

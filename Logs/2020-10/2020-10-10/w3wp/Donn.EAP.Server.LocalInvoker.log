@@ -1,0 +1,6 @@
+[2020-10-10 09:14:27.4084] [Error] [37] []  调用的目标发生了异常。
+   在 System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   在 System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   在 Donn.EAP.Server.LocalInvoker.<>c__DisplayClass2_0.<RunInvoke>b__0() 

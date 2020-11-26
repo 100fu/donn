@@ -1,0 +1,323 @@
+﻿@{
+    Layout = "~/Views/Permission/_Layout.cshtml";
+}
+<style>
+    #splitContainer, #groupTreeView, #innerQueryPanel, #outerQueryPanel {
+        height: 100%;
+    }
+    /*#innerQueryGridView, #outerQueryGridView {
+    height:50%;
+    }*/
+</style>
+<div id="splitContainer">
+    <div id="groupTreePanel">
+        <div id="groupTreeToolbar"></div>
+        <div id="groupTreeView"></div>
+    </div>
+    <div id="innerQueryPanel">
+        <div id="innerViewsTitle">   </div>
+        <div id="innerQueryToolbar"></div>
+        <div id="innerQueryGridView"></div>
+    </div>
+
+    <div id="outerQueryPanel">
+        <div id="outerViewsTitle">   </div>
+        <div id="outerQueryToolbar">   </div>
+        <div id="outerQueryGridView"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    System.CultureInfo.LanguageName = '@ViewBag.LanguageName';
+    System.Declare('EAP.UI');
+    EAP.UI.GroupViewSetting = System.Object.Extends({
+        groupTreeControl: {},
+        innerToolbarControl: {},
+        outerToolbarControl: {},
+        innerQueryGridControl: {},
+        outerQueryGridControl: {},
+        prompt: System.CultureInfo.GetDisplayText('Prompt'),
+        ctor: function () {
+            this._initLayout();
+            this._initGroupTree();
+            this._initInnerViews();
+            this._initOuterView();
+            this._resize();
+        },
+        _initLayout: function () {
+            jQuery("#splitContainer").kendoSplitter({
+                panes: [
+                    { collapsible: true, size: '20%', scrollable: false },
+                    { collapsible: false, size: "45%", scrollable: false },
+    { collapsible: false, size: "35%", scrollable: false }
+                ]
+            }, false);
+        },
+        _initGroupTree: function () {
+            var that = this;
+            var toolbarOption = new EAP.UI.ToolbarOption();
+            toolbarOption.items = [{ template: "<span>&nbsp" + System.CultureInfo.GetDisplayText("UserGroup") + "&nbsp</span>" }];//
+            toolbarOption.owner = this;
+            toolbarOption.selector = "#groupTreeToolbar";
+
+            new EAP.UI.ToolbarControl(toolbarOption);
+
+            var option = new EAP.UI.TreeOption();
+            option.selector = "#groupTreeView";
+            option.nodeClick = function (e) {
+                that.currentGroup = e.sender.dataItem(e.node);
+                that._loadInnerGrid();
+                that._loadOuterGrid();
+            };
+            this.groupTreeControl = new EAP.UI.TreeControl(option);
+            this._loadGroupTree();
+            this.groupTreeControl.expandall();
+        },
+        _initInnerViews: function () {
+            var toolbarOption = new EAP.UI.ToolbarOption();
+            toolbarOption.items = [{ template: "<span>&nbsp" + System.CultureInfo.GetDisplayText("ingroup") + System.CultureInfo.GetDisplayText("Views") + "&nbsp</span>" }];//
+            toolbarOption.owner = this;
+            toolbarOption.selector = "#innerViewsTitle";
+
+            new EAP.UI.ToolbarControl(toolbarOption);
+
+            var toolbarOption = new EAP.UI.ToolbarOption();
+            toolbarOption.owner = this;
+            toolbarOption.selector = "#innerQueryToolbar";
+            toolbarOption.items = [{ type: "button", text: System.CultureInfo.GetDisplayText("delete"), id: "delete_InnerViews" },
+            { type: "button", text: System.CultureInfo.GetDisplayText("set") + System.CultureInfo.GetDisplayText("Acquiesce"), id: "setDefault" },
+            { type: "button", text: System.CultureInfo.GetDisplayText("takeout") + System.CultureInfo.GetDisplayText("Acquiesce"), id: "dropDefault" }];
+            this.innerToolbarControl = new EAP.UI.ToolbarControl(toolbarOption);
+
+            var gridOption = new EAP.UI.GridOption();
+            //gridOption.height = "100%";
+            gridOption.showrowcheckbox = true;
+            gridOption.selector = "#innerQueryGridView";
+            gridOption.columns = [
+                 {
+                     field: 'Name', title: System.CultureInfo.GetDisplayText("Query") + System.CultureInfo.GetDisplayText("Name"), width: 100, sortable: true,
+                     template: function (value, row, i) {
+                         if (value.IdQuerySolutionModel !== Guid.Empty && value.QuerySolutionModel)
+                             return value.QuerySolutionModel.Name;
+                         if (value.IdUserQuery !== Guid.Empty && value.UserQuery)
+                             return value.UserQuery.Name;
+                         return "";
+                     }
+                 },
+                 {
+                     field: 'Module', title: System.CultureInfo.GetDisplayText("Module's"), width: 100, sortable: true,
+                     template: function (value) {
+                         if (value.IdQuerySolutionModel !== Guid.Empty && value.QuerySolutionModel)
+                             return System.CultureInfo.GetDisplayText(value.QuerySolutionModel.Code);
+                         if (value.IdUserQuery !== Guid.Empty && value.UserQuery)
+                             return System.CultureInfo.GetDisplayText(value.UserQuery.Module);
+                         return "";
+                     }
+                 }, {
+                     field: 'isDefault', title: System.CultureInfo.GetDisplayText("isorno") + System.CultureInfo.GetDisplayText("Acquiesce"), width: 100,
+                     template: function (value, row, index) {
+                         if (value.IsDefault) {
+                             return '<img alt="" src="/Scripts/jquery-easyui-1.3.1/themes/icons/tip.png" />';
+                         }
+                         return "";
+                     }, width: "50px"
+                 }
+            ];
+            this.innerQueryGridControl = new EAP.UI.GridControl(gridOption);
+        },
+        _initOuterView: function () {
+            var toolbarOption = new EAP.UI.ToolbarOption();
+            toolbarOption.items = [{ template: "<span>&nbsp" + System.CultureInfo.GetDisplayText("Non") + System.CultureInfo.GetDisplayText("ingroup") + System.CultureInfo.GetDisplayText("Views") + "&nbsp</span>" }];//
+            toolbarOption.owner = this;
+            toolbarOption.selector = "#outerViewsTitle";
+
+            new EAP.UI.ToolbarControl(toolbarOption);
+
+            toolbarOption = new EAP.UI.ToolbarOption();
+            toolbarOption.owner = this;
+            toolbarOption.selector = "#outerQueryToolbar";
+            toolbarOption.items = [{ type: "button", text: System.CultureInfo.GetDisplayText("AppendToGroup"), id: "add_ToCurrentGroup" }];
+            this.outerToolbarControl = new EAP.UI.ToolbarControl(toolbarOption);
+
+            var gridOption = new EAP.UI.GridOption();
+            //gridOption.height = "100%";
+            gridOption.showrowcheckbox = true;
+            gridOption.selector = "#outerQueryGridView";
+            gridOption.columns = [
+               {
+                   field: 'Name', title: System.CultureInfo.GetDisplayText("Query") + System.CultureInfo.GetDisplayText("Name"), width: 100, sortable: true,
+                   template: function (value) {
+                       if (value.IdQuerySolutionModel !== Guid.Empty && value.QuerySolutionModel)
+                           return value.QuerySolutionModel.Name;
+                       if (value.IdUserQuery !== Guid.Empty && value.UserQuery)
+                           return value.UserQuery.Name;
+                       return "";
+                   }
+               },
+               {
+                   field: 'Module', title: System.CultureInfo.GetDisplayText("Module's"), width: 100, sortable: true,
+                   template: function (value) {
+                       if (value.IdQuerySolutionModel !== Guid.Empty && value.QuerySolutionModel)
+                           return System.CultureInfo.GetDisplayText(value.QuerySolutionModel.Code);
+                       if (value.IdUserQuery !== Guid.Empty && value.UserQuery)
+                           return System.CultureInfo.GetDisplayText(value.UserQuery.Module);
+                       return "";
+                   }
+               }
+            ];
+            this.outerQueryGridControl = new EAP.UI.GridControl(gridOption);
+        },
+        _loadGroupTree: function () {
+            var that = this;
+            new EAP.EAMController("Privilege").ExecuteServerAction("GetAllGroupTree", {}, function (data) {
+                that.groupTreeControl.setTreeData(data);
+                that.groupTreeControl.expandall();
+            });
+        },
+        _loadInnerGrid: function () {
+            var that = this;
+            var requestOption = new EAP.UI.GridDataRequest();
+            requestOption.url = { controller: "Commpage", action: "GroupUserQueryList" }
+            requestOption.postdata = { id: this.currentGroup.id };
+            requestOption.responseData = function (d)
+            { return d.rows };
+            that.innerQueryGridControl.setData(requestOption);
+        },
+        _loadOuterGrid: function () {
+            var that = this;
+            var requestOption = new EAP.UI.GridDataRequest();
+            requestOption.url = { controller: "Commpage", action: "GroupUserQueryAddList" }
+            requestOption.postdata = { id: this.currentGroup.id };
+            requestOption.responseData = function (d)
+            { return d.rows };
+            that.outerQueryGridControl.setData(requestOption);
+        },
+        delete_InnerViews: function () {
+            if (!this._exitedGroup()) return;
+            var queryids = this.innerQueryGridControl.getSelectedId();
+            if (queryids.length <= 0) {
+                EAP.UI.MessageBox.alert(this.prompt, System.CultureInfo.GetDisplayText("Choose") + System.CultureInfo.GetDisplayText("Query") + "!");
+                return;
+            }
+            //删除确认
+            var that = this;
+            var confirmOption = {
+                title: this.prompt,
+                content: System.CultureInfo.GetDisplayText("isorno") + System.CultureInfo.GetDisplayText("delete") + System.CultureInfo.GetDisplayText("Query"),
+                OK: function () {
+                    kendo.ui.progress($('#splitContainer'), true);
+
+                    new EAP.EAMController("Commpage").ExecuteServerActionSync("UserQueryGroupSave", { queryids: queryids, groupId: that.currentGroup.id, oper: "DEL" }, function (data) {
+                        kendo.ui.progress($('#splitContainer'), false);
+
+                        EAP.UI.MessageBox.alert(that.prompt, System.CultureInfo.GetDisplayText("saveSuccess"));
+                        that._loadInnerGrid();
+                        that._loadOuterGrid();
+                    });
+                }
+            }
+
+            EAP.UI.MessageBox.confirm(confirmOption);
+        },
+        //设置默认
+        setDefault: function () {
+            if (!this._exitedGroup()) return;
+            var queryIds = this.innerQueryGridControl.getSelectedId();
+            if (queryIds.length <= 0) {
+                EAP.UI.MessageBox.alert(this.prompt, System.CultureInfo.GetDisplayText("Choose") + System.CultureInfo.GetDisplayText("Query") + "!");
+                return;
+
+            }
+            var that = this;
+            var confirmOption = {
+                title: this.prompt,
+                content: System.CultureInfo.GetDisplayText("IsSetDefault"), OK: function () {
+                    kendo.ui.progress($('#splitContainer'), true);
+                    new EAP.EAMController("Commpage").ExecuteServerActionSync("UserQueryGroupSetDefault", { queryIds: queryIds, groupid: that.currentGroup.id, isDefault: true },
+                        function (data) {
+                        kendo.ui.progress($('#splitContainer'), false);
+                        that._loadInnerGrid();
+                    }, function (msg) {
+                        EAP.UI.MessageBox.alert(that.prompt, msg);
+                        kendo.ui.progress($('#splitContainer'), false);
+                    });
+                }
+            }
+            //设置默认确认
+            EAP.UI.MessageBox.confirm(confirmOption);
+        },
+        //取消默认
+        dropDefault: function () {
+            if (!this._exitedGroup()) return;
+            var queryIds = this.innerQueryGridControl.getSelectedId();
+            if (queryIds.length <= 0) {
+                EAP.UI.MessageBox.alert(this.prompt, System.CultureInfo.GetDisplayText("Choose") + System.CultureInfo.GetDisplayText("Query") + "!");
+                return;
+            }
+            var that = this;
+            var confirmOption = {
+                title: this.prompt,
+                content: System.CultureInfo.GetDisplayText("isorno") + System.CultureInfo.GetDisplayText("DropDefault"),
+                OK: function () {
+                    kendo.ui.progress($('#splitContainer'), true);
+                    new EAP.EAMController("Commpage").ExecuteServerActionSync("UserQueryGroupSetDefault", { queryIds: queryIds, groupid: that.currentGroup.id, isDefault: false }, function (data) {
+                        kendo.ui.progress($('#splitContainer'), false);
+                        that._loadInnerGrid();
+                    });
+                }
+            }
+
+            //取消默认确认
+            EAP.UI.MessageBox.confirm(confirmOption);
+        },
+        add_ToCurrentGroup: function () {
+            if (!this._exitedGroup()) return;
+            var items = this.outerQueryGridControl.getSelectedRows();
+            if (items.length <= 0) {
+                EAP.UI.MessageBox.alert(this.prompt, System.CultureInfo.GetDisplayText("Choose") + System.CultureInfo.GetDisplayText("Query") + "!");
+                return;
+            }
+            var queryids = [];
+            items.forEach(function (item) {
+                queryids.push(item.Id);
+            })
+           
+            var that = this;
+            var confirmOption = {
+                title: this.prompt,
+                content: System.CultureInfo.GetDisplayText("isorno") + System.CultureInfo.GetDisplayText("Add") + System.CultureInfo.GetDisplayText("Query"),
+                OK: function () {
+                    kendo.ui.progress($('#splitContainer'), true);
+
+                    new EAP.EAMController("Commpage").ExecuteServerActionSync("UserQueryGroupSave", { queryids: queryids, groupId: that.currentGroup.id, oper: "ADD" }, function (data) {
+                        kendo.ui.progress($('#splitContainer'), false);
+
+                        EAP.UI.MessageBox.alert(that.prompt, System.CultureInfo.GetDisplayText("saveSuccess"));
+                        that._loadInnerGrid();
+                        that._loadOuterGrid();
+                    });
+                }
+            }
+
+            EAP.UI.MessageBox.confirm(confirmOption);
+
+        },
+        _exitedGroup: function () {
+            if (!this.currentGroup) {
+                EAP.UI.MessageBox.alert(this.prompt, System.CultureInfo.GetDisplayText("SelectGroupFirst"));
+                return false;
+            }
+            return true;
+        },
+        _resize: function () {
+            var that = this;
+            window.onresize = function () {
+                that.innerQueryGridControl.grid.setOptions({ height: $("#innerQueryPanel").innerHeight() - that.innerToolbarControl.toolbar.wrapper.outerHeight() - $('#innerViewsTitle').outerHeight() })
+                that.outerQueryGridControl.grid.setOptions({ height: $("#outerQueryPanel").innerHeight() - that.outerToolbarControl.toolbar.wrapper.outerHeight() - $('#outerViewsTitle').outerHeight() });
+            };
+            $(window).trigger("resize");
+        }
+    });
+
+    var control = new EAP.UI.GroupViewSetting();
+</script>

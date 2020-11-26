@@ -1,0 +1,17 @@
+﻿{
+  "edit": "ui-icon ui-icon-pencil",
+  "add": "ui-icon ui-icon-plus",
+  "view": "ui-icon ui-icon-document",
+  "delete": "ui-icon ui-icon-trash",
+  "refresh": "ui-icon ui-icon-refresh",
+  "export": "ui-icon ui-icon-arrowthickstop-1-n",
+  "customshow": "ui-icon ui-icon-newwin",
+  "saveview": "ui-icon ui-icon-note",
+  "complete": "ui-icon ui-icon-check",
+  "query": "ui-icon ui-icon-search",
+  "import": "ui-icon ui-icon-arrowthickstop-1-s",
+  "myfollow": "ui-icon ui-icon-clipboard",
+  "relationcheckitem": "ui-icon ui-icon-link",
+  "replace": "ui-icon ui-icon-transferthick-e-w",
+  "other": "ui-icon ui-icon-extlink"
+}

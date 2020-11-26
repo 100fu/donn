@@ -1,0 +1,94 @@
+﻿@{
+    Layout = null;
+    string languagename = Donn.EAM.Web.Core.CurrentLoginInfo.Language;
+    var themes = new List<string>() { "metro", "bootstrap", "office365", "default" };
+
+    string style = themes[1];
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SystemInit</title>
+
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>@ViewBag.Title</title>
+    <link href="~/Resource/Scripts/Kendo/Style/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/Resource/Scripts/Kendo/Style/kendo.@{@style}.min.css" rel="stylesheet" />
+    <script src="~/Resource/Scripts/Base/jquery-1.10.2.min.js"></script>
+    <script type='text/javascript' src="~/Resource/Scripts/Kendo/js/kendo.web.min.js"></script>
+
+
+    <script src="~/Resource/Scripts/Base/eap.js@(Html.GetVersion())"></script>
+    @*?r=@System.DateTime.Now.Ticks*@
+    <script src="~/Resource/Scripts/Base/eap.ui1.js@(Html.GetVersion())"></script>
+    @*?r=@System.DateTime.Now.Ticks*@
+    <script src="~/Resource/Scripts/Base/eap.kendo1.js@(Html.GetVersion())"></script>
+    @*?r=@System.DateTime.Now.Minute*@
+
+</head>
+
+
+<body>
+    <h1>System Initializtion</h1>
+    <ul>
+        <li>
+            钢丝绳
+            <div>
+                <button id="WireRope" class="k-button">Wirerope</button>
+            </div>
+        </li>
+
+        <li>
+            吊具
+            <div>
+                <button id="SpreaderReplacement" class="k-button">spreaderReplacement</button>
+                <button id="SpreaderKeyTask" class="k-button">spreaderKeyTask</button>
+            </div>
+        </li>
+
+        <li>
+            发动机
+            <div>
+                <button id="EngineReplacement" class="k-button">engineReplacement</button>
+                <button id="EngineKeyTask" class="k-button">engineKeyTask</button>
+            </div>
+        </li>
+    </ul>
+</body>
+
+<script>
+
+
+    EAP.UI.documentReady(InitMain);
+
+    function InitMain() {
+        System.CultureInfo.LanguageName = System.Cookies.get('EAMLANGUAGE');
+        $('.k-button').click(function () {
+            openImport(this.id);
+        })
+    }
+
+    function openImport(id) {
+        var options = new EAM.ImportOptions();
+        //options.importorFullName = "sysinit";
+        //options.url = "/api/si/Import?id=" + id;
+        options.importorFullName = "SystemInit";
+        options.url = "/SystemInit/Import?id=" + id;
+        options.items = ["import"];       
+      //  options.templateDownloadLink = [{ name: 'import', link: '../../template/Init/{0}InitTemplate.xls'.format(id) }];
+        options.success = function () {
+            EAP.UI.MessageBox.alert('', 'success');
+        }
+        var importor = new EAM.Import(options);
+
+        importor.open();
+    }
+
+</script>
+
+</html>
+

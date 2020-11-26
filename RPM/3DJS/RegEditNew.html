@@ -1,0 +1,20 @@
+﻿<div class="cl pd-5 " id="chkList">
+    <table>
+        <tbody>
+            <tr><td>区域名称:</td><td><input id="regNames" style="margin-bottom:1px;width: 250px" type="text"  /></td></tr>
+            <tr><td></td><td><input id="chkalm" type="checkbox" value="危险区" style="margin-bottom:5px;margin-right:4px;"  onclick="editalm.chkregalm()" />危险区域禁止入内!</td></tr>
+            <tr><td>禁入人员:</td><td><input id="empNames" placeholder="人员姓名" type="text" role="textbox" data-perid="0" data-perEmps="" data-tprid="0" style="width: 225px" /><img id="idImg" src="/RPM/3DJS/Scripts/images/find.png" onclick="editalm.showPoint(true)" /></td></tr>
+            <tr><td>禁出人员:</td><td><input id="empOutList" placeholder="人员姓名" type="text" role="textbox" data-perid="0" data-perEmps="" data-tprid="0" style="width: 225px" /><img id="idImgout" src="/RPM/3DJS/Scripts/images/find.png" onclick="editalm.showPoint(false)" /></td></tr>
+            <tr><td>报 警 器:</td><td><select id='alminfo' style="width: 225px"></select> </td></tr>
+        </tbody>
+    </table>
+</div>
+<div class="cl pd-5 bg-1 bk-gray mt-20">
+    <input class="leftcssemp btn btn-primary radius" id="btnAdd" type="button" style="height: 27px" width="30px" onclick="editalm.saveRegEmp()" role="button" value="保存" />
+    <input class="leftcssemp btn btn-primary radius" id="btnClose" type="button" style="height: 27px" width="30px" onclick="editalm.indexClose()" role="button" value="关闭" />
+    <input class="leftcssemp btn btn-primary radius" id="btnEdit" type="button" style="height: 27px" width="80px" onclick="map2dLayer.showRegPoints()" role="button" value="坐标修正" />
+    <br />
+    <label id="lblMessage" style="color:blue"> </label>
+</div>
+
+

@@ -1,0 +1,261 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>联想叉车监控</title>
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/flatpickr.min.css" />
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/mqttws31.js"></script>
+    <script type="text/javascript" src="js/eap.core.js"></script>
+    <script type="text/javascript" src="js/echarts.js"></script>
+    <script type="text/javascript" src="js/Monitor.js?v=1021"></script>
+    <script type="text/javascript" src="js/flatpickr.js"></script>
+</head>
+
+<body>
+    <div class="main clearfix">
+        <div class="main-title"></div>
+        <div class="main-left">
+            <div class="border-container containertitle">地图模块</div>
+            <div class="border-container">
+                <div id="map"
+                     style="height:372px;-webkit-tap-highlight-color: transparent; user-select: none; position: relative;">
+                     <iframe width="100%" height="100%" scrolling="no" src="../../RPM/3DJS/RtMapView.html" frameborder="0"></iframe>
+                     </div>
+                <span class="top-left border-span"></span>
+                <span class="top-right border-span"></span>
+                <span class="bottom-left border-span"></span>
+                <span class="bottom-right border-span"></span>
+            </div>
+        </div>
+        <div class="main-middle">
+            <div class="border-container containertitle">人员与设备状态</div>
+            <div class="border-container">
+                <div id="person" style="height:155px;cursor: pointer;"></div>
+                <span class="top-left border-span"></span>
+                <span class="top-right border-span"></span>
+                <span class="bottom-left border-span"></span>
+                <span class="bottom-right border-span"></span>
+            </div>
+            <div class="border-container containertitle">硬件状态信息</div>
+            <div class="border-container">
+                <div id="asset" style="height:155px;width:100%;"></div>
+                <span class="top-left border-span"></span>
+                <span class="top-right border-span"></span>
+                <span class="bottom-left border-span"></span>
+                <span class="bottom-right border-span"></span>
+            </div>
+        </div>
+        <div class="main-left" style="width: 55%">
+            <div class="border-container containertitle">
+                在线时长<span class="title-span">排名前10</span>
+                <span class="title-span1">
+                    <ul class="ultuli" id="tuli1">
+                        <li>
+                            <a class="select" href="javascript:void(0)" data-type="now">今天</a>
+                        </li>
+                        <li><a href="javascript:void(0)" data-type="week">周</a></li>
+                        <li><a href="javascript:void(0)" data-type="month">月</a></li>
+                        <li>
+                            <a href="javascript:void(0)" data-type="custom">自定义</a>
+                        </li>
+                    </ul>
+                </span>
+            </div>
+            <div class="border-container">
+                <div id="hours" style="height:250px;"></div>
+                <span class="top-left border-span"></span>
+                <span class="top-right border-span"></span>
+                <span class="bottom-left border-span"></span>
+                <span class="bottom-right border-span"></span>
+            </div>
+        </div>
+        <div class="main-middle" style="width: 45%">
+            <div class="border-container containertitle">
+                行走里程<span class="title-span">排名前10</span>
+                <span class="title-span1">
+                    <ul class="ultuli" id="tuli2">
+                        <li>
+                            <a class="select" href="javascript:void(0)" data-type="now">今天</a>
+                        </li>
+                        <li><a href="javascript:void(0)" data-type="week">周</a></li>
+                        <li><a href="javascript:void(0)" data-type="month">月</a></li>
+                        <li>
+                            <a href="javascript:void(0)" data-type="custom">自定义</a>
+                        </li>
+                    </ul>
+                </span>
+            </div>
+            <div class="border-container">
+                <div id="mileage" style="height:250px;"></div>
+                <span class="top-left border-span"></span>
+                <span class="top-right border-span"></span>
+                <span class="bottom-left border-span"></span>
+                <span class="bottom-right border-span"></span>
+            </div>
+        </div>
+    </div>
+    <div id="dialogbg" class="dialogbg"></div>
+    <div class="border-container dialog" id="personContent">
+        <span class="border-title border-span">人员/设备信息</span>
+        <span class="dialogClose">×</span>
+        <span class="top-left border-span"></span>
+        <span class="top-right border-span"></span>
+        <span class="bottom-left border-span"></span>
+        <span class="bottom-right border-span"></span>
+        <div class="content"  style="  width: 675px;height: 350px;">
+            <table  id="personDetail">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>名称</th>
+                        <th>标签</th>
+                        <th>标签状态</th>
+                        <th>部门</th>
+                        <th>类型</th>
+                        <th>电量</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="border-container dialog" id="baseStationContent">
+        <span class="border-title border-span">基站信息</span>
+        <span class="dialogClose">×</span>
+        <span class="top-left border-span"></span>
+        <span class="top-right border-span"></span>
+        <span class="bottom-left border-span"></span>
+        <span class="bottom-right border-span"></span>
+        <div class="content" style="width: 300px;height: 350px;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>基站</th>
+                        <th>信号</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td style="color:rgb(14, 252, 255)">基站1</td>
+                        <td>在线</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td style="color:rgb(14, 252, 255)">基站2</td>
+                        <td>在线</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="border-container dialog" id="cameraContent">
+        <span class="border-title border-span">摄像头信息</span>
+        <span class="dialogClose">×</span>
+        <span class="top-left border-span"></span>
+        <span class="top-right border-span"></span>
+        <span class="bottom-left border-span"></span>
+        <span class="bottom-right border-span"></span>
+        <div class="content" style="width: 240px;height: 350px;">
+            <table  id="cameraDetail">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>摄像头</th>
+                    </tr>
+                </thead>
+                   <tbody>
+                    </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="border-container dialog" id="customContent">
+        <span class="border-title border-span">自定义查询</span>
+        <span class="dialogClose">×</span>
+        <span class="top-left border-span"></span>
+        <span class="top-right border-span"></span>
+        <span class="bottom-left border-span"></span>
+        <span class="bottom-right border-span"></span>
+        <div class="content"
+             style="border:none;padding:10px 20px;color:#fff;">
+            起始时间&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="text"
+                   class="flatpickr"
+                   id="beginDate" style="width:230px;" />
+            <p>
+                <br />
+                终止时间&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="text"
+                       class="flatpickr" id="endDate"  style="width:230px;" />
+            </p>
+            <p><br /></p>
+            <p style="width:100%;text-align:center;"><button id="searchBtn" style="width:150px;">确认</button></p>
+            </p>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    var w, h, className;
+    function getSrceenWH() {
+        w = $(".clearfix").width();
+        h = $(".clearfix").height();
+        $("#dialogbg").width(w).height(h);
+    }
+
+    window.onresize = function () {
+        getSrceenWH();
+    };
+    $(window).resize();
+
+    $(function () {
+        getSrceenWH();
+        var _baseStation = new baseStation(document.getElementById("asset"));
+        _baseStation.init();
+        var _label = new label(document.getElementById("person"));
+        _label.init();
+        var _duration = new duration(document.getElementById("hours"));
+        _duration.init();
+        var _mileage = new mileage(document.getElementById("mileage"));
+        _mileage.init();
+        $(".flatpickr").flatpickr({
+            enableTime: true,
+            time_24hr: true
+        });
+
+        $(".dialogClose").on("click", function () {
+            $("#dialogbg").hide();
+            $(".dialog").hide();
+        });
+        $("#searchBtn").on("click",function(){
+            if($("#beginDate").val()!=""&&$("#endDate").val()!="")
+            {
+                $("#dialogbg").hide();
+                $(".dialog").hide();
+                if(currentType==="mileage")
+                {
+                    mileageParams= { "type": "custom", "startTime": $("#beginDate").val(), "endTime": $("#endDate").val(),"State": 0};
+                     $("#beginDate").val("");
+                     $("#endDate").val("")
+                    _mileage.getoption();
+                }
+                else if(currentType==="duration")
+                {
+                    durationParams = { "type": "custom", "startTime":  $("#beginDate").val(), "endTime": $("#endDate").val(),"State": 0 };
+                     $("#beginDate").val("");
+                     $("#endDate").val("")
+                     _duration.getoption();
+                }
+            }
+            else
+            {
+                alert("起始时间和终止时间必填！")
+            }
+        });
+    });
+</script>
+</html>

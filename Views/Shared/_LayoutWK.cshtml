@@ -1,0 +1,66 @@
+﻿@{
+
+    string languagename = Donn.EAM.Web.Core.EAMSettings.Language;
+    var themes = new List<string>
+    () { "metro", "bootstrap", "office365", "default" };
+
+    string style = themes[1];
+
+    var ver = "3.0.1";
+    }
+
+    <!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>@ViewBag.SystemName @ViewBag.Version</title>	
+        <link href="~/Resource/Scripts/Kendo/Style/kendo.common.min.css" rel="stylesheet" />
+        <link href="~/Resource/Scripts/Kendo/Style/kendo.@{@style}.min.css" rel="stylesheet" />
+
+        <link href="~/Resource/Styles/eap.css?version=@(ver)" rel="stylesheet" />
+        <link href="~/Resource/Styles/eap.kendo.css?version=@(ver)" rel="stylesheet" />
+        <link href="~/Resource/Styles/Content.css" rel="stylesheet" />
+        <script src="~/Resource/Scripts/Base/jquery-1.10.2.min.js"></script>
+        <script src="~/Scripts/angular/angular.min.js"></script>
+        <script src="~/Resource/Scripts/Base/kendoDirectives.js?version=@(ver)"></script>
+        <script src="~/Scripts/angular/angular-sanitize.min.js"></script>
+        <script type='text/javascript' src="~/Resource/Scripts/Kendo/js/kendo.web.js"></script>
+
+        @if (languagename == "CHS")
+        {
+        <script src="~/Resource/Scripts/Kendo/js/cultures/kendo.culture.zh-CHS.min.js"></script>
+        <script src="~/Resource/Scripts/Kendo/js/messages/kendo.messages.zh-CN.min.js"></script>
+
+        <script>
+            $(function () {
+
+                kendo.culture('zh-CHS');
+            });
+        </script>
+        }
+
+        @if (languagename == "CHT")
+        {
+        <script src="~/Resource/Scripts/Kendo/js/cultures/kendo.culture.zh-CHT.min.js"></script>
+        <script src="~/Resource/Scripts/Kendo/js/messages/kendo.messages.zh-HK.min.js"></script>
+
+        <script>
+            $(function () {
+
+                kendo.culture('zh-CHT');
+            });
+        </script>
+        }
+
+
+        <script src="~/Resource/Scripts/Base/eap.js?ver=@(ver)"></script>
+        <script src="~/Resource/Scripts/Base/eap.ui1.js?ver=@(ver)"></script>
+        <script src="~/Resource/Scripts/Base/eap.kendo1.js?ver=@(ver)"></script>
+    </head>
+
+    <body id="mainContent">
+        @RenderBody()
+    </body>
+</html>

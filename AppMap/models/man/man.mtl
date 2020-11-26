@@ -1,0 +1,12 @@
+# Blender MTL File: '低模角色男女.blend'
+# Material Count: 1
+
+newmtl man
+Ns 60.784314
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 0.885508 0.686598
+Ks 0.100000 0.100000 0.100000
+
+d 1.000000
+illum 2
+map_Kd man.png

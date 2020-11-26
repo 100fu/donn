@@ -1,0 +1,52 @@
+﻿
+<div class="wrap">
+    <div style="width:70px;padding-top: 5px;">
+        <label class="txtOne">筛选</label>
+    </div>
+    <div id="a3">
+        <input id="input1" type="text" autocomplete="off" list="companys" onclick="map2dLayer.selectInfoShow()" onkeypress="rtmap2d.moreFloorEmpSearch()"  placeholder="请输入人员名称"
+               class="inputOne" />
+        <datalist id="companys"></datalist>
+    </div>
+</div>
+<div id="" class="linecss1"></div>
+<div class="wrapF">
+    <div>
+        <label class="txtdiv">状态</label>
+    </div>
+    <div  id="allqb" onclick="rtmap2d.allDeptclick()"  class="color_queen">
+        全部
+    </div>
+    <div id="allzx" onclick="rtmap2d.zxEmpclick()" class="color_front">
+        在线
+    </div>
+    <div id="alllx"  onclick="rtmap2d.lxEmpclick()" class="color_front">
+        离线
+    </div>
+</div>
+<div class="wrapend">
+    <div  id="allsx"  onclick="rtmap2d.sxDeptclick()"  class="color_front">部门筛选</div>
+    <div   id="videoStart"  onclick="rtmap2d.trackvideo()" class="color_front">摄像机跟随</div>
+</div>
+<div id="" class="linecss"></div>
+<div class="wrapF">
+    <div>
+        <label class="txtdiv">选择</label>
+    </div>
+    <div class="txtchk">
+        <input class="chk1" type="checkbox" id="chkfloor" onchange="rtmap2d.changeCHK(this)" value="" />仅本层
+    </div>
+    <div class="txtchk">
+        <input type="radio" name="sex" id="rboy" value="1" onchange="rtmap2d.changeSex(this)">男
+    </div>
+    <div class="txtchk">
+        <input type="radio"name="sex" id="rgirl" value="0" onchange="rtmap2d.changeSex(this)">女
+    </div>
+</div>
+<div id="" class="linecss"></div>
+<div class="wrap2">
+    <div>
+        <label class="txtOne">人员锁定</label>
+    </div>
+</div>
+<div id="a6" style="height: 245px;"></div>

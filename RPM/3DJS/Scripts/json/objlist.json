@@ -1,0 +1,22 @@
+﻿[
+  {
+    "filename": "fangzi1",
+    "position": {
+      "x": -200,
+      "y": 100,
+      "z": 22
+    },
+    "showname": "办公楼",
+    "floor": "首层"
+  },
+  {
+    "filename": "fangzi2",
+    "position": {
+      "x": 100,
+      "y": -300,
+      "z": 22
+    },
+    "showname": "办公楼2",
+    "floor": "首层"
+  }
+]

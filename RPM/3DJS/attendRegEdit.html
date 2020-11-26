@@ -1,0 +1,15 @@
+﻿<div class="cl pd-5 " id="chkList">
+    <table>
+                 <tbody>
+                     <tr><td>名称:</td><td><input id='attregNames' type="text" style="width: 250px" /></td></tr>
+                     <tr><td>考勤人员:</td><td><input id="empNames" placeholder="人员姓名" type="text" role="textbox" data-perid="0" data-perEmps="" data-tprid="0" style="width: 225px" /><img id="idImg" src="/RPM/3DJS/Scripts/images/find.png" onclick="editattend.openattreg()" /></td></tr>
+                 </tbody>
+             </table>
+         </div>
+         <div class="cl pd-5 bg-1 bk-gray mt-20">
+             <input class="btn btn-primary radius" id='btnAdd' type="button" style="height: 27px" width="30px" onclick="editattend.saveAttendReg()" role="button" value="保存" />
+             <input class="btn btn-primary radius" id='btnClose' type="button" style="height: 27px" width="30px" onclick="editattend.indexCloseAttend()" role="button" value="关闭" />
+             <input class="btn btn-primary radius" id='btnEdit' type="button" style="height: 27px" width="80px" onclick="map2dLayer.showRegPoints()" role="button" value="坐标修正" />
+             <label>&nbsp;&nbsp;&nbsp;</label>
+             <label id="lblMessage" style="color:blue"> </label>
+   </div>

@@ -1,0 +1,207 @@
+﻿@{
+    Layout = null;
+    string languagename = Donn.EAM.Web.Core.CurrentLoginInfo.Language;
+    var themes = new List<string>() { "metro", "bootstrap", "office365", "default" };
+
+    string style = themes[1];
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>@ViewBag.Title</title>
+    <link href="~/Resource/Scripts/Kendo/Style/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/Resource/Scripts/Kendo/Style/kendo.@{@style}.min.css" rel="stylesheet" />
+    <script src="~/Resource/Scripts/Base/jquery-1.10.2.min.js"></script>
+    <script type='text/javascript' src="~/Resource/Scripts/Kendo/js/kendo.web.min.js"></script>
+
+
+    <script src="~/Resource/Scripts/Base/eap.js@(Html.GetVersion())"></script>
+    @*?r=@System.DateTime.Now.Ticks*@
+    <script src="~/Resource/Scripts/Base/eap.ui1.js@(Html.GetVersion())"></script>
+    @*?r=@System.DateTime.Now.Ticks*@
+    @*<script src="~/Resource/Scripts/Base/eap.kendo1.js@(Html.GetVersion())"></script>*@
+    @*?r=@System.DateTime.Now.Minute*@
+</head>
+
+<body id="mainContent">
+    <h1>Scheduler Task Console</h1>
+    <div id="grid">
+
+    </div>
+
+    <div id="log"></div>
+</body>
+</html>
+
+
+
+<script>
+
+    EAP.UI.documentReady(InitMain);
+
+    function InitMain() {
+        var ctrl = new EAP.Controller("api/Sch");
+
+        kendo.ui.progress($(document.body), true);
+        ctrl.ExecuteServerAction("Query", {}, function (data) {
+            kendo.ui.progress($(document.body), false);
+            var cols = [
+                {
+                    field: 'Id', hidden: true, title: "任务名称"
+                },
+                {
+                    field: 'Name', title: "TaskName"
+                },
+                {
+                    title: 'Triggers', template: function (dataItem) {
+                        var ts = dataItem.ScheduleTaskTriggers;
+
+                        var tshtml = "";
+
+                        for (var i = 0; i < ts.length; i++) {
+                            tshtml += ts[i].TriggerExpression + "<br/>";
+                        }
+
+                        return tshtml;
+                    }
+                },
+                {
+                    field: 'Disabled', title: "停用",
+                    template: function (item) {
+                        if (item.Disabled) {
+                            return "是";
+                        }
+                        else {
+                            return "否";
+                        }
+                    }
+                },
+                {
+                    command: [{
+                        name: 'Log', click: function (e) {
+
+                            e.preventDefault();
+                            var tr = $(e.target).closest("tr");
+                            var data = this.dataItem(tr);
+                            ShowLogWindow(data);
+                        }
+                    },
+                    {
+                        name: 'Execute', click: function (e) {
+
+                            e.preventDefault();
+                            var tr = $(e.target).closest("tr");
+                            var data = this.dataItem(tr);
+
+                            executeTask(data);
+                        }
+                    }]
+                }
+
+            ];
+
+            var gridoption = {
+                height: 200,
+                columns: cols,
+                resizable: true,
+                scrollable: {
+                    virtual: false
+                },
+                pageable: false,
+                DataSource: data.Collection,
+                dom: $('#grid')
+            }
+
+            LoadGrid(gridoption);
+        })
+    }
+
+    function ShowLogWindow(task) {
+        var winDiv = jQuery("<div/>");
+        var contentTemplate = "<div id='winlog'/>";
+        var kwindow = winDiv.kendoWindow({
+            modal: true,
+            width: 800,
+            height: 480,
+            title: "Logs",
+            resizable: true,
+            content: {
+                template: contentTemplate
+            },
+            deactivate: function () {
+                kwindow.destroy();
+            }
+        }).getKendoWindow();
+
+        var ctrl = new EAP.Controller("api/Sch");
+        kendo.ui.progress($(document.body), true);
+        ctrl.ExecuteServerAction("Log", task, function (data) {
+            kendo.ui.progress($(document.body), false);
+            var cols = [
+                {
+                    field: 'Message', title: "Message"
+                },
+                {
+                    field: 'Tag', title: "Type", hidden: true
+                },
+                {
+                    field: 'CreatedTime',
+                    title: "Time",
+                    template: function (dataItem) {
+                        return new Date(dataItem.CreatedTime).format('yyyy-MM-dd HH:mm:ss');
+                    }
+                }
+            ];
+
+            var gridoption = {
+
+                height: 400,
+                columns: cols,
+                resizable: true,
+                scrollable: {
+                    virtual: false
+                },
+                pageable: false,
+                dom: winDiv.find('#winlog'),
+                DataSource: data.Collection
+
+            }
+
+            LoadGrid(gridoption);
+
+        });
+
+        kwindow.center();
+        kwindow.open();
+    }
+
+    function executeTask(task) {
+        var ctrl = new EAP.Controller("api/Sch");
+
+        ctrl.ExecuteServerActionSync("Execute", task, function (data) {
+
+            alert(data);
+        });
+    }
+
+    function LoadGrid(gridoption) {
+        var grid = gridoption.dom.kendoGrid({
+            height: gridoption.height,
+            pageable: gridoption.pageable,
+            columns: gridoption.columns,
+            resizable: true,
+            scrollable: {
+                virtual: false
+            },
+            dataSource: gridoption.DataSource
+
+        }).getKendoGrid();
+    }
+
+
+
+</script>

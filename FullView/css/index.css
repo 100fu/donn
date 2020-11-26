@@ -1,0 +1,262 @@
+/* Create by gaojiye */
+@charset "utf-8";
+/*é€šç”¨æ ·å¼Í¨*/
+body,
+ul,
+li,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+dl,
+dt,
+dd {
+  margin: 0;
+  padding: 0;
+}
+ul,
+li {
+  list-style: none;
+}
+a:link,
+a:visited,
+a:active {
+  text-decoration: none;
+}
+body {
+  background: url(../image/bg.png) top center no-repeat;
+}
+.main {
+  padding: 5px;
+   height: calc(100% - 0px);
+}
+.main-left,
+.main-right {
+  float: left;
+  width: 70%;
+  padding: 0 10px;
+}
+.main-middle {
+  float: left;
+  width: 30%;
+  padding: 0 10px;
+}
+
+.border-container {
+  position: relative;
+  margin-top: 5px;
+  padding: 10px;
+  border: 1px solid rgb(96, 118, 173);
+}
+.containertitle {
+  background: url("../image/917.png") no-repeat;
+  height: 30px;
+  border: none;
+  padding: 5px 0px 0px 15px;
+  color: rgb(10, 221, 226);
+  font-size: 14px;
+  font-weight: 600;
+}
+.containertitle span.title-span {
+  padding-left: 15px;
+  font-size: 9px;
+  font-weight: normal;
+  display: inline-block;
+}
+.containertitle span.title-span1 {
+  padding-left: 15px;
+  font-size: 9px;
+  font-weight: normal;
+  float: right;
+}
+.border-container span.border-span {
+  display: block;
+  position: absolute;
+  width: 10px;
+  height: 10px;
+}
+.border-container div.content {
+  top: 40px;
+  border: 1px solid rgb(40, 60, 99);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.border-container table th {
+  color: #fff;
+  width: 100px;
+  text-align: center;
+  height: 30px;
+  font-weight: normal;
+  background: rgb(21, 47, 90);
+}
+.border-container table tr {
+  color: #fff;
+  width: 100px;
+  text-align: center;
+  height: 30px;
+  font-weight: normal;
+  font-size: 12px;
+}
+.border-container table tr:hover {
+  color: #fff;
+  width: 100px;
+  text-align: center;
+  background: rgb(21, 47, 90);
+  height: 30px;
+  font-weight: normal;
+}
+.border-container div.content::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 5px; /*高宽分别对应横竖滚动条的尺寸*/
+  height: 1px;
+}
+
+.border-container div.content::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 10px;
+  background: rgb(40, 57, 86);
+}
+
+.border-container div.content::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  border-radius: 10px;
+}
+.border-container li {
+  display: inline; /* 水平排列 */
+  list-style-type: none;
+  font-size: 12px;
+  padding: 0px 10px 0px 10px;
+}
+.border-container li a {
+  text-decoration: none;
+  color: rgb(96, 118, 173);
+  cursor: pointer;
+}
+.border-container .select {
+  color: rgb(14, 252, 255);
+}
+.border-container span.top-left {
+  top: -1px;
+  left: -1px;
+  border-top: 1px solid rgb(14, 252, 255);
+  border-left: 1px solid rgb(14, 252, 255);
+}
+
+.border-container span.top-right {
+  top: -1px;
+  right: -1px;
+  border-top: 1px solid rgb(14, 252, 255);
+  border-right: 1px solid rgb(14, 252, 255);
+}
+
+.border-container span.bottom-left {
+  bottom: -1px;
+  left: -1px;
+  border-bottom: 1px solid rgb(14, 252, 255);
+  border-left: 1px solid rgb(14, 252, 255);
+}
+
+.border-container span.bottom-right {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 1px solid rgb(14, 252, 255);
+  border-right: 1px solid rgb(14, 252, 255);
+}
+.border-container span.border-title {
+  border: 1px solid rgb(96, 118, 173);
+  width: 150px;
+  position: relative;
+  top: -22px;
+  left: 50%;
+  margin-left: -75px;
+  height: 26px;
+  background-color: rgb(16, 35, 67);
+  text-align: center;
+  color: rgb(14, 252, 255);
+  padding: 3px;
+}
+button {
+  padding: 0.2em 1.5em;
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+  border: 1px solid rgb(96, 118, 173);
+  color: rgb(14, 252, 255);
+  font-size: 16px;
+}
+input[type="text"] {
+  background-color: transparent;
+  border: 1px solid rgb(96, 118, 173);
+  color: #fff;
+  font-size: 14px;
+  padding-left: 15px;
+}
+.mainLeftWidth {
+  height: calc(80% - 240px);
+  height: -moz-calc(80% - 240px); /*Firefox*/
+  height: -webkit-calc(80% - 240px); /*chrome safari*/
+}
+.dialogbg {
+  position: absolute;
+  z-index: 99999999;
+  top: 0;
+  margin-top: 0px;
+  padding: 0;
+  background-color: rgb(16, 35, 67);
+  opacity: 0.5;
+  display: none;
+}
+.dialog {
+  position: absolute;
+  z-index: 999999999;
+  left: 50%;
+  top: 50%;
+  background-color: rgb(16, 35, 67);
+  display: none;
+}
+.dialogClose {
+  position: absolute;
+  z-index: 999999999;
+  right: 5px;
+  top: -15px;
+  font-size: 40px;
+  color: rgb(180, 201, 255);
+  cursor: pointer;
+  font-weight: normal;
+}
+#personContent {
+  width: 700px;
+  height: 400px;
+  margin-left: -350px;
+  margin-top: -250px;
+}
+#baseStationContent {
+  width: 320px;
+  height: 400px;
+  margin-left: -160px;
+  margin-top: -200px;
+}
+#cameraContent {
+  width: 260px;
+  height: 400px;
+  margin-left: -130px;
+  margin-top: -200px;
+}
+.main-title {
+  background: url(../image/title.png) repeat center center;
+  width: 100%;
+  height: 50px;
+}
+#customContent {
+  width: 400px;
+  height: 180px;
+  margin-left: -200px;
+  margin-top: -90px;
+}
+.top-left1 {
+  height: calc(100%);
+}

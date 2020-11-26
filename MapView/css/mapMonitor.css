@@ -1,0 +1,547 @@
+﻿html {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+ul {
+    margin: 5px;
+    padding: 0;
+}
+
+    ul li {
+        list-style: none;
+    }
+
+body {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.map {
+    height: 100%;
+    width: 100%;
+}
+
+#map .ol-zoomslider {
+    bottom: 83px;
+    position: absolute;
+    z-index: 999;
+    right: 28px;
+    display: none;
+}
+
+#map .ol-touch .ol-zoom .ol-zoom-out {
+    margin-top: 212px;
+}
+
+#map .ol-touch .ol-zoomslider {
+    top: 2.75em;
+}
+
+#map .ol-zoom-in.ol-has-tooltip:hover [role=tooltip],
+#map .ol-zoom-in.ol-has-tooltip:focus [role=tooltip] {
+    top: 3px;
+}
+
+#map .ol-zoom-out.ol-has-tooltip:hover [role=tooltip],
+#map .ol-zoom-out.ol-has-tooltip:focus [role=tooltip] {
+    top: 232px;
+}
+
+.ol-scale-line {
+    background: rgba(58,60,60,1);
+}
+.ol-scale-line-inner {
+     color:#fff;
+    background-color:#3A3C3C;
+     border:1px solid #eee;
+      border-top: none;
+}
+    .ol-control {
+    background-color: rgba(58,60,60,1);
+}
+.righttool {
+    right: 23px;
+    z-index: 999;
+    position: absolute;
+}
+
+    .righttool img {
+        width: 43px;
+        height: 43px;
+        cursor: pointer;
+    }
+
+    .righttool div {
+        margin-bottom: 20px;
+    }
+
+.toolContent {
+    width: 140px;
+    height: 100px;
+    z-index: 999;
+    position: absolute;
+    right: 80px;
+    background: rgba(58,60,60,1);
+    font-size: 14px;
+    color: #fff;
+    border-radius: 15px;
+}
+
+    .toolContent:after {
+        content: "";
+        width: 0;
+        height: 0;
+        border: 14px solid transparent;
+        border-left-color: rgba(58,60,60,1);
+        position: absolute;
+        left: 100%;
+        top: 35px;
+        margin-top: -14px;
+    }
+
+    .toolContent ul {
+        margin: 5px;
+        padding: 0;
+    }
+
+        .toolContent ul li {
+            margin-bottom: 3px;
+        }
+
+            .toolContent ul li span {
+                margin: 0px;
+                line-height: 150%;
+            }
+
+            .toolContent ul li hr {
+                border: 0.5px solid #EEEEEE;
+            }
+
+.warningContent {
+    background: rgba(48,112,138,1);
+}
+
+    .warningContent:after {
+        border-left-color: rgba(48,112,138,1);
+    }
+
+    .warningContent ul {
+        margin: 5px;
+        padding: 0;
+    }
+
+        .warningContent ul li {
+            margin-bottom: 3px;
+        }
+
+            .warningContent ul li span {
+                margin: 0px;
+                line-height: 150%;
+            }
+
+            .warningContent ul li hr {
+                border: 0.5px solid #EEEEEE;
+            }
+
+.ulworkMisson ul {
+    width: 380px;
+    height: 300px;
+    margin-top: 5px;
+}
+.ulworkMisson:hover {
+color: #3197EE;
+}
+.ulworkMisson li {
+    float: left;
+    height: 20px;
+    line-height: 20px;
+    margin-left: 10px;
+    width: 170px;
+    cursor: pointer;
+}
+
+.ulworkMisson ul li hr {
+    border: 0.5px solid #EEEEEE;
+}
+
+.ulworkMisson .li1 {
+    width: 370px;
+}
+
+.toolOverFlow {
+    height: 310px;
+    width: 98%;
+    overflow-x: hidden;
+    margin: 5px;
+}
+
+    .toolOverFlow::-webkit-scrollbar {
+        /*滚动条整体样式*/
+        width: 12px; /*高宽分别对应横竖滚动条的尺寸*/
+        height: 1px;
+    }
+
+    .toolOverFlow::-webkit-scrollbar-thumb {
+        /*滚动条里面小方块*/
+        border-radius: 10px;
+        background: #E1E5EC;
+    }
+
+    .toolOverFlow::-webkit-scrollbar-track {
+        /*滚动条里面轨道*/
+        border-radius: 10px;
+    }
+
+.radio {
+    margin: 0.5rem;
+}
+
+    .radio input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+    }
+
+        .radio input[type="radio"] + .radio-label:before {
+            content: '';
+            background: #f4f4f4;
+            border-radius: 100%;
+            border: 1px solid #b4b4b4;
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            position: relative;
+            top: .2em;
+            margin-right: 1em;
+            vertical-align: top;
+            cursor: pointer;
+            text-align: center;
+            -webkit-transition: all 250ms ease;
+            transition: all 250ms ease;
+        }
+
+        .radio input[type="radio"]:checked + .radio-label:before {
+            background-color: #3197EE;
+            box-shadow: inset 0 0 0 4px #f4f4f4;
+        }
+
+        .radio input[type="radio"]:focus + .radio-label:before {
+            outline: none;
+            border-color: #3197EE;
+        }
+
+        .radio input[type="radio"]:disabled + .radio-label:before {
+            box-shadow: inset 0 0 0 4px #f4f4f4;
+            border-color: #b4b4b4;
+            background: #b4b4b4;
+        }
+
+        .radio input[type="radio"] + .radio-label:empty:before {
+            margin-right: 0;
+        }
+
+.cbkStyle {
+    width: 13px;
+    height: 13px;
+    background: #ddd;
+    position: relative;
+    -webkit-box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+    box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+}
+
+    /**
+ * Create the checkbox button
+ */
+    .cbkStyle label {
+        display: block;
+        width: 9px;
+        height: 9px;
+        -webkit-transition: all .5s ease;
+        -moz-transition: all .5s ease;
+        -o-transition: all .5s ease;
+        transition: all .5s ease;
+        cursor: pointer;
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        z-index: 1;
+        background: #fff;
+        -webkit-box-shadow: inset 0px 1px 3px rgba(0,0,0,0.5);
+        -moz-box-shadow: inset 0px 1px 3px rgba(0,0,0,0.5);
+        box-shadow: inset 0px 1px 3px rgba(0,0,0,0.5);
+    }
+
+    /**
+ * Create the checked state
+ */
+    .cbkStyle input[type=checkbox]:checked + label {
+        background-color: #3197EE;
+        box-shadow: inset 0 0 0 1px #f4f4f4;
+    }
+
+.ultuli li {
+    display: inline; /* 水平排列 */
+    list-style-type: none;
+    padding: 0 2px;
+    font-size: 14px;
+}
+
+    .ultuli li span {
+        height: 24px;
+        line-height: 24px;
+    }
+
+    .ultuli li img {
+        height: 24px;
+    }
+/**
+        * 提示框的样式信息
+        */
+.tooltip {
+    position: relative;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    color: white;
+    padding: 4px 8px;
+    opacity: 0.7;
+    white-space: nowrap;
+}
+
+.tooltip-measure {
+    opacity: 1;
+    font-weight: bold;
+}
+
+.tooltip-static {
+    background-color: #ffffff;
+    color: black;
+    border: 1px solid white;
+}
+
+    .tooltip-measure:before,
+    .tooltip-static:before {
+        border-top: 6px solid rgba(0, 0, 0, 0.5);
+        border-right: 6px solid transparent;
+        border-left: 6px solid transparent;
+        content: "";
+        position: absolute;
+        bottom: -6px;
+        margin-left: -7px;
+        left: 50%;
+    }
+
+    .tooltip-static:before {
+        border-top-color: #ffffff;
+    }
+
+
+
+.marktooltip {
+    position: absolute;
+    display: none;
+    color: #fff;
+    line-height: 25px;
+    padding: 5px 20px 5px 20px;
+    background-color: #000;
+    font-size: .6em;
+    left: 0;
+    box-sizing: border-box;
+    /*shadow*/
+    -webkit-box-shadow: 10px 7px 30px -7px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 7px 30px -7px rgba(0,0,0,0.75);
+    box-shadow: 10px 7px 30px -7px rgba(0,0,0,0.75);
+}
+
+.ui-context-menu {
+    position: absolute;
+    z-index: 999;
+    padding: 10px 20px;
+    min-width: 80px;
+    margin: 0;
+     background-color:rgba(58,60,60,1);
+    border: 1px solid rgba(0, 0, 0, .15);
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    -ms-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    -o-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    color: #fff;
+}
+
+    .ui-context-menu .ui-context-menu-item {
+        margin: 0;
+        padding: 0;
+    }
+
+        .ui-context-menu .ui-context-menu-item a {
+            display: block;
+            padding: 0 10px;
+            white-space: nowrap;
+            text-decoration: none;
+            color: #fff;
+            font-size: 14px;
+            height: 28px;
+            line-height: 28px;
+        }
+
+            .ui-context-menu .ui-context-menu-item a:hover {
+                text-decoration: none;
+                color: #3197EE;
+            }
+
+        .ui-context-menu .ui-context-menu-item .icon {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+            vertical-align: sub;
+            border: 0;
+        }
+
+.tabel_td {
+    padding-left: 10px;
+}
+
+.search {
+    width: 300px;
+    position: absolute;
+    z-index: 999;
+    top: 30px;
+    right: 0px;
+    color: #fff;
+}
+
+    .search input[type="text"] {
+        float: left;
+        flex: 4;
+        height: 43px;
+        outline: none;
+        box-sizing: border-box;
+        border: 1px solid #3A3C3C;
+        border-radius: 20px 0 0 20px;
+        padding-left: 15px;
+        background-color: #3A3C3C;
+        width: 260px;
+        color: #fff;
+    }
+
+    .search input[type="button"] {
+        flex: 1;
+        border-style: none;
+        outline: none;
+        border-radius: 0 20px 20px 0;
+        font-style: normal;
+        background: url('../img/search.png') no-repeat;
+        width: 43px;
+        background-color: #3A3C3C;
+        height: 43px;
+    }
+
+    .search ul li {
+        padding: 10px 10px 5px 15px;
+    }
+
+        .search ul li:hover {
+            color: #3197EE;
+        }
+
+.searchContent {
+    background-color: #3A3C3C;
+    font-size: 12px;
+    margin-top: 3px;
+    margin-left: 15px;
+    color: #fff;
+}
+.rd {
+    display: none;
+}
+.rd + label {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #fff;
+    
+}
+.rd + label:before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 6px;      
+    z-index: 500;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: #f1f1f1;
+    -webkit-transition: all 0.15s ease-in;
+    transition: all 0.15s ease-in;
+}
+.rd:checked + label {
+    background: #059acb;    
+}
+.rd:checked + label:before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 6px;
+    height: 6px;            
+}
+.mapLayeredit table td{
+color: #fff;
+
+}
+.mapMeasure table td{
+color: #fff;
+
+}.mapMeasure table td a{
+color: #fff;
+
+}
+.radio label{
+    color:#fff;
+}
+.titleContent {
+    color:#fff;
+    background-color:rgba(58,60,60,1);
+}
+.ol-zoom .ol-zoom-in {
+    color: rgba(255,255,255,1);
+     background-color: rgba(58,60,60,1);
+      cursor: pointer;
+}
+.ol-zoom .ol-zoom-out {
+  color: rgba(255,255,255,1);
+    background-color: rgba(58,60,60,1);
+    cursor: pointer;
+}
+.olControlLoadingPanel
+{
+        background-image: url(../img/loading.gif);
+        background-color: Transparent;
+        position: relative;
+        width: 66px;
+        height: 66px;
+        top: 50%;
+        left: 50%;
+        background-position: center;
+        background-repeat: no-repeat;
+        display: inline;
+}

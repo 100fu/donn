@@ -1,0 +1,484 @@
+﻿@{
+    Layout = "_Layout.cshtml";
+    ViewBag.LanguageName = Donn.EAM.Web.Core.EAMSettings.Language;
+}
+<style>
+    #splitContainer {
+        height: 100%;
+        margin-top: 0;
+    }
+
+    #tabstrip-parent, #gridPanel, #Tabs {
+        height: 98%;
+    }
+
+    k-tabstrip-wrapper {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        border-width: 0;
+    }
+</style>
+
+
+
+<div id="splitContainer">
+    <div id="groupTreePanel">
+        <div id="groupTreeToolbar"></div>
+        <div id="groupTreeView"></div>
+    </div>
+
+
+    <div id="gridPanel">
+        <div id="Tabs">
+            <ul>
+                <li id="tab1"></li>
+                <li id="tab2"></li>
+            </ul>
+            <div id="groupUserGridPanel">
+                <div id="groupUserGridToolbar"></div>
+                <div id="groupUserGridView"></div>
+            </div>
+
+            <div id="outerUserGridPanel">
+                <div id="outerUserGridToolbar">
+                </div>
+                <div id="outerUserGrid"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@*<div id="outerUserGridPanel" style="display:none;">
+        <div id="outerUserGridToolbar">
+        </div>
+        <div id="outerUserGrid"></div>
+    </div>*@
+
+<script type="text/javascript">
+    System.CultureInfo.LanguageName = '@ViewBag.LanguageName';
+    System.Declare("EAM.Permission");
+    EAM.Permission.groupSetting = System.Object.Extends({
+        groupTreeControl: {},
+        groupTreeToolbarControl: {},
+        userGridControl: {},
+        userGridToolbarControl: {},
+        outerUserGridControl: {},
+        outerUserGridToolbarControl: {},
+        kOuterUserGridWindow: {},
+        prompt: System.CultureInfo.GetDisplayText('Prompt'),
+        ctor: function () {
+            this._initLayout();
+            this._initGroupTree();
+            //this._initGroupUserGrid();
+            this._initTabGrid();
+            var that = this;
+            $('#groupUserGridPanel').resize(function () {
+                that._resize();
+            }).trigger('resize');
+        },
+        _initLayout: function () {
+            $('#splitContainer').kendoSplitter({
+                panes: [{ collapsible: true, size: "30%" }, { collapsible: false, size: "70%" }]
+            }, false);
+        },
+        _initTabGrid: function () {
+
+            var that = this;
+            var onActivate = function (e) {
+                //if (e.item.id == 'tab1') {
+                //    that.initRoleUserGrid();
+                //}
+                //else if (e.item.id == 'tab2') {
+                //    that.initAddUserGrid();
+                //}
+            };
+
+
+            jQuery('#tab1').html(System.CultureInfo.GetDisplayText('Member'));
+            jQuery('#tab2').html(System.CultureInfo.GetDisplayText('AddUser'));
+
+
+
+            tabStripElement = jQuery('#Tabs').kendoTabStrip({
+                animation: {
+                    open: {
+                        effects: "fade"
+                    },
+                    close: {
+                        effects: "fadeOut"
+                    }
+                },
+                activate: onActivate
+            });
+
+            tabStripElement.parent().attr("id", "tabstrip-parent")
+
+            var expandContentDivs = function (divs) {
+                divs.height(tabStripElement.innerHeight() - tabStripElement.children(".k-tabstrip-items").outerHeight() - 16);
+                divs.css('height', '96%');
+            }
+            expandContentDivs(tabStripElement.children(".k-content"));
+
+            jQuery(window).resize(function () {
+                expandContentDivs(jQuery('#Tabs').children(".k-content"));
+            });
+
+            var tabstrip = jQuery('#Tabs').getKendoTabStrip();
+
+            tabstrip.one("activate", function () {
+                that.userGridControl.grid.resize();
+            });
+
+            this._initGroupUserGrid();
+            this._initOuterUserWindow();
+
+            tabstrip.activateTab($("#tab1"));
+
+        },
+
+        _initGroupTree: function () {
+            var that = this;
+            var toolbarOption = new EAP.UI.ToolbarOption();
+            toolbarOption.items = [
+                {
+                    type: "button", text: System.CultureInfo.GetDisplayText("Add"), id: "add_Group"
+                },
+                   { text: System.CultureInfo.GetDisplayText('Edit'), type: 'button', id: "edit_Group" },
+                   { text: System.CultureInfo.GetDisplayText('Refresh'), type: 'button', id: "refresh_GroupTree" },
+                { type: "button", text: System.CultureInfo.GetDisplayText("delete"), id: "delete_Group" }
+            ];
+            toolbarOption.owner = this;
+            toolbarOption.selector = "#groupTreeToolbar";
+            this.groupTreeToolbarControl = new EAP.UI.ToolbarControl(toolbarOption);
+            var option = new EAP.UI.TreeOption();
+            option.selector = "#groupTreeView";
+            option.nodeClick = function (e) {
+                that.currentGroup = e.sender.dataItem(e.node);
+                that._loadGroupUserGrid();
+                that._loadOuterUserGrid();
+            };
+            option.dragable = true;
+            option.ondraging = function (e) {
+                if (e.dropPosition != 'over') {
+                    e.setValid(false);
+                }
+
+                var de = e.sender.dataItem(e.destinationNode);
+                var so = e.sender.dataItem(e.sourceNode);
+                if (so.IdParent == de.id) {
+                    e.setValid(false);
+                }
+            }
+            option.dragend = function (e) {
+
+                var de = e.sender.dataItem(e.destinationNode);
+                var so = e.sender.dataItem(e.sourceNode);
+                if (so.IdParent == de.id) {
+                    return;
+                }
+                var confirmoption = new EAP.UI.DialogOption();
+                confirmoption.OK = function () {
+
+                    var dragView = {};
+                    dragView.id = so.id;
+                    dragView.Name = so.text;
+                    dragView.ObjectState = 4;
+                    if (e.dropPosition == 'over') {
+                        //子
+                        dragView.IdParent = de.id;
+                    }
+                    else {
+                        //平级
+                        dragView.IdParent = de.IdParent;
+                    }
+                    dragView.oper = "drag";
+                    new EAP.EAMController("Group").ExecuteServerAction("GroupSave", dragView, function (data) {
+                        if (data != "success")
+                            EAP.UI.MessageBox.alert(this.prompt, data);
+                        that._loadGroupTree();
+                    }, function () {
+                        EAP.UI.MessageBox.alert(this.prompt, System.CultureInfo.GetDisplayText("UpdateFailed"));
+                        that._loadGroupTree();
+                    });
+
+                };
+
+                confirmoption.title = System.CultureInfo.GetDisplayText('Confirm');
+                confirmoption.content = System.CultureInfo.GetDisplayText('SureMoveGroup');
+
+
+                EAP.UI.MessageBox.confirm(confirmoption);
+
+            };
+            option.showIcon = true;
+            this.groupTreeControl = new EAP.UI.TreeControl(option);
+            this._loadGroupTree();
+        },
+        _initGroupUserGrid: function () {
+            var that = this;
+            var toolbarOption = new EAP.UI.ToolbarOption();
+            toolbarOption.items = [
+                //{ type: "button", text: System.CultureInfo.GetDisplayText("Add"), id: "add_User" },
+                { type: "button", text: System.CultureInfo.GetDisplayText("delete"), id: "delete_User" }
+            ];
+            toolbarOption.owner = this;
+            toolbarOption.selector = "#groupUserGridToolbar";
+            this.userGridToolbarControl = new EAP.UI.ToolbarControl(toolbarOption);
+
+
+            var option = new EAP.UI.GridOption();
+            option.selector = '#groupUserGridView';
+            option.height = "90%";
+            option.columns = [
+                  {
+                      field: 'User.Name', title: System.CultureInfo.GetDisplayText("StaffNameCN"),
+                      template: function (value, row, i) {
+                          if (value)
+                              return value.User.Name;
+                      }
+                  },
+                  {
+                      field: 'User.Login_acc', title: System.CultureInfo.GetDisplayText("Account"),
+                      template: function (value) {
+                          if (value)
+                              return value.User.Login_acc;
+                      }
+                  }
+            ];
+            option.showrowcheckbox = true;
+            this.userGridControl = new EAP.UI.GridControl(option);
+            this.userGridControl.grid.setOptions({ filterable: { mode: "row" } });
+            this._loadGroupUserGrid();
+        },
+        _initOuterUserWindow: function () {
+            var that = this;
+
+            var toolbarOption = new EAP.UI.ToolbarOption();
+            toolbarOption.selector = "#outerUserGridToolbar";
+            toolbarOption.owner = this;
+            toolbarOption.items = [{ type: "button", text: System.CultureInfo.GetDisplayText("AppendToGroup"), id: "add_UserSave" }];
+            this.outerUserGridToolbarControl = new EAP.UI.ToolbarControl(toolbarOption);
+
+            var option = new EAP.UI.GridOption();
+            option.selector = '#outerUserGrid';
+            option.height = "90%";
+            option.columns = [
+                  {
+                      field: 'Name', title: System.CultureInfo.GetDisplayText("StaffNameCN"),  sortable: true,
+                      template: function (value, row, i) {
+                          if (value)
+                              return value.Name;
+                      }
+                  },
+                  {
+                      field: 'Login_acc', title: System.CultureInfo.GetDisplayText("Account"),  sortable: true,
+                      template: function (value) {
+                          if (value)
+                              return value.Login_acc;
+                      }
+                  }
+            ];
+            option.showrowcheckbox = true;
+            this.outerUserGridControl = new EAP.UI.GridControl(option);
+            this.outerUserGridControl.grid.setOptions({ filterable: { mode: "row" } });
+
+        },
+        _loadGroupTree: function () {
+            var that = this;
+            new EAP.EAMController("Group").ExecuteServerAction("GetGroupTree", {}, function (data) {
+                that.groupTreeControl.setTreeData(data);
+                that.groupTreeControl.expandall();
+            });
+        },
+        _loadGroupUserGrid: function () {
+            var griddataRequest = {};
+            griddataRequest.url = { controller: "Group", action: "GroupUserList" };
+            if (!this.currentGroup) {
+                this.userGridControl.grid.setOptions({ dataSource: [] });
+                return;
+            }
+            //需修改
+            griddataRequest.postdata = { id: this.currentGroup.id };
+            griddataRequest.responseData = function (d) {
+                return d.rows;
+            }
+
+            this.userGridControl.setData(griddataRequest);
+        },
+        _loadOuterUserGrid: function () {
+            var griddataRequest = {};
+            griddataRequest.url = { controller: "Group", action: "GroupUserAddList", parameters: { date: new Date().getTime() } };
+            griddataRequest.postdata = { id: this.currentGroup.id };
+            griddataRequest.responseData = function (d) {
+                return d.rows;
+            }
+            this.outerUserGridControl.setData(griddataRequest);
+
+            var $content = this.outerUserGridControl.grid.element.find('div.k-grid-content');
+            $content.outerHeight($content.outerHeight() - 16);
+        },
+        add_Group: function () {
+            if (!this._exitedGroup()) return;
+            var that = this;
+            var dialogOption = new EAP.UI.InputDialogOption();
+            dialogOption.OK = function (text) {
+
+
+                var group = {};
+                group.Name = text;
+                group.ObjectState = 2;
+                group.IdParent = that.currentGroup.id;
+
+                new EAP.EAMController("Group").ExecuteServerAction("GroupSave", group, function (data) {
+                    if (data != "success") {
+                        EAP.UI.MessageBox.alert(this.prompt, data);
+                        return;
+                    }
+                    that.currentGroup = undefined;
+                    that._loadGroupTree();
+                    that._loadGroupUserGrid();
+                    thia._loadOuterUserGrid();
+                }, function () {
+                    EAP.UI.MessageBox.alert(this.prompt, System.CultureInfo.GetDisplayText("UpdateFailed"));
+                });
+            };
+            dialogOption.inputRequired = true;
+            dialogOption.errorMessage = "请输入角色名称";
+            dialogOption.title = System.CultureInfo.GetDisplayText('Add') + System.CultureInfo.GetDisplayText('UserGroup');
+            dialogOption.content = System.CultureInfo.GetDisplayText('UserGroup') + System.CultureInfo.GetDisplayText('Name');
+
+            EAP.UI.MessageBox.showInput(dialogOption);
+        },
+        delete_Group: function () {
+            if (!this._exitedGroup()) return;
+            var that = this;
+            var confirmOption = {
+                title: this.prompt,
+                content: System.CultureInfo.GetDisplayText("SureDelete"), OK: function () {
+                    new EAP.EAMController("Group").ExecuteServerAction("GroupDel", { groupId: that.currentGroup.id }, function (data) {
+                        that.currentGroup = undefined;
+                        that._loadGroupTree();
+                        that._loadGroupUserGrid();
+                        thia._loadOuterUserGrid();
+                    }, function (err) {
+                        EAP.UI.MessageBox.alert('', err);
+                    });
+                }
+            }
+            EAP.UI.MessageBox.confirm(confirmOption);
+        },
+        add_User: function () {
+            if (!this._exitedGroup())
+                return;
+            this._loadOuterUserGrid();
+            this._loadGroupUserGrid();
+        },
+        add_UserSave: function () {
+            var that = this;
+            var usersId = this.outerUserGridControl.getSelectedId();
+            if (usersId.length <= 0) {
+                EAP.UI.MessageBox.alert(this.prompt, System.CultureInfo.GetDisplayText("Choose") + System.CultureInfo.GetDisplayText("user"))
+                return;
+            }
+
+            var confirmOption = {
+                content: System.CultureInfo.GetDisplayText("isorno") + System.CultureInfo.GetDisplayText("save") + "?", OK: function () {
+                    new EAP.EAMController("Group").ExecuteServerAction("GroupUserEdit", { OPER: "ADD", GroupID: that.currentGroup.id, CHECKIDS: usersId }, function (data) {
+                        //that.kOuterUserGridWindow.close();
+                        EAP.UI.MessageBox.alert(that.prompt, System.CultureInfo.GetDisplayText("saveSuccess"));
+                        that._loadGroupUserGrid();
+                        that._loadOuterUserGrid();
+                    });
+                }
+            };
+            EAP.UI.MessageBox.confirm(confirmOption)
+        },
+        delete_User: function () {
+            if (!this._exitedGroup()) return;
+            var usersRels = this.userGridControl.getSelectedRows();
+            var usersId = [];
+            for (var i = 0; i < usersRels.length; i++) {
+                usersId.push(usersRels[i].IdUser)
+            }
+            if (usersId.length <= 0) {
+                EAP.UI.MessageBox.alert(this.prompt, System.CultureInfo.GetDisplayText("Choose") + System.CultureInfo.GetDisplayText("user"));
+                return;
+            }
+            var that = this;
+            var confirmOption = {
+                title: this.prompt,
+                content: System.CultureInfo.GetDisplayText("DeleteSure"), OK: function () {
+                    new EAP.EAMController("Group").ExecuteServerAction("GroupUserEdit", { OPER: "DELETE", GroupID: that.currentGroup.id, CHECKIDS: usersId }, function (data) {
+                        EAP.UI.MessageBox.alert(that.prompt, System.CultureInfo.GetDisplayText("saveSuccess"));
+                        that._loadGroupUserGrid();
+                        that._loadOuterUserGrid();
+                    });
+                }
+            };
+            EAP.UI.MessageBox.confirm(confirmOption)
+        },
+        _exitedGroup: function () {
+            if (!this.currentGroup) {
+                EAP.UI.MessageBox.alert(this.prompt, System.CultureInfo.GetDisplayText("SelectGroupFirst"));
+                return false;
+            } else {
+                return true;
+            }
+        },
+        _resize: function () {
+            this.userGridControl.grid.setOptions({ height: $('#groupUserGridPanel').innerHeight() - this.userGridToolbarControl.toolbar.wrapper.outerHeight() });
+        },
+        edit_Group: function () {
+            var currentNode = this.currentGroup;
+            var tip = System.CultureInfo.GetDisplayText('Prompt');
+            if (!currentNode) {
+                EAP.UI.MessageBox.alert(tip, System.CultureInfo.GetDisplayText('SelectGroupFirst'));
+                return false;
+            }
+            var that = this;
+            var option = new EAP.UI.InputDialogOption();
+            option.text = currentNode.text;
+            option.OK = function (text) {
+
+                var group = {};
+                group.Id = currentNode.id;
+                group.Name = text;
+                group.ObjectState = 4;
+                group.IdParent = currentNode.IdParent;
+
+                var controller = new EAP.Controller('Group');
+
+                controller.ExecuteServerAction('GroupSave', group, function (data) {
+                    if (data != "success") {
+                        EAP.UI.MessageBox.alert(this.prompt, data);
+                        return;
+                    }
+                    that.currentGroup = undefined;
+                    that._loadGroupTree();
+                    that._loadGroupUserGrid();
+                    thia._loadOuterUserGrid();
+                }, function () {
+                    EAP.UI.MessageBox.alert(this.prompt, System.CultureInfo.GetDisplayText("UpdateFailed"));
+                });
+
+            };
+            option.inputRequired = true;
+            option.errorMessage = "请输入用户组名称";
+            option.title = tip;
+            option.content = System.CultureInfo.GetDisplayText('GroupName');
+
+            EAP.UI.MessageBox.showInput(option);
+        },
+        refresh_GroupTree: function () {
+            this._loadGroupTree();
+            this.currentGroup = undefined;
+            this._loadGroupUserGrid();
+            this._loadOuterUserGrid();
+        }
+    });
+
+    var control = new EAM.Permission.groupSetting();
+</script>

@@ -1,0 +1,47 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <script src="~/Resource/Scripts/Base/jquery-1.10.2.min.js"></script>
+    <script src="~/Resource/Scripts/Base/eap.js"></script>
+    <meta name="viewport" content="width=device-width" />
+    <title>AdminTool</title>
+</head>
+<body>
+    <div>
+
+        @Html.ActionLink("UserViewManager", "UserViewManager")
+        <br />
+        @Html.ActionLink("DefaultViewManager", "DefaultViewManager")
+
+        <br />
+
+        @Html.ActionLink("form", "FormViewSetting", "Commpage");
+
+        <br />
+
+        @Html.ActionLink("SystemConfig", "SystemConfig.html", "RPM");
+
+        <br />
+
+        <br />
+
+        <button onclick="RefreshPrivilege()" class="k-button">刷新权限</button>
+
+    </div>
+
+    <script>
+        function RefreshPrivilege() {
+            var ctrl = new EAP.Controller('Permission');
+
+            ctrl.ExecuteServerAction('RefreshCache', {});
+        }
+    </script>
+
+</body>
+</html>

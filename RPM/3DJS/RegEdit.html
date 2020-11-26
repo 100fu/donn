@@ -1,0 +1,16 @@
+﻿<div class="cl pd-5 " id="chkList">
+    <table>
+        <tbody>
+            <tr><td>名称:</td><td><input id="regNames" type="text" style="width: 250px" /></td></tr>
+            <tr><td>禁入人员:</td><td><input id="empNames" placeholder="人员姓名" type="text" role="textbox" data-perid="0" data-perEmps="" data-tprid="0" style="width: 225px" /><img id="idImg" src="/RPM/3DJS/Scripts/images/find.png" onclick="sys.busi2D.showPoint()" /></td></tr>
+        </tbody>
+    </table>
+</div>
+<div class="cl pd-5 bg-1 bk-gray mt-20">
+    <input class="btn btn-primary radius" id="btnAdd" type="button" style="height: 27px" width="30px" onclick="sys.busi2D.saveRegEmp()" role="button" value="保存" />
+    <input class="btn btn-primary radius" id="btnClose" type="button" style="height: 27px" width="30px" onclick="sys.busi2D.indexClose()" role="button" value="关闭" />
+    <label>&nbsp;&nbsp;&nbsp;</label>
+    <label id="lblMessage" style="color:blue"> </label>
+</div>
+
+

@@ -1,0 +1,12 @@
+﻿<select id="selectid" name="province"></select>
+<input class="text" id="txtsel" size="25" style="width: 125px;" type="text">
+ <a class="btn btn-primary" id="selectFind" style="border-radius: 0px;padding: 2px 3px;height:20px" href="#"><i class="fa fa-search fa-lg"></i>实时搜索</a>
+<input class="text" id="chkRtTrack" onclick="sys.baseNew3D.showRtTrack(1)" type="checkbox">显示轨迹<br />
+<input type="text" onfocus="WdatePicker({ maxDate: '#F{$dp.$D(\'logmax\')||\'%y-%M-%d %HH:%mm:%ss\'}', dateFmt: 'yyyy-MM-dd HH:mm:ss', onpicking: sys.baseNew3D.cLogminFun })" id="logmin" placeholder="开始时间" class="Wdate">
+<input type="text" onfocus="WdatePicker({ minDate: '#F{$dp.$D(\'logmin\')}', maxDate: '%y-%M-%d', dateFmt: 'yyyy-MM-dd HH:mm:ss', onpicking: sys.baseNew3D.cLogmaxFun })" id="logmax" placeholder="结束时间" class="Wdate" title="结束时间"> 
+<span class="input-group-addon a_but"><a  id="hisSearch"><i class="fa fa-search fa-lg" onclick="mapNew3D.searchHisMes()" title="查询历史数据"></i></a></span>
+<span class="input-group-addon a_but"><a  id="hisPlay"><i class="fa fa-play fa-lg" id="btnPlay" onclick="sys.baseNew3D.hisPlay()" title="播放"></i></a></span>
+<span class="input-group-addon a_but"><a id="hisBackward"><i class="fa fa-fast-backward fa-lg" onclick="sys.baseNew3D.hisBackward()" title="慢速播放"></i></a></span>
+<span class="input-group-addon a_but"><a id="hisForward"><i class="fa fa-fast-forward fa-lg" onclick="sys.baseNew3D.hisForward()" title="快速播放"></i></a></span>
+<span class="input-group-addon a_but"><i id="hisProIndex">0/0</i></span><br />
+<div class="number-pb"><div class="number-pb-shown"></div></div>

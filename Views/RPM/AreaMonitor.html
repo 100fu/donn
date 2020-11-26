@@ -1,0 +1,24 @@
+﻿
+<div name="showDept">
+    <table border="0" width="300" class="table table-border table-bordered table-bg table-hover table-sort">
+        <tr>
+            <td>X:<input type="text" id="txtX" style="width:33%" maxlength="20" value="0"  /></td>
+            <td>Y:<input type="text" id="txtX" style="width:33%" maxlength="20" value="0" /></td>
+            <td>Z:<input type="text" id="txtX" style="width:33%" maxlength="20" value="0" /></td>
+        </tr>
+        <tr>
+            <td colspan="3">
+            <input class="btn btn-primary radius"  style="height: 20px" width="20px" type="button" id="btnAdd" value="+" /> 
+            <input class="btn btn-primary radius" style="height: 20px" width="20px" type="button" id="btnDel" value="-" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <select style="width:300px; height:100px" id="ls1" multiple name="list1" size="12" ondblclick="sys.baseNew3D.moveOption(document.getElementById('ls1'), document.getElementById('ls2'))">
+                </select>
+            </td>
+        </tr>
+    </table>
+</div>
+
+

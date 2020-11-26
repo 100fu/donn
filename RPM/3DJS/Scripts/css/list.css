@@ -1,0 +1,348 @@
+/* css reset */
+html, body, ul, li, ol, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, fieldset, img {
+    margin: 0;
+    padding: 0;
+}
+
+fieldset, img {
+    border: none;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+input {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+    input::-moz-focus-inner {
+        border: none;
+        padding: 0;
+    }
+
+select, input {
+    vertical-align: middle;
+}
+
+select, input, textarea {
+    font-size: 12px;
+    margin: 0;
+}
+
+    input[type="text"], input[type="password"], textarea {
+        outline-style: none;
+        -webkit-appearance: none;
+    }
+
+textarea {
+    resize: none;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+body {
+    color: #333;
+    font-size: 12px;
+    font-family: Verdana, Helvetica, Calibri, 'Microsoft Yahei', Arial, sans-serif;
+    background: #fff;
+    overflow: hidden;
+}
+
+a {
+    color: #666;
+    text-decoration: none;
+}
+
+    a:visited {
+        color: #666;
+    }
+
+    a:hover, a:active, a:focus {
+        color: #ff8400;
+        text-decoration: underline;
+    }
+
+
+
+#view_2d {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+}
+
+#view_3d {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+#toolbar {
+    position: absolute;
+    top: 30px;
+    right: 10px;
+    z-index: 2;
+}
+
+    #toolbar label {
+        margin-bottom: 0;
+    }
+
+.main {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0;
+    bottom: 0;
+}
+
+.network3d-view {
+    position: absolute;
+    left: 200px;
+    box-sizing: border-box;
+    top: 0;
+}
+
+.right-content {
+    box-shadow: 1px 0 5px #888;
+    width: 0;
+    position: absolute;
+    height: 100%;
+    right: 0;
+    overflow: hidden;
+    z-index: 2;
+    background: #ECEFF2;
+    margin-right: -300px;
+}
+
+#accordion-resizer {
+    position: absolute;
+    width: 200px;
+    height: 100%;
+}
+
+    #accordion-resizer .mn-accordion {
+        padding: 10px 0px;
+    }
+
+.item-li {
+    float: left;
+    margin-bottom: 15px;
+    width: 90px;
+    text-align: center;
+}
+
+    .item-li img {
+        width: 64px;
+        height: 64px;
+        display: inline-block;
+        border: 1px solid rgb(213, 213, 213);
+        border-radius: 5px;
+    }
+
+        .item-li img:hover {
+            cursor: pointer;
+            background: rgb(252, 252, 252);
+        }
+
+.item-label {
+    margin-top: 10px;
+}
+
+.room-m-pane {
+    position: absolute;
+    top: 1px;
+    bottom: 0px;
+    left: 59px;
+    width: 530px;
+    background-color: white;
+    border-left: 1px solid #c0c0c0;
+    border-right: 1px solid #c0c0c0;
+    display: none;
+}
+
+.image-split-pane {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.room-ruler {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 200px;
+    right: 0px;
+    border-left: 1px solid #c0c0c0;
+    overflow: hidden;
+}
+
+.room-marrow-left {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-image: url(../images/menuarrowl.png);
+    width: 10px;
+    height: 10px;
+    cursor: pointer;
+}
+
+.edit2d-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/*************property sheet********/
+.property-main {
+    width: 295px;
+    padding: 10px;
+}
+
+.property-title {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.title-text {
+    max-width: 150px;
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    font-size: 16px;
+}
+
+.property-content {
+    width: 100%;
+    height: 100%;
+}
+
+.input-l {
+    font-size: 14px;
+    height: 30px;
+    line-height: 30px;
+    color: #606670;
+    padding-right: 0;
+    float: left;
+}
+
+.input-v {
+    padding-left: 0;
+}
+
+.property-conent .row {
+    margin-bottom: 10px;
+    margin-left: 0;
+}
+
+#person_list {
+    position: absolute;
+    z-index: 10000;
+    right: 0px;
+    top: 40px;
+    display: none;
+}
+
+.list .list_item:first-child {
+    border-radius: 10px 10px 0px 0px;
+    border-top: 1px solid rgb(213,213,213);
+}
+
+.list .list_item:last-child {
+    border-radius: 0px 0px 10px 10px;
+}
+
+.list .list_item {
+    max-width: 150px;
+    list-style: none;
+    padding: 10px;
+    padding-left: 50px;
+    border: 1px solid rgb(213,213,213);
+    border-top: 0px;
+    background-image: url(../images/User.png);
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    color: rgb(70,94,145);
+}
+
+    .list .list_item a {
+        /*color: rgb(70,94,145);*/
+        color: white;
+    }
+
+    .list .list_item:hover {
+        background-color: rgb(242,242,242);
+    }
+
+    .list .list_item a {
+        text-decoration: none;
+    }
+
+.list .active {
+    background-color: rgb(47,93,146);
+}
+
+    .list .active a {
+        color: rgb(243,229,223);
+    }
+
+    .list .active:hover {
+        background-color: rgb(47,93,146);
+        color: white;
+    }
+/************czlt-2016-03-21自定义样式 ***************************/
+#rtPersonMessage {
+    position: absolute;
+    z-index: 100000;
+    right: 5px;
+    top: 5px;
+    width: 30px;
+    /*display: none;*/
+}
+
+#rtMessageList {
+    position: absolute;
+    z-index: 100000;
+    right: 5px;
+    top: 30px;
+    /*width: 320px;*/
+    /*display: none;*/
+}
+
+.divClass {
+    /*border: 1px solid red;*/
+    float: left;
+    /*vertical-align: middle;*/
+    text-align: left;
+    border: 1px solid #a1a1a1;
+    padding: 10px 10px;
+    margin: 0 0 0 0;
+    background: #dddddd;
+    border-radius: 10px;
+    border-top: 1px solid rgb(213,213,213);
+    width: 40px;
+    height: 25px;
+    word-break: break-all;
+    word-wrap: break-word;
+    font-size: 2px;
+    line-height: 10px;
+}
+
+.vidoClass {
+    position: absolute;
+    z-index: 9000000;
+    left: 10px;
+    bottom: 5px;
+    margin: 0 0 0 0;
+    opacity: 0.2;
+    border-radius: 10px;   /*四角圆滑;*/
+    display: none;
+    
+}

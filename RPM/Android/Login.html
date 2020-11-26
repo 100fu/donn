@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<!-- html -->
+<html>
+<!-- head -->
+<head>
+    <title>人员定位管理系统</title>
+    <link href="./css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="./css/stylelogin.css" rel="stylesheet" type="text/css" />
+
+    <!--//theme-style-->
+    <!-- metatags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <script src="../3DJS/Scripts/Base/eap.core.js?v=20180818"></script>
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/applogic.js"></script>
+
+</head>
+<!-- /head -->
+<!-- body -->
+<body>
+    <header></header>
+    <div class="support w3layouts-content">
+        <div class="container">
+            <h3 class="w3-head">无线定位管理系统</h3>
+            <div class="col-md-8 w3ls-supportform">
+                <!--<form action="#" method="get" name="sentMessage" id="contactForm" novalidate>-->
+                    <div class="control-group form-group">
+                        <div class="controls">
+                            <input type="text" class="form-control" placeholder="用户名" id="name" required data-validation-required-message="请输入用户名...">
+                        </div>
+                    </div>
+                    <div class="control-group form-group">
+                        <div class="controls">
+                            <input type="password" class="form-control" placeholder="密码" id="password" required data-validation-required-message="请输入密码...">
+                        </div>
+                    </div>
+                    <div id="strMsg" style="color:red"></div>
+
+                    <button type="button" style="width: 100%;" class="btn btn-primary" onclick="applogic.isLogin()">登 录</button>
+                    <div class="clearfix"></div>
+                <!--</form>-->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

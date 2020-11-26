@@ -1,0 +1,1271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9C59EE7D-20D3-477A-B317-79A1BAAA4CFA}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Donn.RPM.WebServer</RootNamespace>
+    <AssemblyName>Donn.RPM.WebServer</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+    <TypeScriptToolsVersion>2.3</TypeScriptToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Donn.EAM.Web.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Donn.EAM.Web.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Donn.EAP.Core, Version=2.2.6.0, Culture=neutral, PublicKeyToken=bdd67620b3f23011, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Donn.EAP.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="MapView\config\fence.json" />
+    <Content Include="MapView\config\icon.json" />
+    <Content Include="MapView\config\image.json" />
+    <Content Include="MapView\config\map.json" />
+    <Content Include="MapView\config\offlineTerminal.json" />
+    <Content Include="MapView\config\pologyn.json" />
+    <Content Include="MapView\config\regionWarning.json" />
+    <Content Include="MapView\config\style.json" />
+    <Content Include="MapView\config\terminal.json" />
+    <Content Include="MapView\config\work.json" />
+    <None Include="Properties\AssemblyInfo.template.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AppMap\css\app.css" />
+    <Content Include="AppMap\css\demo.css" />
+    <Content Include="AppMap\css\feedback.css" />
+    <Content Include="AppMap\css\icons-extra.css" />
+    <Content Include="AppMap\css\MapMain.css" />
+    <Content Include="AppMap\css\mui.dtpicker.css" />
+    <Content Include="AppMap\css\mui.imageviewer.css" />
+    <Content Include="AppMap\css\mui.indexedlist.css" />
+    <Content Include="AppMap\css\mui.listpicker.css" />
+    <Content Include="AppMap\css\mui.min.css" />
+    <Content Include="AppMap\css\mui.picker.all.css" />
+    <Content Include="AppMap\css\mui.picker.css" />
+    <Content Include="AppMap\css\mui.picker.min.css" />
+    <Content Include="AppMap\css\mui.poppicker.css" />
+    <Content Include="AppMap\examples\accordion.html" />
+    <Content Include="AppMap\examples\actionsheet-plus.html" />
+    <Content Include="AppMap\examples\actionsheet.html" />
+    <Content Include="AppMap\examples\ad.html" />
+    <Content Include="AppMap\examples\ajax.html" />
+    <Content Include="AppMap\examples\badges.html" />
+    <Content Include="AppMap\examples\beecloud.html" />
+    <Content Include="AppMap\examples\best-practices\list-to-detail\detail.html" />
+    <Content Include="AppMap\examples\best-practices\list-to-detail\list-to-detail.css" />
+    <Content Include="AppMap\examples\best-practices\list-to-detail\listview.html" />
+    <Content Include="AppMap\examples\best-practices\list-to-detail\vue.min.js" />
+    <Content Include="AppMap\examples\buttons-with-badges.html" />
+    <Content Include="AppMap\examples\buttons-with-block.html" />
+    <Content Include="AppMap\examples\buttons-with-icons.html" />
+    <Content Include="AppMap\examples\buttons-with-loading.html" />
+    <Content Include="AppMap\examples\buttons.html" />
+    <Content Include="AppMap\examples\card.html" />
+    <Content Include="AppMap\examples\checkbox.html" />
+    <Content Include="AppMap\examples\clouddb_wilddog.html" />
+    <Content Include="AppMap\examples\date.html" />
+    <Content Include="AppMap\examples\dialog.html" />
+    <Content Include="AppMap\examples\dtpicker.html" />
+    <Content Include="AppMap\examples\echarts.html" />
+    <Content Include="AppMap\examples\feedback.html" />
+    <Content Include="AppMap\examples\grid-default.html" />
+    <Content Include="AppMap\examples\grid-pagination.html" />
+    <Content Include="AppMap\examples\guide.html" />
+    <Content Include="AppMap\examples\icons-extra.html" />
+    <Content Include="AppMap\examples\icons.html" />
+    <Content Include="AppMap\examples\im-chat.html" />
+    <Content Include="AppMap\examples\imageviewer-native.html" />
+    <Content Include="AppMap\examples\imageviewer.html" />
+    <Content Include="AppMap\examples\indexed-list-select.html" />
+    <Content Include="AppMap\examples\indexed-list.html" />
+    <Content Include="AppMap\examples\info.html" />
+    <Content Include="AppMap\examples\input.html" />
+    <Content Include="AppMap\examples\lazyload-image.html" />
+    <Content Include="AppMap\examples\list-triplex-row.html" />
+    <Content Include="AppMap\examples\list-with-input.html" />
+    <Content Include="AppMap\examples\locker-dom.html" />
+    <Content Include="AppMap\examples\login.html" />
+    <Content Include="AppMap\examples\media-list.html" />
+    <Content Include="AppMap\examples\message-bottom.html" />
+    <Content Include="AppMap\examples\modals.html" />
+    <Content Include="AppMap\examples\nav-nativeObj.html" />
+    <Content Include="AppMap\examples\nav.html" />
+    <Content Include="AppMap\examples\nav_transparent.html" />
+    <Content Include="AppMap\examples\nav_transparent_native.html" />
+    <Content Include="AppMap\examples\numbox.html" />
+    <Content Include="AppMap\examples\offcanvas-drag-down.html" />
+    <Content Include="AppMap\examples\offcanvas-drag-left-plus-main.html" />
+    <Content Include="AppMap\examples\offcanvas-drag-left-plus-menu.html" />
+    <Content Include="AppMap\examples\offcanvas-drag-left.html" />
+    <Content Include="AppMap\examples\offcanvas-drag-right-plus-main.html" />
+    <Content Include="AppMap\examples\offcanvas-drag-right-plus-menu.html" />
+    <Content Include="AppMap\examples\offcanvas-drag-right.html" />
+    <Content Include="AppMap\examples\pagination.html" />
+    <Content Include="AppMap\examples\picker.html" />
+    <Content Include="AppMap\examples\popovers.html" />
+    <Content Include="AppMap\examples\progressbar.html" />
+    <Content Include="AppMap\examples\pullrefresh.html" />
+    <Content Include="AppMap\examples\pullrefresh_main.html" />
+    <Content Include="AppMap\examples\pullrefresh_sub.html" />
+    <Content Include="AppMap\examples\pullrefresh_with_tab.html" />
+    <Content Include="AppMap\examples\radio.html" />
+    <Content Include="AppMap\examples\range.html" />
+    <Content Include="AppMap\examples\setting.html" />
+    <Content Include="AppMap\examples\slider-default.html" />
+    <Content Include="AppMap\examples\slider-native.html" />
+    <Content Include="AppMap\examples\slider-table-default.html" />
+    <Content Include="AppMap\examples\slider-table-pagination.html" />
+    <Content Include="AppMap\examples\slider-with-title.html" />
+    <Content Include="AppMap\examples\switches.html" />
+    <Content Include="AppMap\examples\tab-top-subpage-1.html" />
+    <Content Include="AppMap\examples\tab-top-subpage-2.html" />
+    <Content Include="AppMap\examples\tab-top-subpage-3.html" />
+    <Content Include="AppMap\examples\tab-top-subpage-4.html" />
+    <Content Include="AppMap\examples\tab-top-subpage-5.html" />
+    <Content Include="AppMap\examples\tab-top-webview-main.html" />
+    <Content Include="AppMap\examples\tab-vertical-scroll.html" />
+    <Content Include="AppMap\examples\tab-webview-main.html" />
+    <Content Include="AppMap\examples\tab-webview-subpage-about.html" />
+    <Content Include="AppMap\examples\tab-webview-subpage-chat.html" />
+    <Content Include="AppMap\examples\tab-webview-subpage-contact.html" />
+    <Content Include="AppMap\examples\tab-webview-subpage-setting.html" />
+    <Content Include="AppMap\examples\tab-with-segmented-control-vertical.html" />
+    <Content Include="AppMap\examples\tab-with-segmented-control.html" />
+    <Content Include="AppMap\examples\tab-with-viewpagerindicator.html" />
+    <Content Include="AppMap\examples\tabbar-labels-only.html" />
+    <Content Include="AppMap\examples\tabbar-with-submenus.html" />
+    <Content Include="AppMap\examples\tabbar.html" />
+    <Content Include="AppMap\examples\tableviews-with-badges.html" />
+    <Content Include="AppMap\examples\tableviews-with-collapses.html" />
+    <Content Include="AppMap\examples\tableviews-with-swipe.html" />
+    <Content Include="AppMap\examples\tableviews.html" />
+    <Content Include="AppMap\examples\typography.html" />
+    <Content Include="AppMap\images\60x60.gif" />
+    <Content Include="AppMap\images\cbd.jpg" />
+    <Content Include="AppMap\images\login-1.png" />
+    <Content Include="AppMap\images\logo.png" />
+    <Content Include="AppMap\images\mapZoom.png" />
+    <Content Include="AppMap\images\muwu.jpg" />
+    <Content Include="AppMap\images\newtools_9ddbaad.png" />
+    <Content Include="AppMap\images\qrcode.png" />
+    <Content Include="AppMap\images\searchbox_f175577.png" />
+    <Content Include="AppMap\images\shuijiao.jpg" />
+    <Content Include="AppMap\images\start.png" />
+    <Content Include="AppMap\images\yuantiao.jpg" />
+    <Content Include="AppMap\images\关  闭.png" />
+    <Content Include="AppMap\images\形状 2 拷贝.png" />
+    <Content Include="AppMap\images\形状 2.png" />
+    <Content Include="AppMap\images\报警 拷贝.png" />
+    <Content Include="AppMap\images\椭圆 1 拷贝.png" />
+    <Content Include="AppMap\images\楼层.png" />
+    <Content Include="AppMap\images\矩形 33.png" />
+    <Content Include="AppMap\index-menu.html" />
+    <Content Include="AppMap\index.html" />
+    <Content Include="AppMap\js\95516.js" />
+    <Content Include="AppMap\js\AirocovMap.js" />
+    <Content Include="AppMap\js\arttmpl.js" />
+    <Content Include="AppMap\js\beecloud.js" />
+    <Content Include="AppMap\js\city.data-3.js" />
+    <Content Include="AppMap\js\city.data.js" />
+    <Content Include="AppMap\js\common.js" />
+    <Content Include="AppMap\js\customTheme.js" />
+    <Content Include="AppMap\js\dat.gui.min.js" />
+    <Content Include="AppMap\js\eap.core.js" />
+    <Content Include="AppMap\js\feedback.js" />
+    <Content Include="AppMap\js\jquery-1.8.3.min.js" />
+    <Content Include="AppMap\js\mqttws31.js" />
+    <Content Include="AppMap\js\mui.dtpicker.js" />
+    <Content Include="AppMap\js\mui.imageViewer.js" />
+    <Content Include="AppMap\js\mui.indexedlist.js" />
+    <Content Include="AppMap\js\mui.js" />
+    <Content Include="AppMap\js\mui.lazyload.img.js" />
+    <Content Include="AppMap\js\mui.lazyload.js" />
+    <Content Include="AppMap\js\mui.listpicker.js" />
+    <Content Include="AppMap\js\mui.locker.js" />
+    <Content Include="AppMap\js\mui.min.js" />
+    <Content Include="AppMap\js\mui.picker.all.js" />
+    <Content Include="AppMap\js\mui.picker.js" />
+    <Content Include="AppMap\js\mui.picker.min.js" />
+    <Content Include="AppMap\js\mui.poppicker.js" />
+    <Content Include="AppMap\js\mui.previewimage.js" />
+    <Content Include="AppMap\js\mui.pullToRefresh.js" />
+    <Content Include="AppMap\js\mui.pullToRefresh.material.js" />
+    <Content Include="AppMap\js\mui.view.js" />
+    <Content Include="AppMap\js\mui.zoom.js" />
+    <Content Include="AppMap\js\update.js" />
+    <Content Include="AppMap\js\webviewGroup.js" />
+    <Content Include="AppMap\libs\echarts-all.js" />
+    <Content Include="AppMap\models\man\boy.js" />
+    <Content Include="AppMap\models\man\car.js" />
+    <Content Include="AppMap\models\man\girl.js" />
+    <Content Include="AppMap\models\man\man.png" />
+    <Content Include="AppMap\models\man\man2.js" />
+    <Content Include="AppMap\MyApp\MapMain.html" />
+    <Content Include="favicon.ico" />
+    <Content Include="FES\content\css\bootstrap-grid.css" />
+    <Content Include="FES\content\css\bootstrap-grid.min.css" />
+    <Content Include="FES\content\css\bootstrap-reboot.css" />
+    <Content Include="FES\content\css\bootstrap-reboot.min.css" />
+    <Content Include="FES\content\css\bootstrap.css" />
+    <Content Include="FES\content\css\bootstrap.min.css" />
+    <Content Include="FES\content\css\font-awesome.css" />
+    <Content Include="FES\content\css\font-awesome.min.css" />
+    <Content Include="FES\content\fonts\fontawesome-webfont.svg" />
+    <Content Include="FES\README.txt" />
+    <Content Include="FES\third_parts\gridstack.min.css" />
+    <Content Include="FES\third_parts\gridstack.min.js" />
+    <Content Include="FES\third_parts\gridstack_general.css" />
+    <Content Include="FES\third_parts\require.js" />
+    <Content Include="FullView\css\bootstrap.css" />
+    <Content Include="FullView\css\flatpickr.min.css" />
+    <Content Include="FullView\css\index.css" />
+    <Content Include="FullView\image\917.png" />
+    <Content Include="FullView\image\bg.png" />
+    <Content Include="FullView\image\title.png" />
+    <Content Include="FullView\index.html" />
+    <Content Include="FullView\js\eap.core.js" />
+    <Content Include="FullView\js\echarts.js" />
+    <Content Include="FullView\js\echarts.min.js" />
+    <Content Include="FullView\js\flatpickr.js" />
+    <Content Include="FullView\js\jquery-1.8.3.min.js" />
+    <Content Include="FullView\js\Monitor.js" />
+    <Content Include="FullView\js\mqttws31.js" />
+    <Content Include="Global.asax" />
+    <Content Include="Images\1311-92402227.mp3" />
+    <Content Include="Images\1311.wav" />
+    <Content Include="Images\accent.png" />
+    <Content Include="Images\aspNetHome.png" />
+    <Content Include="Images\bullet.png" />
+    <Content Include="Images\calendar.gif" />
+    <Content Include="Images\calendar.png" />
+    <Content Include="Images\channelData.png" />
+    <Content Include="Images\checkdataexcel.jpg" />
+    <Content Include="Images\dateTime_button.png" />
+    <Content Include="Images\DONN.ico" />
+    <Content Include="Images\down.png" />
+    <Content Include="Images\facebook.png" />
+    <Content Include="Images\findHosting.png" />
+    <Content Include="Images\heroAccent.png" />
+    <Content Include="Images\icons\add.png" />
+    <Content Include="Images\icons\addStep.gif" />
+    <Content Include="Images\icons\addStep_dsbl.gif" />
+    <Content Include="Images\icons\btn-arrow.gif" />
+    <Content Include="Images\icons\Btn.Close.gif" />
+    <Content Include="Images\icons\Btn.Refresh.gif" />
+    <Content Include="Images\icons\cal.gif" />
+    <Content Include="Images\icons\checkbox_0.gif" />
+    <Content Include="Images\icons\checkbox_1.gif" />
+    <Content Include="Images\icons\checkbox_2.gif" />
+    <Content Include="Images\icons\circle_animation.gif" />
+    <Content Include="Images\icons\delete.png" />
+    <Content Include="Images\icons\delItem.gif" />
+    <Content Include="Images\icons\delItem_dsbl.gif" />
+    <Content Include="Images\icons\edit.png" />
+    <Content Include="Images\icons\folder_close.gif" />
+    <Content Include="Images\icons\ico1.gif" />
+    <Content Include="Images\icons\ico2.gif" />
+    <Content Include="Images\icons\ico3.gif" />
+    <Content Include="Images\icons\ico4-1-1.gif" />
+    <Content Include="Images\icons\ico4-1.gif" />
+    <Content Include="Images\icons\ico4-2.gif" />
+    <Content Include="Images\icons\ico4-3.gif" />
+    <Content Include="Images\icons\ico4-4.gif" />
+    <Content Include="Images\icons\ico4.gif" />
+    <Content Include="Images\icons\ico5.gif" />
+    <Content Include="Images\icons\ico6-1.gif" />
+    <Content Include="Images\icons\ico6-2.gif" />
+    <Content Include="Images\icons\ico6.gif" />
+    <Content Include="Images\icons\indicator.gif" />
+    <Content Include="Images\icons\information.png" />
+    <Content Include="Images\icons\Item.Add.gif" />
+    <Content Include="Images\icons\Item.Delete.gif" />
+    <Content Include="Images\icons\Item.Edit.gif" />
+    <Content Include="Images\icons\Item.Input.gif" />
+    <Content Include="Images\icons\Item.Save.gif" />
+    <Content Include="Images\icons\Item.Search.gif" />
+    <Content Include="Images\icons\none.gif" />
+    <Content Include="Images\icons\note.gif" />
+    <Content Include="Images\icons\rowdelete.png" />
+    <Content Include="Images\icons\s.gif" />
+    <Content Include="Images\icons\table_refresh.png" />
+    <Content Include="Images\icons\tree_file.gif" />
+    <Content Include="Images\icons\view.png" />
+    <Content Include="Images\jslider.plastic.png" />
+    <Content Include="Images\loading.gif" />
+    <Content Include="Images\login.jpg" />
+    <Content Include="Images\login_bg1.gif" />
+    <Content Include="Images\NuGetGallery.png" />
+    <Content Include="Images\orderedListOne.png" />
+    <Content Include="Images\orderedListThree.png" />
+    <Content Include="Images\orderedListTwo.png" />
+    <Content Include="Images\pause.png" />
+    <Content Include="Images\play.png" />
+    <Content Include="Images\point_arrow.png" />
+    <Content Include="Images\point_penci.png" />
+    <Content Include="Images\rmHourExport.jpg" />
+    <Content Include="Images\searchbox_button.png" />
+    <Content Include="Images\share\glass-bg.gif" />
+    <Content Include="Images\share\hd-sprite.gif" />
+    <Content Include="Images\share\left-btn.gif" />
+    <Content Include="Images\share\right-btn.gif" />
+    <Content Include="Images\share\tool-sprites.gif" />
+    <Content Include="Images\tree\arrows.gif" />
+    <Content Include="Images\tree\base.gif" />
+    <Content Include="Images\tree\cbs.gif" />
+    <Content Include="Images\tree\cd.gif" />
+    <Content Include="Images\tree\check.png" />
+    <Content Include="Images\tree\downline.gif" />
+    <Content Include="Images\tree\drop-yes.gif" />
+    <Content Include="Images\tree\elbow-end-minus-nl.gif" />
+    <Content Include="Images\tree\elbow-end-minus.gif" />
+    <Content Include="Images\tree\elbow-end-plus-nl.gif" />
+    <Content Include="Images\tree\elbow-end-plus.gif" />
+    <Content Include="Images\tree\elbow-end.gif" />
+    <Content Include="Images\tree\elbow-line.gif" />
+    <Content Include="Images\tree\elbow-minus-nl.gif" />
+    <Content Include="Images\tree\elbow-minus.gif" />
+    <Content Include="Images\tree\elbow-plus-nl.gif" />
+    <Content Include="Images\tree\elbow-plus.gif" />
+    <Content Include="Images\tree\elbow.gif" />
+    <Content Include="Images\tree\empty.gif" />
+    <Content Include="Images\tree\folder-open.gif" />
+    <Content Include="Images\tree\folder.gif" />
+    <Content Include="Images\tree\folder.png" />
+    <Content Include="Images\tree\folderopen.gif" />
+    <Content Include="Images\tree\globe.gif" />
+    <Content Include="Images\tree\imgfolder.gif" />
+    <Content Include="Images\tree\join.gif" />
+    <Content Include="Images\tree\joinbottom.gif" />
+    <Content Include="Images\tree\leaf.gif" />
+    <Content Include="Images\tree\line.gif" />
+    <Content Include="Images\tree\loading.gif" />
+    <Content Include="Images\tree\minus.gif" />
+    <Content Include="Images\tree\minusbottom.gif" />
+    <Content Include="Images\tree\musicfolder.gif" />
+    <Content Include="Images\tree\nolines_minus.gif" />
+    <Content Include="Images\tree\nolines_plus.gif" />
+    <Content Include="Images\tree\online.gif" />
+    <Content Include="Images\tree\page.gif" />
+    <Content Include="Images\tree\plus.gif" />
+    <Content Include="Images\tree\plusbottom.gif" />
+    <Content Include="Images\tree\question.gif" />
+    <Content Include="Images\tree\trash.gif" />
+    <Content Include="Images\tree\tree.png" />
+    <Content Include="Images\twitter.png" />
+    <Content Include="Images\up.png" />
+    <Content Include="Images\update.png" />
+    <Content Include="Images\windowsLive.png" />
+    <Content Include="MapView\css\flatpickr.min.css" />
+    <Content Include="MapView\css\leaflet.css" />
+    <Content Include="MapView\css\mapMonitor.css" />
+    <Content Include="MapView\css\mapMonitor_white.css" />
+    <Content Include="MapView\css\ol.css" />
+    <Content Include="MapView\css\ol3-layerswitcher.css" />
+    <Content Include="MapView\css\ol3-loadingpanel.css" />
+    <Content Include="MapView\edit.html" />
+    <Content Include="MapView\img\baojing.svg" />
+    <Content Include="MapView\img\car.png" />
+    <Content Include="MapView\img\celiang.svg" />
+    <Content Include="MapView\img\Circle.png" />
+    <Content Include="MapView\img\diffstation.svg" />
+    <Content Include="MapView\img\Highlight\layeredit.svg" />
+    <Content Include="MapView\img\Highlight\measure.svg" />
+    <Content Include="MapView\img\Highlight\offline.svg" />
+    <Content Include="MapView\img\Highlight\resource.svg" />
+    <Content Include="MapView\img\Highlight\warning.svg" />
+    <Content Include="MapView\img\Highlight\zuoye.svg" />
+    <Content Include="MapView\img\h_layeredit.svg" />
+    <Content Include="MapView\img\h_measure.svg" />
+    <Content Include="MapView\img\h_offline.svg" />
+    <Content Include="MapView\img\h_resource.svg" />
+    <Content Include="MapView\img\h_search.svg" />
+    <Content Include="MapView\img\h_warning.svg" />
+    <Content Include="MapView\img\h_zuoye.svg" />
+    <Content Include="MapView\img\icon_0.png" />
+    <Content Include="MapView\img\icon_1.png" />
+    <Content Include="MapView\img\layeredit.svg" />
+    <Content Include="MapView\img\LineString.png" />
+    <Content Include="MapView\img\loader.svg" />
+    <Content Include="MapView\img\measure.svg" />
+    <Content Include="MapView\img\offline.svg" />
+    <Content Include="MapView\img\Point.png" />
+    <Content Include="MapView\img\Polygon.png" />
+    <Content Include="MapView\img\poundhouse.svg" />
+    <Content Include="MapView\img\resource.svg" />
+    <Content Include="MapView\img\search.png" />
+    <Content Include="MapView\img\search.svg" />
+    <Content Include="MapView\img\smartgate.svg" />
+    <Content Include="MapView\img\truck.svg" />
+    <Content Include="MapView\img\user.png" />
+    <Content Include="MapView\img\video.svg" />
+    <Content Include="MapView\img\warning.svg" />
+    <Content Include="MapView\img\zuoye.svg" />
+    <Content Include="MapView\index.html" />
+    <Content Include="MapView\js\common.js" />
+    <Content Include="MapView\js\eap.core.js" />
+    <Content Include="MapView\js\flatpickr.js" />
+    <Content Include="MapView\js\index.js" />
+    <Content Include="MapView\js\jquery-1.8.3.min.js" />
+    <Content Include="MapView\js\layer\layer.js" />
+    <Content Include="MapView\js\layer\mobile\layer.js" />
+    <Content Include="MapView\js\layer\mobile\need\layer.css" />
+    <Content Include="MapView\js\layer\theme\default\icon-ext.png" />
+    <Content Include="MapView\js\layer\theme\default\icon.png" />
+    <Content Include="MapView\js\layer\theme\default\layer.css" />
+    <Content Include="MapView\js\layer\theme\default\loading-0.gif" />
+    <Content Include="MapView\js\layer\theme\default\loading-1.gif" />
+    <Content Include="MapView\js\layer\theme\default\loading-2.gif" />
+    <Content Include="MapView\js\leaflet-src.esm.js" />
+    <Content Include="MapView\js\leaflet-src.js" />
+    <Content Include="MapView\js\leaflet.js" />
+    <Content Include="MapView\js\mapMonitor.js" />
+    <Content Include="MapView\js\mapOpration.js" />
+    <Content Include="MapView\js\mapview.js" />
+    <Content Include="MapView\js\mqttService.js" />
+    <Content Include="MapView\js\mqttws31.js" />
+    <Content Include="MapView\js\ol.js" />
+    <Content Include="MapView\js\ol3-layerswitcher.js" />
+    <Content Include="MapView\js\ol3-loadingpanel.js" />
+    <Content Include="MapView\js\TweenMax.min.js" />
+    <Content Include="MapView\newEdit.html" />
+    <Content Include="MapView\review.html" />
+    <Content Include="Resource\Images\Login\1.png" />
+    <Content Include="Resource\Images\Login\b.png" />
+    <Content Include="Resource\Images\Login\background.png" />
+    <Content Include="Resource\Images\Login\pic.png" />
+    <Content Include="Resource\MainPage\assets\pictures\06-04.png" />
+    <Content Include="Resource\MainPage\assets\pictures\2018_03.png" />
+    <Content Include="Resource\MainPage\assets\pictures\2018__06.png" />
+    <Content Include="Resource\MainPage\assets\pictures\2018__09.png" />
+    <Content Include="Resource\MainPage\assets\pictures\2018__17.png" />
+    <Content Include="Resource\MainPage\assets\pictures\2018__19.png" />
+    <Content Include="Resource\MainPage\assets\pictures\2018__21.png" />
+    <Content Include="Resource\MainPage\assets\pictures\2018__26.png" />
+    <Content Include="Resource\MainPage\assets\pictures\2018__28.png" />
+    <Content Include="Resource\MainPage\assets\pictures\2018__29.png" />
+    <Content Include="Resource\MainPage\assets\pictures\2018__34.png" />
+    <Content Include="Resource\MainPage\assets\pictures\2018__36.png" />
+    <Content Include="Resource\MainPage\assets\pictures\2018__40.png" />
+    <Content Include="Resource\MainPage\assets\pictures\2018__42.png" />
+    <Content Include="Resource\MainPage\assets\pictures\2018__45.png" />
+    <Content Include="Resource\MainPage\assets\pictures\2018__46.png" />
+    <Content Include="Resource\MainPage\assets\pictures\2018__49.png" />
+    <Content Include="Resource\MainPage\assets\pictures\2018__51.png" />
+    <Content Include="Resource\MainPage\assets\pictures\login.png" />
+    <Content Include="Resource\MainPage\assets\pictures\logo_w.png" />
+    <Content Include="Resource\MainPage\assets\pictures\p_03.png" />
+    <Content Include="Resource\MainPage\assets\pictures\p_06-05.png" />
+    <Content Include="Resource\MainPage\assets\pictures\p_11-15.png" />
+    <Content Include="Resource\MainPage\assets\pictures\p_11-16.png" />
+    <Content Include="Resource\MainPage\assets\pictures\p_11-17.png" />
+    <Content Include="Resource\MainPage\assets\pictures\p_11-18.png" />
+    <Content Include="Resource\MainPage\assets\pictures\p_11-19.png" />
+    <Content Include="Resource\MainPage\assets\pictures\p_11-20.png" />
+    <Content Include="Resource\MainPage\assets\pictures\p_11-25.png" />
+    <Content Include="Resource\MainPage\assets\pictures\p_11-26.png" />
+    <Content Include="Resource\MainPage\assets\pictures\p_134.png" />
+    <Content Include="Resource\MainPage\assets\pictures\p_137.png" />
+    <Content Include="Resource\MainPage\assets\pictures\p_28-13.1.png" />
+    <Content Include="Resource\MainPage\assets\pictures\p_28-13.png" />
+    <Content Include="Resource\MainPage\assets\pictures\p_28.1.png" />
+    <Content Include="Resource\MainPage\assets\pictures\p_28.png" />
+    <Content Include="Resource\MainPage\assets\pictures\p_92-28.png" />
+    <Content Include="Resource\MainPage\assets\pictures\p_92.png" />
+    <Content Include="Resource\MainPage\assets\pictures\p_97-30.png" />
+    <Content Include="Resource\MainPage\assets\pictures\p_97-31.png" />
+    <Content Include="Resource\MainPage\assets\pictures\p_97-32.png" />
+    <Content Include="Resource\MainPage\assets\pictures\p_97-33.png" />
+    <Content Include="Resource\MainPage\assets\pictures\p_97-34.png" />
+    <Content Include="Resource\MainPage\assets\pictures\p_97-35.png" />
+    <Content Include="Resource\MainPage\assets\pictures\p_97-36.png" />
+    <Content Include="Resource\MainPage\inline.6f0336f422cbbd656d4e.bundle.js" />
+    <Content Include="Resource\MainPage\main.a3b86c9f29010190db1f.bundle.js" />
+    <Content Include="Resource\MainPage\mainConfig.js" />
+    <Content Include="Resource\MainPage\outside.css" />
+    <Content Include="Resource\MainPage\polyfills.b6b2cd0d4c472ac3ac12.bundle.js" />
+    <Content Include="Resource\MainPage\styles.2177f5ce563d57bcfc49.bundle.css" />
+    <Content Include="Resource\MP20190212\3rdpartylicenses.txt" />
+    <Content Include="Resource\MP20190212\assets\camera-retro-solid.svg" />
+    <Content Include="Resource\MP20190212\assets\jquery.min.js" />
+    <Content Include="Resource\MP20190212\assets\logo.png" />
+    <Content Include="Resource\MP20190212\assets\mainConfig.js" />
+    <Content Include="Resource\MP20190212\assets\outside.css" />
+    <Content Include="Resource\MP20190212\assets\person.png" />
+    <Content Include="Resource\MP20190212\favicon.ico" />
+    <Content Include="Resource\MP20190212\index.html" />
+    <Content Include="Resource\MP20190212\main.700c8ee044a6fdc9dcdb.js" />
+    <Content Include="Resource\MP20190212\main.8ec9f0bdb7473700b352.js" />
+    <Content Include="Resource\MP20190212\main.e8079f02e72fae18f941.js" />
+    <Content Include="Resource\MP20190212\polyfills.42fb68532057d24d435a.js" />
+    <Content Include="Resource\MP20190212\runtime.8c26f1fab6959b00a997.js" />
+    <Content Include="Resource\MP20190212\styles.1e9503cd5a771d6eb2b0.css" />
+    <Content Include="Resource\Scripts\Kendo\Style\kendo.bootstrap.min2.css" />
+    <Content Include="Resource\Styles\eap.kendo2.css" />
+    <Content Include="RPM\3DJS\crossdomain.xml" />
+    <Content Include="RPM\3DJS\leftDivHisOne.html" />
+    <Content Include="RPM\3DJS\lib\layer\theme\default\img.png" />
+    <Content Include="RPM\3DJS\liveplayer.swf" />
+    <Content Include="RPM\3DJS\RtMapView.html" />
+    <Content Include="RPM\3DJS\Scripts\base\libs\heatmap.min.js" />
+    <Content Include="RPM\3DJS\Scripts\base\libs\jquery.pagination.js" />
+    <Content Include="RPM\3DJS\Scripts\base\player\liveplayer-element.min.js" />
+    <Content Include="RPM\3DJS\Scripts\css\btncss.css" />
+    <Content Include="RPM\3DJS\Scripts\css\images\d.png" />
+    <Content Include="RPM\3DJS\Scripts\css\images\dm.png" />
+    <Content Include="RPM\3DJS\Scripts\css\images\kq.png" />
+    <Content Include="RPM\3DJS\Scripts\css\images\l.png" />
+    <Content Include="RPM\3DJS\Scripts\css\images\ri.png" />
+    <Content Include="RPM\3DJS\Scripts\css\images\s.png" />
+    <Content Include="RPM\3DJS\Scripts\css\images\up.png" />
+    <Content Include="RPM\3DJS\Scripts\css\images\wl.png" />
+    <Content Include="RPM\3DJS\Scripts\css\images\x.png" />
+    <Content Include="RPM\3DJS\Scripts\css\pagination.css" />
+    <Content Include="RPM\3DJS\Scripts\css\rpmconfig.css" />
+    <Content Include="RPM\3DJS\Scripts\images\dm.png" />
+    <Content Include="RPM\3DJS\Scripts\images\kq.png" />
+    <Content Include="RPM\3DJS\Scripts\images\timg.gif" />
+    <Content Include="RPM\3DJS\Scripts\images\toolbar\alm.png" />
+    <Content Include="RPM\3DJS\Scripts\images\toolbar\almmsg.png" />
+    <Content Include="RPM\3DJS\Scripts\images\toolbar\close1.png" />
+    <Content Include="RPM\3DJS\Scripts\images\toolbar\empinfo.png" />
+    <Content Include="RPM\3DJS\Scripts\images\toolbar\find.png" />
+    <Content Include="RPM\3DJS\Scripts\images\toolbar\floor.png" />
+    <Content Include="RPM\3DJS\Scripts\images\toolbar\fullsceen.png" />
+    <Content Include="RPM\3DJS\Scripts\json\1221.jpg" />
+    <Content Include="RPM\3DJS\Scripts\json\alarm.wav" />
+    <Content Include="RPM\3DJS\Scripts\json\two.png" />
+    <Content Include="RPM\3DJS\Scripts\self\RtMap2D1.js" />
+    <Content Include="RPM\3DJS\Scripts\self\SysConfig.js" />
+    <Content Include="RPM\3DJS\Scripts\self\webglhead.js" />
+    <Content Include="RPM\3DJS\showAttMessage.html" />
+    <Content Include="RPM\3DJS\EmpTreeOut.html" />
+    <Content Include="RPM\3DJS\EmpTree.html" />
+    <Content Include="RPM\3DJS\attDept.html" />
+    <Content Include="RPM\3DJS\EditRegPoints.html" />
+    <Content Include="RPM\3DJS\leftDivHis.html" />
+    <Content Include="RPM\3DJS\RtMap2DInfo.html" />
+    <Content Include="RPM\3DJS\EditBase.html" />
+    <Content Include="RPM\3DJS\EditAttendReg.html" />
+    <Content Include="RPM\3DJS\EditRecallReg.html" />
+    <Content Include="RPM\3DJS\EditAlmRegion.html" />
+    <Content Include="RPM\3DJS\LayerSet.html" />
+    <Content Include="RPM\3DJS\FindPointList.html" />
+    <Content Include="RPM\3DJS\lib\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="RPM\3DJS\lib\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="RPM\3DJS\lib\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="RPM\3DJS\lib\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="RPM\3DJS\lib\layer\demo.html" />
+    <Content Include="RPM\3DJS\lib\layer\extend\layer.ext.js" />
+    <Content Include="RPM\3DJS\lib\layer\layer.js" />
+    <Content Include="RPM\3DJS\lib\layer\mobile\layer.js" />
+    <Content Include="RPM\3DJS\lib\layer\mobile\need\layer.css" />
+    <Content Include="RPM\3DJS\lib\layer\skin\default\icon-ext.png" />
+    <Content Include="RPM\3DJS\lib\layer\skin\default\icon.png" />
+    <Content Include="RPM\3DJS\lib\layer\skin\default\loading-0.gif" />
+    <Content Include="RPM\3DJS\lib\layer\skin\default\loading-1.gif" />
+    <Content Include="RPM\3DJS\lib\layer\skin\default\loading-2.gif" />
+    <Content Include="RPM\3DJS\lib\layer\skin\layer.css" />
+    <Content Include="RPM\3DJS\lib\layer\skin\layer.ext.css" />
+    <Content Include="RPM\3DJS\lib\layer\theme\default\icon-ext.png" />
+    <Content Include="RPM\3DJS\lib\layer\theme\default\icon.png" />
+    <Content Include="RPM\3DJS\lib\layer\theme\default\layer.css" />
+    <Content Include="RPM\3DJS\lib\layer\theme\default\loading-0.gif" />
+    <Content Include="RPM\3DJS\lib\layer\theme\default\loading-1.gif" />
+    <Content Include="RPM\3DJS\lib\layer\theme\default\loading-2.gif" />
+    <Content Include="RPM\3DJS\lib\layer\更新日志.txt" />
+    <Content Include="RPM\3DJS\HistrackMap.html" />
+    <Content Include="RPM\3DJS\lib\My97DatePicker\calendar.js" />
+    <Content Include="RPM\3DJS\lib\My97DatePicker\lang\en.js" />
+    <Content Include="RPM\3DJS\lib\My97DatePicker\lang\zh-cn.js" />
+    <Content Include="RPM\3DJS\lib\My97DatePicker\lang\zh-tw.js" />
+    <Content Include="RPM\3DJS\lib\My97DatePicker\skin\datePicker.gif" />
+    <Content Include="RPM\3DJS\lib\My97DatePicker\skin\default\datepicker.css" />
+    <Content Include="RPM\3DJS\lib\My97DatePicker\skin\default\img.gif" />
+    <Content Include="RPM\3DJS\lib\My97DatePicker\skin\twoer\datepicker-dev.css" />
+    <Content Include="RPM\3DJS\lib\My97DatePicker\skin\twoer\datepicker.css" />
+    <Content Include="RPM\3DJS\lib\My97DatePicker\skin\twoer\img.gif" />
+    <Content Include="RPM\3DJS\lib\My97DatePicker\skin\twoer\img.png" />
+    <Content Include="RPM\3DJS\lib\My97DatePicker\skin\WdatePicker.css" />
+    <Content Include="RPM\3DJS\lib\My97DatePicker\skin\whyGreen\bg.jpg" />
+    <Content Include="RPM\3DJS\lib\My97DatePicker\skin\whyGreen\datepicker.css" />
+    <Content Include="RPM\3DJS\lib\My97DatePicker\skin\whyGreen\img.gif" />
+    <Content Include="RPM\3DJS\lib\My97DatePicker\WdatePicker.js" />
+    <Content Include="RPM\3DJS\HisTrackSearch.html" />
+    <Content Include="RPM\3DJS\Map3DLayer.html" />
+    <Content Include="RPM\3DJS\Config2d.html" />
+    <Content Include="RPM\3DJS\RegEditNew.html" />
+    <Content Include="RPM\3DJS\RegEdit.html" />
+    <Content Include="RPM\3DJS\attendRegEdit.html" />
+    <Content Include="RPM\3DJS\rollcallRegEdit.html" />
+    <Content Include="RPM\3DJS\layerOption.html" />
+    <Content Include="RPM\3DJS\leftDiv.html" />
+    <Content Include="RPM\3DJS\rtSearch.html" />
+    <Content Include="RPM\3DJS\rtHifSearch.html" />
+    <Content Include="RPM\3DJS\Scripts\base\common.js" />
+    <Content Include="RPM\3DJS\Scripts\base\eap.core.js" />
+    <Content Include="RPM\3DJS\Scripts\base\libs\jquery.dataTables.min.js" />
+    <Content Include="RPM\3DJS\Scripts\base\libs\ui.multiselect.js" />
+    <Content Include="RPM\3DJS\Scripts\base\nodes\mqttws31.js" />
+    <Content Include="RPM\3DJS\Scripts\base\webVideoCtrl.js" />
+    <Content Include="RPM\3DJS\Scripts\css\jquery.dataTables.min.css" />
+    <Content Include="RPM\3DJS\Scripts\css\leftdeptdiv.css" />
+    <Content Include="RPM\3DJS\Scripts\css\style_His.css" />
+    <Content Include="RPM\3DJS\Scripts\css\video.css" />
+    <Content Include="RPM\3DJS\Scripts\images\cubes\cubes.mtl" />
+    <Content Include="RPM\3DJS\Scripts\images\cubes\cubes.obj" />
+    <Content Include="RPM\3DJS\Scripts\images\find.png" />
+    <Content Include="RPM\3DJS\Scripts\images\obj\bileiqi.mtl" />
+    <Content Include="RPM\3DJS\Scripts\images\obj\bileiqi.obj" />
+    <Content Include="RPM\3DJS\Scripts\images\obj\dianzu.mtl" />
+    <Content Include="RPM\3DJS\Scripts\images\obj\dianzu.obj" />
+    <Content Include="RPM\3DJS\Scripts\images\SysConfig.json" />
+    <Content Include="RPM\3DJS\Scripts\images\toolbar\close.png" />
+    <Content Include="RPM\3DJS\Scripts\images\128-1.png" />
+    <Content Include="RPM\3DJS\Scripts\images\128-38-1.png" />
+    <Content Include="RPM\3DJS\Scripts\images\128-38.png" />
+    <Content Include="RPM\3DJS\Scripts\images\128.png" />
+    <Content Include="RPM\3DJS\Scripts\images\video_48.png" />
+    <Content Include="RPM\3DJS\Scripts\images\wifi_48.png" />
+    <Content Include="RPM\3DJS\Scripts\json\alarmRegion.json" />
+    <Content Include="RPM\3DJS\Scripts\json\donn20180301.json" />
+    <Content Include="RPM\3DJS\Scripts\json\factorylayout2018.json" />
+    <Content Include="RPM\3DJS\Scripts\json\FangSong_GB2312_Regular.json" />
+    <Content Include="RPM\3DJS\Scripts\json\helvetiker_regular.typeface.json" />
+    <Content Include="RPM\3DJS\Scripts\json\loadDxf.json" />
+    <Content Include="RPM\3DJS\Scripts\json\OLYMap20182.jpg" />
+    <Content Include="RPM\3DJS\Scripts\json\road2018.json" />
+    <Content Include="RPM\3DJS\Scripts\json\rollcallRegion.json" />
+    <Content Include="RPM\3DJS\Scripts\json\scene-animation.json" />
+    <Content Include="RPM\3DJS\Scripts\json\SysConfig.json" />
+    <Content Include="RPM\3DJS\Scripts\json\teapot-claraio.json" />
+    <Content Include="RPM\3DJS\Scripts\json\typeface.json" />
+    <Content Include="RPM\3DJS\Scripts\json\undefined_Regular.json" />
+    <Content Include="RPM\3DJS\lib\layer\doc\jquery下载.url" />
+    <Content Include="RPM\3DJS\lib\layer\doc\layer交流.url" />
+    <Content Include="RPM\3DJS\lib\layer\doc\layer官网.url" />
+    <Content Include="RPM\3DJS\lib\My97DatePicker\skin\Thumbs.db" />
+    <Content Include="Config\mqtt.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="RPM\3DJS\RtShowDeptList.html" />
+    <Content Include="RPM\3DJS\Scripts\self\DrawingNewMap.js" />
+    <Content Include="RPM\3DJS\Scripts\self\DrawMap3DCli.js" />
+    <Content Include="RPM\3DJS\Scripts\self\HisAttendance.js" />
+    <Content Include="RPM\3DJS\Scripts\self\RtMap2D.js" />
+    <Content Include="RPM\3DJS\Scripts\self\trackvideo.js" />
+    <Content Include="RPM\3DJS\SettingRtEdit.html" />
+    <Content Include="RPM\3DJS\ShowInput.html" />
+    <Content Include="RPM\3DJS\static\css\bootstrap-grid.css" />
+    <Content Include="RPM\3DJS\static\css\bootstrap-grid.min.css" />
+    <Content Include="RPM\3DJS\static\css\bootstrap-reboot.css" />
+    <Content Include="RPM\3DJS\static\css\bootstrap-reboot.min.css" />
+    <Content Include="RPM\3DJS\static\css\bootstrap.css" />
+    <Content Include="RPM\3DJS\static\css\bootstrap.min.css" />
+    <Content Include="RPM\3DJS\static\js\adapter-latest.js" />
+    <Content Include="RPM\3DJS\static\js\app.js" />
+    <Content Include="RPM\3DJS\static\js\bootstrap.bundle.js" />
+    <Content Include="RPM\3DJS\static\js\bootstrap.bundle.min.js" />
+    <Content Include="RPM\3DJS\static\js\bootstrap.js" />
+    <Content Include="RPM\3DJS\static\js\bootstrap.min.js" />
+    <Content Include="RPM\3DJS\static\js\jquery-3.4.1.min.js" />
+    <Content Include="RPM\Android\css\stylelogin.css" />
+    <Content Include="RPM\Android\FileChooser.html" />
+    <Content Include="RPM\Android\hisalmmsg.html" />
+    <Content Include="RPM\Android\css\app.css" />
+    <Content Include="RPM\Android\css\base.css" />
+    <Content Include="RPM\Android\css\bootstrap.css" />
+    <Content Include="RPM\Android\css\default.css" />
+    <Content Include="RPM\Android\css\font-awesome.min.css" />
+    <Content Include="RPM\Android\css\jquery.mobile-1.4.2.min.css" />
+    <Content Include="RPM\Android\css\site.css" />
+    <Content Include="RPM\Android\css\style.css" />
+    <Content Include="RPM\Android\fonts\css\font-awesome.css" />
+    <Content Include="RPM\Android\fonts\css\font-awesome.min.css" />
+    <Content Include="RPM\Android\fonts\fonts\fontawesome-webfont.svg" />
+    <Content Include="RPM\Android\img\hisalm.png" />
+    <Content Include="RPM\Android\img\icon.png" />
+    <Content Include="RPM\Android\img\null.gif" />
+    <Content Include="RPM\Android\img\rtalm128.png" />
+    <Content Include="RPM\Android\img\rtemp128.png" />
+    <Content Include="RPM\Android\Login.html" />
+    <Content Include="RPM\Android\index.html" />
+    <Content Include="RPM\Android\js\app.js" />
+    <Content Include="RPM\Android\js\appbasicdata.js" />
+    <Content Include="RPM\Android\js\appdata.js" />
+    <Content Include="RPM\Android\js\applogic.js" />
+    <Content Include="RPM\Android\js\bootstrap.js" />
+    <Content Include="RPM\Android\js\bootstrap.min.js" />
+    <Content Include="RPM\Android\js\jquery.min.js" />
+    <Content Include="RPM\Android\js\jquery.mobile-1.4.2.min.js" />
+    <Content Include="RPM\Android\rtareamsg.html" />
+    <Content Include="RPM\Android\rtempinfo.html" />
+    <Content Include="RPM\RpmConfig.html" />
+    <Content Include="RPM\RPMTest.html" />
+    <Content Include="RPM\SystemConfig.html" />
+    <Content Include="RPM\HisAttendance.html" />
+    <Content Include="RPM\version.txt" />
+    <Content Include="TempExport\HisPatrolMonthTotal.xls" />
+    <Content Include="TempExport\HisPatrolOneMonth.xls" />
+    <Content Include="AppMap\.vs\ProjectSettings.json" />
+    <Content Include="AppMap\.vs\ShowMap\v15\.suo" />
+    <Content Include="AppMap\.vs\slnx.sqlite" />
+    <Content Include="AppMap\.vs\VSWorkspaceState.json" />
+    <None Include="AppMap\App_Data\PublishProfiles\MMshow.pubxml" />
+    <Content Include="AppMap\data\2f.json" />
+    <Content Include="AppMap\data\3f.json" />
+    <Content Include="AppMap\data\first.json" />
+    <Content Include="AppMap\data\tag.json" />
+    <Content Include="AppMap\fonts\mui-icons-extra.ttf" />
+    <Content Include="AppMap\fonts\mui.ttf" />
+    <Content Include="AppMap\manifest.json" />
+    <Content Include="AppMap\models\man\man.mtl" />
+    <Content Include="AppMap\models\obj\123456.mtl" />
+    <Content Include="AppMap\models\obj\123456.obj" />
+    <Content Include="AppMap\models\obj\kuangjia.mtl" />
+    <Content Include="AppMap\models\obj\kuangjia.obj" />
+    <Content Include="AppMap\models\obj\kuangjia1.mtl" />
+    <Content Include="AppMap\models\obj\kuangjia2.mtl" />
+    <Content Include="AppMap\models\obj\kuangjia2.obj" />
+    <Content Include="AppMap\models\obj\wholeModel.zip" />
+    <Content Include="AppMap\models\obj\z1.mtl" />
+    <Content Include="AppMap\models\obj\z1.obj" />
+    <Content Include="AppMap\website.publishproj" />
+    <Content Include="RPM\3DJS\static\css\bootstrap-grid.css.map" />
+    <Content Include="RPM\3DJS\static\css\bootstrap-grid.min.css.map" />
+    <Content Include="RPM\3DJS\static\css\bootstrap-reboot.css.map" />
+    <Content Include="RPM\3DJS\static\css\bootstrap-reboot.min.css.map" />
+    <Content Include="RPM\3DJS\static\css\bootstrap.css.map" />
+    <Content Include="RPM\3DJS\static\css\bootstrap.min.css.map" />
+    <Content Include="RPM\3DJS\static\js\bootstrap.bundle.js.map" />
+    <Content Include="RPM\3DJS\static\js\bootstrap.bundle.min.js.map" />
+    <Content Include="RPM\3DJS\static\js\bootstrap.js.map" />
+    <Content Include="RPM\3DJS\static\js\bootstrap.min.js.map" />
+    <None Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\RPM\Department.cshtml" />
+    <Content Include="Views\RPM\DutyInfo.cshtml" />
+    <Content Include="RPM\Android\fonts\fonts\fontawesome-webfont.eot" />
+    <Content Include="RPM\Android\fonts\fonts\fontawesome-webfont.ttf" />
+    <Content Include="RPM\Android\fonts\fonts\fontawesome-webfont.woff" />
+    <Content Include="RPM\Android\fonts\fonts\fontawesome-webfont.woff2" />
+    <Content Include="RPM\Android\fonts\fonts\FontAwesome.otf" />
+    <None Include="Views\SM\Darggable.cshtml" />
+    <None Include="Views\Home\indexbat.cshtml" />
+    <None Include="Views\Home\index_mobile.cshtml" />
+    <Content Include="Protal\HomePage\Index.css" />
+    <Content Include="Resource\Images\Login\login_backgrand.png" />
+    <Content Include="Resource\Images\Login\top_logo.png" />
+    <Content Include="Resource\Images\pause.png" />
+    <Content Include="Resource\Images\play.png" />
+    <Content Include="Resource\Images\point_arrow.png" />
+    <Content Include="Resource\Images\treeview-line.png" />
+    <Content Include="Resource\Images\treeview-nodes.png" />
+    <Content Include="Resource\Images\tree_elbow.png" />
+    <Content Include="Resource\Images\tree_file.gif" />
+    <Content Include="Resource\Images\tree_folder.gif" />
+    <Content Include="Resource\Images\tree_folder_open.gif" />
+    <Content Include="Resource\Images\ui-icons_469bdd_256x240.png" />
+    <Content Include="Resource\Scripts\Base\Applications.js" />
+    <Content Include="Config\App.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\database.json" />
+    <Content Include="Config\mail.json" />
+    <None Include="Resource\Scripts\Base\eap.intellisense.js" />
+    <Content Include="Resource\Scripts\Base\eap.js" />
+    <None Include="Resource\Scripts\Base\eap.ui-vsdoc.js" />
+    <Content Include="Resource\Scripts\Base\jquery-1.10.2.js" />
+    <Content Include="Resource\Scripts\Base\jquery-1.10.2.min.js" />
+    <Content Include="Resource\Scripts\Base\jquery.extend.js" />
+    <Content Include="Resource\Scripts\Base\kendoDirectives.js" />
+    <Content Include="Resource\Scripts\Base\KendoPlugin.js" />
+    <Content Include="Resource\Scripts\highcharts\highcharts-more.js" />
+    <Content Include="Resource\Scripts\highcharts\highcharts.js" />
+    <Content Include="Resource\Scripts\highcharts\solid-gauge.js" />
+    <Content Include="Resource\Scripts\Kendo\js\cultures\kendo.culture.zh-CHS.min.js" />
+    <Content Include="Resource\Scripts\Kendo\js\cultures\kendo.culture.zh-CHT.min.js" />
+    <Content Include="Resource\Scripts\Kendo\js\dataviz\kendo.dataviz.chart.min.js" />
+    <Content Include="Resource\Scripts\Kendo\js\dataviz\kendo.dataviz.core.min.js" />
+    <Content Include="Resource\Scripts\Kendo\js\dataviz\kendo.dataviz.themes.min.js" />
+    <Content Include="Resource\Scripts\Kendo\js\jszip.min.js" />
+    <None Include="Resource\Scripts\Kendo\js\kendo.web-vsdoc.js" />
+    <Content Include="Resource\Scripts\Kendo\js\kendo.web.js" />
+    <None Include="Resource\Scripts\Kendo\js\kendo.web.min.intellisense.js" />
+    <Content Include="Resource\Scripts\Kendo\js\kendo.web.min.js" />
+    <Content Include="Resource\Scripts\Kendo\js\messages\kendo.messages.zh-CN.min.js" />
+    <Content Include="Resource\Scripts\Kendo\js\messages\kendo.messages.zh-HK.min.js" />
+    <Content Include="Resource\Scripts\Kendo\Style\Bootstrap\editor.png" />
+    <Content Include="Resource\Scripts\Kendo\Style\Bootstrap\imagebrowser.png" />
+    <Content Include="Resource\Scripts\Kendo\Style\Bootstrap\indeterminate.gif" />
+    <Content Include="Resource\Scripts\Kendo\Style\Bootstrap\loading-image.gif" />
+    <Content Include="Resource\Scripts\Kendo\Style\Bootstrap\loading.gif" />
+    <Content Include="Resource\Scripts\Kendo\Style\Bootstrap\loading_2x.gif" />
+    <Content Include="Resource\Scripts\Kendo\Style\Bootstrap\markers.png" />
+    <Content Include="Resource\Scripts\Kendo\Style\Bootstrap\markers_2x.png" />
+    <Content Include="Resource\Scripts\Kendo\Style\Bootstrap\slider-h.gif" />
+    <Content Include="Resource\Scripts\Kendo\Style\Bootstrap\slider-v.gif" />
+    <Content Include="Resource\Scripts\Kendo\Style\Bootstrap\sprite.png" />
+    <Content Include="Resource\Scripts\Kendo\Style\Bootstrap\sprite_2x.png" />
+    <Content Include="Resource\Scripts\Kendo\Style\Bootstrap\sprite_kpi.png" />
+    <Content Include="Resource\Scripts\Kendo\Style\Bootstrap\sprite_kpi_2x.png" />
+    <Content Include="Resource\Scripts\Kendo\Style\fonts\DejaVu\LICENSE.txt" />
+    <Content Include="Resource\Scripts\Kendo\Style\fonts\glyphs\KendoUIGlyphs.svg" />
+    <Content Include="Resource\Scripts\Kendo\Style\fonts\glyphs\WebComponentsIcons.svg" />
+    <Content Include="Resource\Scripts\Kendo\Style\kendo.bootstrap.min.css" />
+    <Content Include="Resource\Scripts\Kendo\Style\kendo.common-bootstrap.min.css" />
+    <Content Include="Resource\Scripts\Kendo\Style\kendo.common.min.css" />
+    <Content Include="Resource\Scripts\Kendo\Style\kendo.metro.min.css" />
+    <Content Include="Resource\Scripts\Kendo\Style\Metro\editor.png" />
+    <Content Include="Resource\Scripts\Kendo\Style\Metro\imagebrowser.png" />
+    <Content Include="Resource\Scripts\Kendo\Style\Metro\indeterminate.gif" />
+    <Content Include="Resource\Scripts\Kendo\Style\Metro\loading-image.gif" />
+    <Content Include="Resource\Scripts\Kendo\Style\Metro\loading.gif" />
+    <Content Include="Resource\Scripts\Kendo\Style\Metro\loading_2x.gif" />
+    <Content Include="Resource\Scripts\Kendo\Style\Metro\markers.png" />
+    <Content Include="Resource\Scripts\Kendo\Style\Metro\markers_2x.png" />
+    <Content Include="Resource\Scripts\Kendo\Style\Metro\slider-h.gif" />
+    <Content Include="Resource\Scripts\Kendo\Style\Metro\slider-v.gif" />
+    <Content Include="Resource\Scripts\Kendo\Style\Metro\sprite.png" />
+    <Content Include="Resource\Scripts\Kendo\Style\Metro\sprite_2x.png" />
+    <Content Include="Resource\Scripts\Kendo\Style\Metro\sprite_kpi.png" />
+    <Content Include="Resource\Scripts\Kendo\Style\Metro\sprite_kpi_2x.png" />
+    <Content Include="Resource\Scripts\knockoutjs\knockout-3.4.2.js" />
+    <Content Include="Resource\Scripts\knockoutjs\knockout-mapping.js" />
+    <Content Include="Resource\Styles\bootstrap.min.css" />
+    <Content Include="Resource\Styles\Content.css" />
+    <Content Include="Resource\Styles\eap.css" />
+    <Content Include="Resource\Styles\eap.kendo.css" />
+    <Content Include="RPM\3DJS\2DMap.html" />
+    <Content Include="RPM\3DJS\lib\font-awesome\css\font-awesome.min.css" />
+    <Content Include="RPM\3DJS\lib\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="RPM\3DJS\New3DMap.html" />
+    <Content Include="RPM\3DJS\Scripts\base\controls\cloth.js" />
+    <Content Include="RPM\3DJS\Scripts\base\controls\DDSLoader.js" />
+    <Content Include="RPM\3DJS\Scripts\base\controls\Detector.js" />
+    <Content Include="RPM\3DJS\Scripts\base\controls\DragControls.js" />
+    <Content Include="RPM\3DJS\Scripts\base\controls\MTLLoader.js" />
+    <Content Include="RPM\3DJS\Scripts\base\controls\OBJLoader.js" />
+    <Content Include="RPM\3DJS\Scripts\base\controls\OBJLoader2.js" />
+    <Content Include="RPM\3DJS\Scripts\base\controls\OrbitControls.js" />
+    <Content Include="RPM\3DJS\Scripts\base\controls\TrackballControls.js" />
+    <Content Include="RPM\3DJS\Scripts\base\controls\TransformControls.js" />
+    <Content Include="RPM\3DJS\Scripts\base\libs\AssimpJSONLoader.js" />
+    <Content Include="RPM\3DJS\Scripts\base\libs\bootstrap-modal.js" />
+    <Content Include="RPM\3DJS\Scripts\base\libs\bootstrap.min.js" />
+    <Content Include="RPM\3DJS\Scripts\base\libs\dat.gui.js" />
+    <Content Include="RPM\3DJS\Scripts\base\libs\dat.gui.min.js" />
+    <Content Include="RPM\3DJS\Scripts\base\libs\Detector.js" />
+    <Content Include="RPM\3DJS\Scripts\base\libs\iws.loader_min.js" />
+    <Content Include="RPM\3DJS\Scripts\base\libs\IWSImageLib_min.js" />
+    <Content Include="RPM\3DJS\Scripts\base\libs\jquery-1.11.0.min.js" />
+    <Content Include="RPM\3DJS\Scripts\base\libs\jquery-ui-1.10.4.custom.js" />
+    <Content Include="RPM\3DJS\Scripts\base\libs\jquery-ui-1.10.4.custom.min.js" />
+    <Content Include="RPM\3DJS\Scripts\base\libs\jquery.js" />
+    <Content Include="RPM\3DJS\Scripts\base\libs\jquery.velocity.min.js" />
+    <Content Include="RPM\3DJS\Scripts\base\libs\loadCad.js" />
+    <Content Include="RPM\3DJS\Scripts\base\libs\material.js" />
+    <Content Include="RPM\3DJS\Scripts\base\libs\MyAjaxForm.js" />
+    <Content Include="RPM\3DJS\Scripts\base\libs\stats.min.js" />
+    <Content Include="RPM\3DJS\Scripts\base\libs\tinyImgUpload.js" />
+    <Content Include="RPM\3DJS\Scripts\base\libs\tween.min.js" />
+    <Content Include="RPM\3DJS\Scripts\base\nodes\Dialog.js" />
+    <Content Include="RPM\3DJS\Scripts\base\nodes\dxf.js" />
+    <Content Include="RPM\3DJS\Scripts\base\nodes\geometry.js" />
+    <Content Include="RPM\3DJS\Scripts\base\nodes\geometryText.js" />
+    <Content Include="RPM\3DJS\Scripts\base\nodes\importdxf.js" />
+    <Content Include="RPM\3DJS\Scripts\base\nodes\JsonBox.js" />
+    <Content Include="RPM\3DJS\Scripts\base\nodes\JsonObject.js" />
+    <Content Include="RPM\3DJS\Scripts\base\nodes\number-pb.js" />
+    <Content Include="RPM\3DJS\Scripts\base\nodes\Test.js" />
+    <Content Include="RPM\3DJS\Scripts\base\nodes\Utils.js" />
+    <Content Include="RPM\3DJS\Scripts\base\three.js" />
+    <Content Include="RPM\3DJS\Scripts\base\three.min.js" />
+    <Content Include="RPM\3DJS\Scripts\base\three.module.js" />
+    <Content Include="RPM\3DJS\Scripts\css\admin.css" />
+    <Content Include="RPM\3DJS\Scripts\css\bootstrap.css" />
+    <Content Include="RPM\3DJS\Scripts\css\bootstrap.min.css" />
+    <Content Include="RPM\3DJS\Scripts\css\images\animated-overlay.gif" />
+    <Content Include="RPM\3DJS\Scripts\css\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="RPM\3DJS\Scripts\css\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="RPM\3DJS\Scripts\css\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="RPM\3DJS\Scripts\css\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="RPM\3DJS\Scripts\css\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="RPM\3DJS\Scripts\css\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="RPM\3DJS\Scripts\css\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="RPM\3DJS\Scripts\css\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="RPM\3DJS\Scripts\css\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="RPM\3DJS\Scripts\css\images\ui-icons_222222_256x240.png" />
+    <Content Include="RPM\3DJS\Scripts\css\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="RPM\3DJS\Scripts\css\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="RPM\3DJS\Scripts\css\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="RPM\3DJS\Scripts\css\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="RPM\3DJS\Scripts\css\jquery-ui-1.10.4.custom.min.css" />
+    <Content Include="RPM\3DJS\Scripts\css\jquery.ui.all.css" />
+    <Content Include="RPM\3DJS\Scripts\css\list.css" />
+    <Content Include="RPM\3DJS\Scripts\css\list_reg.css" />
+    <Content Include="RPM\3DJS\Scripts\css\number-pb.css" />
+    <Content Include="RPM\3DJS\Scripts\css\rtmap.css" />
+    <Content Include="RPM\3DJS\Scripts\css\tinyImgUpload.css" />
+    <Content Include="RPM\3DJS\Scripts\css\zzsc-demo.css" />
+    <Content Include="RPM\3DJS\Scripts\images\2DmapTest555.jpg" />
+    <Content Include="RPM\3DJS\Scripts\images\checkpath.png" />
+    <Content Include="RPM\3DJS\Scripts\images\close.png" />
+    <Content Include="RPM\3DJS\Scripts\images\dev_pic\dev_01.png" />
+    <Content Include="RPM\3DJS\Scripts\images\dev_pic\dev_03.png" />
+    <Content Include="RPM\3DJS\Scripts\images\dev_pic\dev_04.png" />
+    <Content Include="RPM\3DJS\Scripts\images\dev_pic\map_201.jpg" />
+    <Content Include="RPM\3DJS\Scripts\images\donn20180301.jpg" />
+    <Content Include="RPM\3DJS\Scripts\images\duo.png" />
+    <Content Include="RPM\3DJS\Scripts\images\emp_pic\emp_1.png" />
+    <Content Include="RPM\3DJS\Scripts\images\emp_pic\emp_12.png" />
+    <Content Include="RPM\3DJS\Scripts\images\emp_pic\emp_4.png" />
+    <Content Include="RPM\3DJS\Scripts\images\emp_pic\hisemp.png" />
+    <Content Include="RPM\3DJS\Scripts\images\emp_pic\map_201.jpg" />
+    <Content Include="RPM\3DJS\Scripts\images\fang.png" />
+    <Content Include="RPM\3DJS\Scripts\images\obj\bileiqi.png" />
+    <Content Include="RPM\3DJS\Scripts\images\obj\dianzu.png" />
+    <Content Include="RPM\3DJS\Scripts\images\obj\fangzi3S.png" />
+    <Content Include="RPM\3DJS\Scripts\images\rtmap\fullscreen.png" />
+    <Content Include="RPM\3DJS\Scripts\images\rtmap\reg.png" />
+    <Content Include="RPM\3DJS\Scripts\images\rtmap\user.png" />
+    <Content Include="RPM\3DJS\Scripts\images\rtmap\video.png" />
+    <Content Include="RPM\3DJS\Scripts\images\showName-on.png" />
+    <Content Include="RPM\3DJS\Scripts\images\sprite0.png" />
+    <Content Include="RPM\3DJS\Scripts\images\sprite1.png" />
+    <Content Include="RPM\3DJS\Scripts\images\sprite2.png" />
+    <Content Include="RPM\3DJS\Scripts\images\toolbar\circle_off.png" />
+    <Content Include="RPM\3DJS\Scripts\images\toolbar\circle_on.png" />
+    <Content Include="RPM\3DJS\Scripts\images\toolbar\cursor.png" />
+    <Content Include="RPM\3DJS\Scripts\images\toolbar\line_off.png" />
+    <Content Include="RPM\3DJS\Scripts\images\toolbar\line_on.png" />
+    <Content Include="RPM\3DJS\Scripts\images\toolbar\polygon_off.png" />
+    <Content Include="RPM\3DJS\Scripts\images\toolbar\polygon_on.png" />
+    <Content Include="RPM\3DJS\Scripts\images\toolbar\rectangle_off.png" />
+    <Content Include="RPM\3DJS\Scripts\images\toolbar\rectangle_on.png" />
+    <Content Include="RPM\3DJS\Scripts\images\toolbar\remove.png" />
+    <Content Include="RPM\3DJS\Scripts\images\toolbar\save1.png" />
+    <Content Include="RPM\3DJS\Scripts\images\toolbar\Save2.png" />
+    <Content Include="RPM\3DJS\Scripts\images\toolbar\station.png" />
+    <Content Include="RPM\3DJS\Scripts\images\UV_Grid_Sm.jpg" />
+    <Content Include="RPM\3DJS\Scripts\images\yuan.png" />
+    <Content Include="RPM\3DJS\Scripts\json\2DmapTest555.jpg" />
+    <Content Include="RPM\3DJS\Scripts\json\fangsong_gb2312_regular.js" />
+    <Content Include="RPM\3DJS\Scripts\json\fushitu.jpg" />
+    <Content Include="RPM\3DJS\Scripts\json\fushitu.png" />
+    <Content Include="RPM\3DJS\Scripts\json\monster.js" />
+    <Content Include="RPM\3DJS\Scripts\json\road2018.txt" />
+    <Content Include="RPM\3DJS\Scripts\self\3Dbase.js" />
+    <Content Include="RPM\3DJS\Scripts\self\BaseNew3D.js" />
+    <Content Include="RPM\3DJS\Scripts\self\BasicData.js" />
+    <Content Include="RPM\3DJS\Scripts\self\Bsin2D.js" />
+    <Content Include="RPM\3DJS\Scripts\self\CadMode.js" />
+    <Content Include="RPM\3DJS\Scripts\self\canvas3DTest.js" />
+    <Content Include="RPM\3DJS\Scripts\self\DrawingMap.js" />
+    <Content Include="RPM\3DJS\Scripts\self\editAlm.js" />
+    <Content Include="RPM\3DJS\Scripts\self\editAttend.js" />
+    <Content Include="RPM\3DJS\Scripts\self\editBase.js" />
+    <Content Include="RPM\3DJS\Scripts\self\editRollcall.js" />
+    <Content Include="RPM\3DJS\Scripts\self\HisAlarm.js" />
+    <Content Include="RPM\3DJS\Scripts\self\HisTrack.js" />
+    <Content Include="RPM\3DJS\Scripts\self\jquery.popmenu.js" />
+    <Content Include="RPM\3DJS\Scripts\self\jquery.popmenu.min.js" />
+    <Content Include="RPM\3DJS\Scripts\self\JsonCAD.js" />
+    <Content Include="RPM\3DJS\Scripts\self\light3DTest.js" />
+    <Content Include="RPM\3DJS\Scripts\self\Map2D.js" />
+    <Content Include="RPM\3DJS\Scripts\self\Map2DLayer.js" />
+    <Content Include="RPM\3DJS\Scripts\self\Map3DLayer.js" />
+    <Content Include="RPM\3DJS\Scripts\self\MapData.js" />
+    <Content Include="RPM\3DJS\Scripts\self\MapNew3D.js" />
+    <Content Include="RPM\3DJS\Scripts\self\RtEleNaming.js" />
+    <Content Include="RPM\3DJS\Scripts\self\Self2D.js" />
+    <Content Include="RPM\3DJS\Scripts\self\Self3d.js" />
+    <Content Include="RPM\3DJS\Scripts\self\SelfNew3D.js" />
+    <Content Include="RPM\3DJS\Scripts\self\SystemPackage.js" />
+    <Content Include="RPM\3DJS\SettingEdit.html" />
+    <Content Include="RPM\3DJS\HisAlarm.html" />
+    <Content Include="Scripts\angular\angular-sanitize.min.js" />
+    <Content Include="Scripts\angular\angular.min.js" />
+    <None Include="Views\Home\index.cshtml" />
+    <Content Include="RPM\RtEleNaming.html" />
+    <Content Include="Views\RPM\AreaMonitor.html" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="tsconfig.json" />
+    <Content Include="Views\Shared\ts_mobile_Base.cshtml" />
+    <Content Include="Views\SM\NewGroupUserQuerySetting.cshtml" />
+    <Content Include="Views\SM\NewGroupViewSetting.cshtml" />
+    <Content Include="Views\SM\FormViewSetting.cshtml" />
+    <Content Include="Views\SM\GroupUserQuerySetting.cshtml" />
+    <Content Include="Views\SM\GroupViewSetting.cshtml" />
+    <Content Include="Views\SM\IndexWK.cshtml" />
+    <Content Include="Views\SM\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AppMap\unpackage\" />
+    <Folder Include="Download\" />
+    <Folder Include="RPM\Android\css\images\" />
+    <Folder Include="RPM\MapOL\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.Mvc">
+      <Version>5.2.6</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNet.WebApi">
+      <Version>5.2.6</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Archives\TreeView.cshtml" />
+    <Content Include="Views\Commpage\FormViewSetting.cshtml" />
+    <Content Include="Views\Commpage\GroupUserQuerySetting.cshtml" />
+    <Content Include="Views\Commpage\GroupViewSetting.cshtml" />
+    <Content Include="Views\Commpage\IndexWK.cshtml" />
+    <Content Include="Views\Commpage\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Nav.cshtml" />
+    <Content Include="Views\Home\Test.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\TableView.cshtml" />
+    <Content Include="Views\Shared\ts_Base.cshtml" />
+    <Content Include="Views\Shared\_LayoutWK.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SM\AdminTool.cshtml" />
+    <Content Include="Views\SM\DefaultViewManager.cshtml" />
+    <Content Include="Views\SM\Nav.cshtml" />
+    <Content Include="Views\SM\SchedulerTask.cshtml" />
+    <Content Include="Views\SM\SystemInit.cshtml" />
+    <Content Include="Views\SM\UserViewManager.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Permission\Group.cshtml" />
+    <Content Include="Views\Permission\RolePrivilege.cshtml" />
+    <Content Include="Views\Permission\UserPrivilege.cshtml" />
+    <Content Include="Views\Permission\Role.cshtml" />
+    <Content Include="Views\Permission\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="FES\**\*.ts" />
+    <TypeScriptCompile Include="Protal\HomePage\Index_Actions.ts" />
+    <TypeScriptCompile Include="Protal\ConsoleComponents.ts" />
+    <TypeScriptCompile Include="Protal\Darggable_Main.ts" />
+    <TypeScriptCompile Include="Protal\HomePage\Index_Nav.ts" />
+    <TypeScriptCompile Include="Protal\HomePage\Index_Mobile_Nav.ts" />
+    <TypeScriptCompile Include="Resource\Scripts\Base\eap.kendo1.ts" />
+    <TypeScriptCompile Include="Resource\Scripts\Base\eap.ui1.ts" />
+    <TypeScriptCompile Include="Resource\Scripts\ts\Applications.ts" />
+    <TypeScriptCompile Include="Resource\Scripts\ts\Controller.ts" />
+    <TypeScriptCompile Include="Resource\Scripts\ts\eap.ui.core.ts" />
+    <TypeScriptCompile Include="Resource\Scripts\ts\eap.ui.table.ts" />
+    <TypeScriptCompile Include="Resource\Scripts\ts\eap.uicore.ts" />
+    <TypeScriptCompile Include="RPM\Scripts\AlarmInfo.ts" />
+    <TypeScriptCompile Include="RPM\Scripts\AreaInfo.ts" />
+    <TypeScriptCompile Include="RPM\Scripts\Department.ts" />
+    <TypeScriptCompile Include="RPM\Scripts\Device.ts" />
+    <TypeScriptCompile Include="RPM\Scripts\DutyInfo.ts" />
+    <TypeScriptCompile Include="RPM\Scripts\HisAlarm.ts" />
+    <TypeScriptCompile Include="RPM\Scripts\HisAttenCount.ts" />
+    <TypeScriptCompile Include="RPM\Scripts\HisAttendance.ts" />
+    <TypeScriptCompile Include="RPM\Scripts\HisAttenMsg.ts" />
+    <TypeScriptCompile Include="RPM\Scripts\HisOnLineMsg.ts" />
+    <TypeScriptCompile Include="RPM\Scripts\HisPatrolInfo.ts" />
+    <TypeScriptCompile Include="RPM\Scripts\HisPatrolLocInfo.ts" />
+    <TypeScriptCompile Include="RPM\Scripts\HisPatrolMonthTotal.ts" />
+    <TypeScriptCompile Include="RPM\Scripts\HisPatrolOneMonth.ts" />
+    <TypeScriptCompile Include="RPM\Scripts\Person.ts" />
+    <TypeScriptCompile Include="RPM\Scripts\PersonPatrol.ts" />
+    <TypeScriptCompile Include="RPM\Scripts\RtAlarm.ts" />
+    <TypeScriptCompile Include="RPM\Scripts\Station.ts" />
+    <TypeScriptCompile Include="RPM\Scripts\Tag.ts" />
+    <TypeScriptCompile Include="RPM\Scripts\Video.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-animate.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-component-router.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-cookies.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-mocks.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-resource.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-route.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-sanitize.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\eap1.ts" />
+    <TypeScriptCompile Include="Scripts\typings\highcharts\index.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\kendo-ui\kendo.dataviz.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\kendo-ui\kendo.web.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FES\content\css\bootstrap-grid.css.map" />
+    <Content Include="FES\content\css\bootstrap-grid.min.css.map" />
+    <Content Include="FES\content\css\bootstrap-reboot.css.map" />
+    <Content Include="FES\content\css\bootstrap-reboot.min.css.map" />
+    <Content Include="FES\content\css\bootstrap.css.map" />
+    <Content Include="FES\content\css\bootstrap.min.css.map" />
+    <Content Include="FES\content\fonts\fontawesome-webfont.eot" />
+    <Content Include="FES\content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="FES\content\fonts\fontawesome-webfont.woff" />
+    <Content Include="FES\content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="FES\content\fonts\FontAwesome.otf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resource\Localization\CHS.json" />
+    <Content Include="Resource\Localization\CHT.json" />
+    <Content Include="Resource\Localization\ENU.json" />
+    <Content Include="Resource\Scripts\Base\jquery-1.10.2.min.map" />
+    <Content Include="Resource\Scripts\Buttons\Archives.json" />
+    <Content Include="Resource\Scripts\Buttons\Asset.json" />
+    <Content Include="Resource\Scripts\Buttons\Commpage.json" />
+    <Content Include="Resource\Scripts\Buttons\EM.json" />
+    <Content Include="Resource\Scripts\Buttons\KC.json" />
+    <Content Include="Resource\Scripts\Buttons\License.json" />
+    <Content Include="Resource\Scripts\Buttons\MP.json" />
+    <Content Include="Resource\Scripts\Buttons\PM.json" />
+    <Content Include="Resource\Scripts\Buttons\Privilege.json" />
+    <Content Include="Resource\Scripts\Buttons\Reporting.json" />
+    <Content Include="Resource\Scripts\Kendo\js\kendo.web.min.js.map" />
+    <Content Include="Resource\Scripts\Kendo\Style\fonts\DejaVu\DejaVuSans-Bold.ttf" />
+    <Content Include="Resource\Scripts\Kendo\Style\fonts\DejaVu\DejaVuSans-BoldOblique.ttf" />
+    <Content Include="Resource\Scripts\Kendo\Style\fonts\DejaVu\DejaVuSans-ExtraLight.ttf" />
+    <Content Include="Resource\Scripts\Kendo\Style\fonts\DejaVu\DejaVuSans-Oblique.ttf" />
+    <Content Include="Resource\Scripts\Kendo\Style\fonts\DejaVu\DejaVuSans.ttf" />
+    <Content Include="Resource\Scripts\Kendo\Style\fonts\DejaVu\DejaVuSansMono-Bold.ttf" />
+    <Content Include="Resource\Scripts\Kendo\Style\fonts\DejaVu\DejaVuSansMono-BoldOblique.ttf" />
+    <Content Include="Resource\Scripts\Kendo\Style\fonts\DejaVu\DejaVuSansMono-Oblique.ttf" />
+    <Content Include="Resource\Scripts\Kendo\Style\fonts\DejaVu\DejaVuSansMono.ttf" />
+    <Content Include="Resource\Scripts\Kendo\Style\fonts\DejaVu\DejaVuSerif-Bold.ttf" />
+    <Content Include="Resource\Scripts\Kendo\Style\fonts\DejaVu\DejaVuSerif-BoldItalic.ttf" />
+    <Content Include="Resource\Scripts\Kendo\Style\fonts\DejaVu\DejaVuSerif-Italic.ttf" />
+    <Content Include="Resource\Scripts\Kendo\Style\fonts\DejaVu\DejaVuSerif.ttf" />
+    <Content Include="Resource\Scripts\Kendo\Style\fonts\glyphs\KendoUIGlyphs.eot" />
+    <Content Include="Resource\Scripts\Kendo\Style\fonts\glyphs\KendoUIGlyphs.ttf" />
+    <Content Include="Resource\Scripts\Kendo\Style\fonts\glyphs\KendoUIGlyphs.woff" />
+    <Content Include="Resource\Scripts\Kendo\Style\fonts\glyphs\WebComponentsIcons.eot" />
+    <Content Include="Resource\Scripts\Kendo\Style\fonts\glyphs\WebComponentsIcons.ttf" />
+    <Content Include="Resource\Scripts\Kendo\Style\fonts\glyphs\WebComponentsIcons.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="bin\Donn.EAM.Web.Core.dll" />
+    <Analyzer Include="bin\Donn.EAP.Core.dll" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>53801</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:15008/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PreBuildEvent>if not exist  $(TargetDir)Config mkdir $(TargetDir)Config
+if not exist  $(TargetDir)Config\database.json (xcopy  /Y/d $(ProjectDir)Config\database.json $(TargetDir)Config)
+if not exist  $(TargetDir)Config\App.json (xcopy  /Y/d $(ProjectDir)Config\app.json $(TargetDir)Config)
+if not exist  $(TargetDir)Config\mail.json (xcopy  /Y/d $(ProjectDir)Config\mail.json $(TargetDir)Config)
+</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /Y /d  /F $(SolutionDir)AppServer\net46\*.* $(TargetDir)
+xcopy /Y /d  /F $(SolutionDir)WebApp\net46\*.* $(TargetDir)
+</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

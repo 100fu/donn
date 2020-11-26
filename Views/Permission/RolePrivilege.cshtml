@@ -1,0 +1,249 @@
+﻿@{
+    ViewBag.LanguageName = Donn.EAM.Web.Core.EAMSettings.Language;
+    
+    Layout = "_Layout.cshtml";
+}
+
+<style>
+    #splitContainer {
+        height: 100%;
+    }
+</style>
+<div id="splitContainer">
+    <div id="roleTeePanel">
+        <div id="roleTreeToolbar"></div>
+        <div id="roleTreeView"></div>
+    </div>
+    <div id="authorityTreePanel">
+        <div id="authorityTreeToolbar"></div>
+        <div id="authorityTreeView"></div>
+    </div>
+</div>
+
+<div name="AuthorityCopy" style="margin:28px;display:none;"></div>
+
+<script type="text/javascript">
+    System.CultureInfo.LanguageName = '@ViewBag.LanguageName';
+    System.Declare('EAM.Permission');
+    EAM.Permission.rolePrivilege = System.Object.Extends({
+        roleTreeControl: {},
+        authorityTreeControl: {},
+        roleBarControl: {},
+        authorityBarControl: {},
+        authorityCopyControl: {},
+        kAuthorityCopyWin: {},
+        prompt: System.CultureInfo.GetDisplayText('Prompt'),
+        ctor: function () {
+            var that = this;
+            this._initLayout();
+            this._initRoleTree();
+            this._initAuthorityTree();
+           
+            window.onresize = function () {
+                that._resize();
+            };
+            $(window).trigger("resize");
+        },
+        _initLayout: function () {
+            jQuery("#splitContainer").kendoSplitter({
+                panes: [
+                    { collapsible: true, size: '40%', scrollable: false },
+                    { collapsible: false, size: "60%" },
+                ]
+            }, false);
+        },
+        _initRoleTree: function () {
+            var that = this;
+            //bar
+            var topBariOption = new EAP.UI.ToolbarOption();
+            topBariOption.items = [
+                { type: "button", text: System.CultureInfo.GetDisplayText('Collapse'), id: 'roleCollapse' },
+                { type: "button", text: System.CultureInfo.GetDisplayText('expand'), id: 'roleExpand' },
+                { type: "button", text: System.CultureInfo.GetDisplayText('Copy') + System.CultureInfo.GetDisplayText('Authority'), id: 'roleCopyAuthority' }
+            ];
+            topBariOption.selector = '#roleTreeToolbar';
+            topBariOption.owner = this;
+            this.roleBarControl = new EAP.UI.ToolbarControl(topBariOption);
+
+            //tree
+            var treeoption = new EAP.UI.TreeOption();
+            treeoption.selector = '#roleTreeView';
+            treeoption.nodeClick = function (ev) {
+                that.currentRole = ev.sender.dataItem(ev.node);
+
+                that._ownRoleSet();
+            };
+
+            this.roleTreeControl = new EAP.UI.TreeControl(treeoption);
+
+            this._loadRoleData();
+        },
+        _initAuthorityTree: function () {
+            var that = this;
+            //bar
+            var topBariOption = new EAP.UI.ToolbarOption();
+            topBariOption.items = [
+                { type: "button", text: System.CultureInfo.GetDisplayText('Collapse'), id: 'authorityCollapse' },
+                { type: "button", text: System.CultureInfo.GetDisplayText('expand'), id: 'authorityExpand' },
+                {
+                    type: "button", text: System.CultureInfo.GetDisplayText('save'), id: 'authoritySave'
+                }
+            ];
+            topBariOption.selector = '#authorityTreeToolbar';
+            topBariOption.owner = this;
+            this.authorityBarControl = new EAP.UI.ToolbarControl(topBariOption);
+
+            //tree
+            var treeoption = {};
+            treeoption.selector = '#authorityTreeView';
+            treeoption.showCheckBox = true;
+            treeoption.check = function (e) {
+                that.authorityTreeControl.checkItemsDownward(e.node);
+                if (that.authorityTreeControl.tree.dataItem(e.node).checked)
+                    return;
+                that.authorityTreeControl.checkItemsUpward(e.node);
+            }
+            this.authorityTreeControl = new EAP.UI.TreeControl(treeoption);
+            this._loadAuthorityData();
+
+        },
+        _loadRoleData: function () {
+            var that = this;
+            kendo.ui.progress($('#splitContainer'), true);
+            new EAP.EAMController("Role").ExecuteServerAction("GetRoleTree", { parameter: Guid.Empty }, function (data) {
+                kendo.ui.progress($('#splitContainer'), false);
+                that.roleTreeControl.setTreeData(data);
+                that._initCopyForm();
+                that.roleTreeControl.expandall();
+            });
+        },
+        _loadAuthorityData: function () {
+            var that = this;
+            kendo.ui.progress($('#splitContainer'), true);
+            new EAP.EAMController("Privilege").ExecuteServerAction("GetAllPrivilegeTree", { parameter: Guid.Empty }, function (data) {
+                kendo.ui.progress($('#splitContainer'), false);
+                that.authorityTreeControl.setTreeData(data);
+                that.authorityTreeControl.tree.expand('.k-item:first');
+            });
+
+            this._ownRoleSet();
+        },
+
+        _ownRoleSet: function () {
+            if (!this.currentRole)
+                return;
+            var that = this;
+            kendo.ui.progress($('#splitContainer'), true);
+            new EAP.EAMController("Role").ExecuteServerActionSync("GetRoleAllowPrivileges", { parameter: this.currentRole.id }, function (data) {
+                that.authorityTreeControl._treeSelect(data, true,false,true);
+                kendo.ui.progress($('#splitContainer'), false);
+            }, function () {
+                EAP.UI.MessageBox(that.prompt, System.CultureInfo.GetDisplayText('OperateFail'));
+                kendo.ui.progress($('#splitContainer'), false);
+            });
+
+        },
+        _resize: function () {
+            this.roleTreeControl.tree.wrapper.outerHeight($('#roleTeePanel').innerHeight() - this.roleBarControl.toolbar.wrapper.outerHeight());
+            this.authorityTreeControl.tree.wrapper.outerHeight($('#authorityTreePanel').innerHeight() - this.authorityBarControl.toolbar.wrapper.outerHeight());
+        },
+        _exitRole: function () {
+            //判断是否选中role
+            if (!this.currentRole) {
+                EAP.UI.MessageBox.alert(this.prompt, System.CultureInfo.GetDisplayText('SelectRoleFirst'));
+                return false;
+            } else {
+                return true;
+            }
+        },
+        _initCopyForm: function () {
+            var that = this;
+            //window
+            this.kAuthorityCopyWin = $('div[name="AuthorityCopy"]').kendoWindow({
+                title: System.CultureInfo.GetDisplayText('Copy') + System.CultureInfo.GetDisplayText('Authority'),
+                resizable: false,
+                actions: [
+                    "Close"
+                ],
+                modal: true,
+                close: function () { }
+            }).data("kendoWindow");
+
+            var option = new EAP.UI.FormOption();
+            option.selector = 'div[name="AuthorityCopy"]';
+            option.titleWidth = "80px";
+            var roleT = System.CultureInfo.GetDisplayText('Role');
+            var treeoption = {Data: this.roleTreeControl.tree.dataSource.options.data};
+            option.Data = [
+                {
+                    type: 'dropdownlist', title: roleT + ":", name: 'roleCopyFrom', validateOptions: { required: true }, style: { width: "180px" }, treeOptions: treeoption
+                },{
+                    type: 'text', title: '<h3>' + System.CultureInfo.GetDisplayText('Authority') + System.CultureInfo.GetDisplayText('CopyTo') + '</h3>', colspan: 3
+                },
+                {
+                    type: 'dropdownlist', title: roleT + ":", name: 'roleCopyTo', validateOptions: { required: true }, style: { width: "180px" }, treeOptions: treeoption
+                }
+            ];
+            option.postUrl = {controller:"Role",action:"CopyPrivilage"};
+            option.success = {
+                text: System.CultureInfo.GetDisplayText('save'), onSuccess: function () {
+                    that.kAuthorityCopyWin.close();
+                    that._ownRoleSet();
+                }
+            };
+            option.cancle = {
+                text: System.CultureInfo.GetDisplayText('Cancel'), fn: function () {
+                    that.kAuthorityCopyWin.close();
+                }
+            }
+
+            option.sourceData = { roleCopyFrom: "", roleCopyTo: "" };
+            this.authorityCopyControl = new EAP.UI.FormControl(option);
+            
+        },
+        roleCollapse: function () {
+            //根据节点收起
+            this.roleTreeControl._collapseNode(this.currentRole);
+        },
+        roleExpand: function () {
+            //根据节点展开
+            this.roleTreeControl._expandNode(this.currentRole);
+        },
+        roleCopyAuthority: function () {
+            this.kAuthorityCopyWin.center().open();
+        },
+        authorityCollapse: function () {
+            //根据节点收起
+            var selectedNode = this.authorityTreeControl.tree.select();
+            if (selectedNode)
+                this.authorityTreeControl._collapseNode(this.authorityTreeControl.tree.dataItem(selectedNode));
+            else
+                this.authorityTreeControl._collapseNode(selectedNode);
+
+        },
+        authorityExpand: function () {
+            //根据节点展开
+            var selectedNode = this.authorityTreeControl.tree.select();
+            if (selectedNode)
+                this.authorityTreeControl._expandNode(this.authorityTreeControl.tree.dataItem(selectedNode));
+            else
+                this.authorityTreeControl._expandNode(selectedNode);
+        },
+        authoritySave: function () {
+            var that = this;
+            if (!this._exitRole()) return;
+
+            var checkedIds = this.authorityTreeControl.getCheckedItems().ids;
+            kendo.ui.progress($('#splitContainer'), true);
+            new EAP.EAMController("Role").ExecuteServerActionSync("RolePrivilegeTreeSave", { AllowIds: checkedIds, roleID: this.currentRole.id }, function (data) {
+                EAP.UI.MessageBox.alert(that.prompt, data + '!')
+                kendo.ui.progress($('#splitContainer'), false);
+            }, function () {
+                EAP.UI.MessageBox.alert(that.prompt, System.CultureInfo.GetDisplayText("SaveFail"));
+                kendo.ui.progress($('#splitContainer'), false);
+            });
+
+        }
+    });
+    var Controller= new EAM.Permission.rolePrivilege();
+</script>

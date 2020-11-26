@@ -1,0 +1,155 @@
+﻿
+@{
+    Layout = "~/Views/Privilege/_Layout.cshtml";
+    ViewBag.LanguageName = Donn.EAM.Web.Core.CurrentLoginInfo.Language;
+}
+
+<script src="~/Resource/Scripts/Base/Applications.js"></script>
+<style>
+    #splitContainer,#gridAppView{
+    height:100%
+    }
+</style>
+<div id="splitContainer">
+    <div id="treePanel">
+        <div id="treeView"></div>
+    </div>
+    <div id="gridPanel">
+        <div id="gridAppView"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    System.Declare('EAP.UI');
+    EAP.UI.FormViewSetting = System.Object.Extends({
+        treeControl: {},
+        viewEditApp: {},
+        currentPrivilage:{},
+        ctor: function () {
+            this._initLayout();
+            this._initTree();
+            this._initApp();
+        },
+        _initLayout: function () {
+            $('#splitContainer').kendoSplitter({
+                panes: [{
+                    collapsible: true,
+                    size: '30%'
+                }, {
+                    collapsible: false,
+                    size: '70%'
+                }]
+            });
+        },
+        _initTree: function () {
+            var option = new EAP.UI.TreeOption();
+            var that = this;
+            option.nodeClick = function (ev) {
+                that.currentPrivilage = ev.sender.dataItem(ev.node);
+                that._loadGrid();
+            };
+            option.selector = "#treeView";
+            this.treeControl = new EAP.UI.TreeControl(option);
+            this._loadTree();
+        },
+        _initApp: function () {
+            var that = this;
+            var option = new EAP.UI.EditApplicationOpion();
+            option.postUrl = { controller: 'Commpage', action: 'SaveViewColumns' };
+            option.setOrd = true;
+            option.editable = true;
+            option.columns = [{
+                field: 'Header',
+                title: System.CultureInfo.GetDisplayText('Name'),
+                template: function (value) {
+                    if (value) {
+                        return System.CultureInfo.GetDisplayText(value.Header);
+                    }
+                },
+                editor: function (container, options) {
+                    container.append(System.CultureInfo.GetDisplayText(options.model.Header));
+                }
+            }, {
+                field: 'CustomHeader',
+                title: System.CultureInfo.GetDisplayText('CustomShow'),
+                template: function (value) {
+                    if (value) {
+                        return value.CustomHeader || '';
+                    }
+                }
+            }, {
+                field: 'IsVisible',
+                title: System.CultureInfo.GetDisplayText('Show'),
+                template: function (value) {
+                    var checkedStr = "";
+                    if (value && value.IsVisible) {
+                        checkedStr = ' checked="true" ';
+                    }
+                    return String.format('<input type="checkbox" {0} />', checkedStr)
+                },
+                width:'80px'
+            }, {
+                field: 'Required',
+                title: System.CultureInfo.GetDisplayText('Required'),
+                template: function (value) {
+                    //RequiredEditable
+                    var requiredStr = "";
+                    if (value&&!value.RequiredEditable) {
+                        requiredStr = ' readonly="" '
+                    }
+                    var checkedStr = "";
+                    if (value && value.Required) {
+                        checkedStr = ' checked="true" ';
+                    }
+                    return String.format('<input type="checkbox" {0} {1}/>', requiredStr, checkedStr)
+                },
+                width: '80px'
+            }, {
+                field: 'ReadOnly',
+                title: System.CultureInfo.GetDisplayText('ReadOnly'),
+                template: function (value) {
+                    var checkedStr = "";
+                    if (value && value.ReadOnly) {
+                        checkedStr = ' checked="true" ';
+                    }
+                    return String.format('<input type="checkbox" {0} />', checkedStr)
+                },
+                width: '80px'
+            }
+            ];
+            option.selector = "#gridAppView";
+            option.onChange = function () {
+                that._loadGrid();
+            };
+            option.gridHeight = "90%";
+            this.viewEditApp = new EAP.UI.EditApplication(option);
+            this.viewEditApp.gridControl.grid.reset();
+        },
+        _loadTree: function () {
+            var that = this;
+            new EAP.EAMController().ExecuteServerActionSync({ controller: 'Privilege', action: 'GetPrivilegeTreeByMenu' }, { parameter: Guid.Empty }, function (data) {
+                that.treeControl.setTreeData(data);
+                that.treeControl.tree.expand('.k-item:first');
+            });
+        },
+        _loadGrid: function () {
+            var formView;
+            new EAP.EAMController().ExecuteServerActionSync({ controller: 'Commpage', action: 'GetFormViewByPrivilageId' }, { id: this.currentPrivilage.id }, function (data) {
+                formView = data;
+            });
+            if (!formView || !formView.Id){
+                this.viewEditApp.setData([]);
+                return;
+            }
+            var option = new EAP.UI.GridDataRequest();
+            option.url = { controller: 'Commpage', action: 'GetFormViewColumnsForViewSetting' };
+            option.postdata = { id: formView.Id };
+            option.responseData = function (d) {
+                return d;
+            }
+            this.viewEditApp.setRequestOption(option);
+        }
+    });
+    System.CultureInfo.LanguageName = '@ViewBag.LanguageName';
+    var control = new EAP.UI.FormViewSetting();
+</script>

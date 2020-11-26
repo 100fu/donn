@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>地图描点</title>
+    <link rel="stylesheet" href="css/ol.css" />
+	
+	<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>	
+    <script type="text/javascript" src="js/ol.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" src="js/layer/layer.js"></script>
+<style>
+	html{
+	   height: 100%;
+       width: 100%;
+	   padding:0;
+	   margin:0;
+	}
+	body{
+	   height: 100%;
+       width: 100%;
+	   padding:0;
+	   margin:0;
+	}
+    .map {
+       height: 100%;
+       width: 100%;
+     }
+	</style>
+</head>
+
+<body>
+    <!-- tool -->
+    <div class="tool" id="tool">
+    </div>
+    <!-- btn -->
+    <div class="btn" id="btn">
+      
+    </div>
+    <div id="map" style="height:550px"></div>
+	<div unselectable="on" class="show-3d">
+	    <div style="position: absolute; z-index: 10; bottom: auto; left: auto; top: 5px; right: 10px;width:92px;">	         
+	        <button class="btn" onclick="PC._fence_sel()" style="font-size:6px;width:55px;">选择样式</button>     
+			<button class="btn" onclick="PC._fence_draw_done()" style="font-size:6px;width:55px;">绘画完成</button>    
+			<button class="btn" onclick="PC._fence_save()" style="font-size:6px;width:55px;">提交数据</button>    
+			<button class="btn" onclick="PC._fence_clear()" style="font-size:6px;width:55px;">清除所有</button>    
+	    </div>
+	</div>
+	
+<script>
+	//定义一个地图调用函数
+	//var maphost = "http://localhost:8080/ol/dist";
+	//var maphost2 = "http://localhost:8080/Apps";
+	var BaseMapLayer = function(options) {
+		var mapExtent = [115.22324,
+       30.06434,
+       115.33997,
+       30.20656];
+		var layer = new ol.layer.Tile({
+			extent: ol.proj.transformExtent(mapExtent, "EPSG:4326", "EPSG:3857"),
+			source: new ol.source.XYZ({
+				url: options.url,
+				tilePixelRatio: 1,
+				minZoom:15,
+				maxZoom:19
+			})
+		});
+		return layer;
+	};
+	var StreetMapLayer = function(options) {
+		var mapExtent = [115.19989,
+		  30.0543,
+		  115.38872,
+		  30.20656];
+		var layer = new ol.layer.Tile({
+			extent: ol.proj.transformExtent(mapExtent, "EPSG:4326", "EPSG:3857"),
+			source: new ol.source.XYZ({
+				url: options.url,
+				tilePixelRatio: 1,
+				minZoom:13,
+				maxZoom:19
+			})
+		});
+		return layer;
+	};
+	//定义视图
+	var view = new ol.View({
+        center: ol.proj.fromLonLat([115.27473,
+    30.12702]),
+        zoom: 18,
+        minZoom: 13,
+        maxZoom: 19
+    });
+	
+	
+	var sateliteopt = {
+        url: 'map/section/{z}/{x}/{y}.jpg'
+    };
+	
+	var streetliteopt = {
+	    url: 'map/street/{z}/{x}/{y}.png'
+	};
+	
+	//影像地图组
+	var sate = new ol.layer.Group({
+		layers: [
+			new StreetMapLayer(streetliteopt),
+			new BaseMapLayer(sateliteopt)		
+		]
+	});
+	var fence_data=[];
+	var PC;
+	$(function() {
+// 		$.ajax({
+//                 url: "config/fence.json",//地址，就是json文件的请求路径
+//                 dataType: "json",//数据类型可以为 text xml json  script  jsonp
+// 				async:false,
+// 　　　　　　　　　success: function(result){//返回的参数就是 action里面所有的有get和set方法的参数
+//                     //fence_data=result;
+// 					fence_data=[];
+//                 }
+//             });
+		document.oncontextmenu=function(){return false;}
+		PC=new CC();
+		PC.init();
+	});
+</script>
+</body>
+</html>

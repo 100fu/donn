@@ -1,0 +1,79 @@
+﻿[
+  {
+    "terminalId": "138123456",
+    "assetName": "苏D12A12",
+    "warningType": "InRegion",
+    "warningTime": "09:25:18",
+    "warningInfo": "车辆苏D12A12进入堆场A"
+  },
+  {
+    "terminalId": "138123256",
+    "assetName": "苏D12A24",
+    "warningType": "OutRegion",
+    "warningTime": "09:25:18",
+    "warningInfo": "车辆苏D12A12离开堆场A"
+  },
+  {
+    "terminalId": "138123256",
+    "assetName": "苏D12A24",
+    "warningType": "Speed",
+    "warningTime": "09:25:18",
+    "warningInfo": "车辆苏D12A12行驶速度达到50Km/h"
+  },
+  {
+    "terminalId": "138123256",
+    "assetName": "苏D12A24",
+    "warningType": "OutRoad",
+    "warningTime": "09:25:18",
+    "warningInfo": "车辆苏D12A12偏离预定路线"
+  },
+  {
+    "terminalId": "138123456",
+    "assetName": "苏D12A12",
+    "warningType": "InRegion",
+    "warningTime": "09:25:18",
+    "warningInfo": "车辆苏D12A12进入堆场A"
+  },
+  {
+    "terminalId": "138123256",
+    "assetName": "苏D12A24",
+    "warningType": "OutRegion",
+    "warningTime": "09:25:18",
+    "warningInfo": "车辆苏D12A12离开作业堆场A"
+  },
+  {
+    "terminalId": "138123256",
+    "assetName": "苏D12A24",
+    "warningType": "Speed",
+    "warningTime": "09:25:18",
+    "warningInfo": "车辆苏D12A12行驶速度达到50Km/h"
+  },
+  {
+    "terminalId": "138123256",
+    "assetName": "苏D12A24",
+    "warningType": "OutRoad",
+    "warningTime": "09:25:18",
+    "warningInfo": "车辆苏D12A12偏离预定路线"
+  },
+  {
+    "terminalId": "138123256",
+    "assetName": "苏D12A24",
+    "warningType": "OutRegion",
+    "warningTime": "09:25:18",
+    "warningInfo": "车辆苏D12A12离开作业堆场A"
+  },
+  {
+    "terminalId": "138123256",
+    "assetName": "苏D12A24",
+    "warningType": "Speed",
+    "warningTime": "09:25:18",
+    "warningInfo": "车辆苏D12A12行驶速度达到50Km/h"
+  },
+  {
+    "terminalId": "138123256",
+    "assetName": "苏D12A24",
+    "warningType": "OutRoad",
+    "warningTime": "09:25:18",
+    "warningInfo": "车辆苏D12A12偏离预定路线"
+  }
+]

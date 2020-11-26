@@ -1,0 +1,557 @@
+﻿@{
+    ViewBag.LanguageName = Donn.EAM.Web.Core.EAMSettings.Language;
+   
+    Layout = "_Layout.cshtml";
+}
+
+<style>
+    #splitContainer {
+        height: 100%;
+    }
+
+    #aeUserForm {
+        margin: 15px;
+    }
+
+        #aeUserForm td {
+            padding-top: 8px;
+        }
+
+    .roteClass {
+        color: gray;
+    }
+</style>
+
+<div id="splitContainer">
+    <div id="userGridPanel">
+        <div id="userGridToolBar"></div>
+        <div id="userGridView"></div>
+    </div>
+    <div id="treesPanel" style="height:100%">
+        <div id="treeTabs"></div>
+    </div>
+</div>
+
+<div id="privilageTreePanel">
+    <div id="privilageToolbar"></div>
+    <div id="privilageTreeView"></div>
+</div>
+<div id="groupTreePanel">
+    <div id="groupToolbar"></div>
+    <div id="groupTreeView"></div>
+</div>
+<div id="roleTreePanel">
+    <div id="roleToolbar"></div>
+    <div id="roleTreeView"></div>
+</div>
+
+<div id="aeUserForm" name="aeUserForm" style="display:none"></div>
+<script type="text/javascript">
+    var languageName = '@ViewBag.LanguageName';
+    System.CultureInfo.LanguageName = languageName;
+    System.Declare('EAM.Permission');
+    EAM.Permission.userPrivilage = System.Object.Extends({
+        userGridControl: {},
+        userGridToolbarControl: {},
+        tabsControl: {},
+        privilageTreeControl: {},
+        groupTreeControl: {},
+        roleTreeControl: {},
+        privilageToolbarControl: {},
+        groupToolbarControl: {},
+        roleToolbarControl: {},
+        formControl: {},
+        kFormWindow: {},
+        prompt: System.CultureInfo.GetDisplayText('Prompt'),
+        netClient: new System.Net.HttpClient(),
+        ctor: function () {
+            this._initLayout();
+            this._initUserGrid();
+            this._initTreeTabs();
+            this._initAddEditWindow();
+            var that = this;
+            $("#userGridPanel").resize(function () {
+                that._resize();
+            }).trigger("resize");
+        },
+        _initLayout: function () {
+            jQuery("#splitContainer").kendoSplitter({
+                panes: [
+                    { collapsible: true, size: '50%', scrollable: false },//, scrollable: false
+                    { collapsible: false, size: "50%", scrollable: false },
+                ]
+            }, false);
+        },
+        _initUserGrid: function () {
+            var that = this;
+            var toolbarOption = new EAP.UI.ToolbarOption();
+            toolbarOption.items = [{ type: "button", text: System.CultureInfo.GetDisplayText("Add"), id: "add_User" },
+                { type: "button", text: System.CultureInfo.GetDisplayText("Edit"), id: "edit_User" },
+            { type: "button", text: System.CultureInfo.GetDisplayText("Delete"), id: "delete_User" },
+            { type: "button", text: System.CultureInfo.GetDisplayText("Reset") + System.CultureInfo.GetDisplayText("PassWord"), id: "refresh_Password" }
+            ];//
+            toolbarOption.owner = this;
+            toolbarOption.selector = "#userGridToolBar";
+
+            this.userGridToolbarControl = new EAP.UI.ToolbarControl(toolbarOption);
+
+            var option = new EAP.UI.GridOption();
+            option.selector = '#userGridView';
+            //option.showrowcheckbox = true;
+            option.columns = [
+                  {
+                      field: 'Name', title: System.CultureInfo.GetDisplayText("StaffNameCN"), width:200,
+                      template: function (value, row, i) {
+                          if (value)
+                              return value.Name;
+                      }
+                  },
+                  {
+                      field: 'Login_acc', title: System.CultureInfo.GetDisplayText("Account"),width:200,
+                      template: function (value) {
+                          if (value)
+                              return value.Login_acc;
+                      }
+                  }, {
+                      field: 'ChangePwd', title: System.CultureInfo.GetDisplayText("ChangePwd"), width: 200, sortable: false, filterable: false,
+                      template: function (value) {
+                          if (value)
+                              return System.CultureInfo.GetDisplayText(value.ChangePwd == null ? "False" : value.ChangePwd == true ? "True" : "False");
+                      }
+
+                  }
+            ];
+            option.height = "90%";
+            option.pageSize = 20;
+            option.change = function (e) {
+                that.currentUser = e.sender.dataItem(e.sender.select());
+                //TODO set opened tab
+
+                var actTab = that.tabsControl.kTabStrip.element.find("li.k-state-active");
+                if (actTab.length > 0) {
+                    var flag = actTab.attr("flag");
+                    switch (flag) {
+                        case "privilage":
+                            that._setUserCurrentPrivilage();
+                            break;
+                        //case "group":
+                        //    that._setUserCurrentGroup();
+                        //    break;
+                        //case "role":
+                        //    that._setUserCurrentRole();
+                        //    break;
+                        default:
+
+                    }
+                }
+
+            };
+            this.userGridControl = new EAP.UI.GridControl(option);
+            this.userGridControl.grid.setOptions({ filterable: { mode: "row" } });
+            this._loadUserGrid();
+        },
+        _initTreeTabs: function () {
+            var that = this;
+            var option = new EAP.UI.TabsOption();
+            option.selector = "#treeTabs";
+            option.onActivate = function (e) {
+                var flag = e.item.getAttribute("flag");
+                switch (flag) {
+                    case "privilage":
+                        that._setUserCurrentPrivilage();
+                        break;
+                    //case "group":
+                    //    that._setUserCurrentGroup();
+                    //    break;
+                    //case "role":
+                    //    that._setUserCurrentRole();
+                    //    break;
+                    default:
+
+                }
+            };
+            option.Data = [
+                { title: System.CultureInfo.GetDisplayText("Authority") + System.CultureInfo.GetDisplayText("distribution"), selector: "#privilageTreePanel", flag: "privilage" }
+                //{ title: System.CultureInfo.GetDisplayText("Groups"), selector: "#groupTreePanel", flag: "group" },
+                //{ title: System.CultureInfo.GetDisplayText("TheRoleOf"), selector: "#roleTreePanel", flag: "role" }
+            ];
+            this.tabsControl = new EAP.UI.TabScripControl(option);
+            this.tabsControl.kTabStrip.activateTab(this.tabsControl.kTabStrip.element.find(' li.k-item:first'));
+            this._initUserPrivilageTree();
+            //this._initUserGroupTree();
+            //this._initUserRoleTree();
+
+        },
+        _initUserPrivilageTree: function () {
+            var that = this;
+            var toolbaroption = new EAP.UI.ToolbarOption();
+            toolbaroption.owner = this;
+            toolbaroption.selector = "#privilageToolbar";
+            toolbaroption.items = [{ type: "button", text: System.CultureInfo.GetDisplayText('Collapse'), id: 'privilageCollapse' },
+                { type: "button", text: System.CultureInfo.GetDisplayText('expand'), id: 'privilageExpand' },
+                {
+                    type: "button", text: System.CultureInfo.GetDisplayText('save'), id: 'privilageSave'
+                }];
+            this.privilageToolbarControl = new EAP.UI.ToolbarControl(toolbaroption);
+
+            var option = new EAP.UI.TreeOption();
+            option.showCheckBox = true;
+            option.selector = "#privilageTreeView";
+            option.check = function (e) {
+                that.privilageTreeControl.checkItemsDownward(e.node, function (node) {
+                    var dis = $(node).find(':checked').attr("disabled");
+                    return !dis;
+                });
+                if (that.privilageTreeControl.tree.dataItem(e.node).checked)
+                    return;
+                that.privilageTreeControl.checkItemsUpward(e.node, function (node) {
+                    var dis = $(node).find(':checked').attr("disabled");
+                    return !dis;
+                });
+            }
+            this.privilageTreeControl = new EAP.UI.TreeControl(option);
+            this._loadUserPrivilageTree();
+        },
+        _initUserGroupTree: function () {
+            var toolbaroption = new EAP.UI.ToolbarOption();
+            toolbaroption.owner = this;
+            toolbaroption.selector = "#groupToolbar";
+            toolbaroption.items = [{ type: "button", text: System.CultureInfo.GetDisplayText('Collapse'), id: 'groupCollapse' },
+                { type: "button", text: System.CultureInfo.GetDisplayText('expand'), id: 'groupExpand' },
+                {
+                    type: "button", text: System.CultureInfo.GetDisplayText('save'), id: 'groupSave'
+                }];
+            this.groupToolbarControl = new EAP.UI.ToolbarControl(toolbaroption);
+
+            var option = new EAP.UI.TreeOption();
+            option.showCheckBox = true;
+            option.selector = "#groupTreeView";
+            option.checkChildren = false;
+            this.groupTreeControl = new EAP.UI.TreeControl(option);
+            this._loadUserGroupTree();
+        },
+        _initUserRoleTree: function () {
+            var toolbaroption = new EAP.UI.ToolbarOption();
+            toolbaroption.owner = this;
+            toolbaroption.selector = "#roleToolbar";
+            toolbaroption.items = [{ type: "button", text: System.CultureInfo.GetDisplayText('Collapse'), id: 'roleCollapse' },
+                { type: "button", text: System.CultureInfo.GetDisplayText('expand'), id: 'roleExpand' },
+                {
+                    type: "button", text: System.CultureInfo.GetDisplayText('save'), id: 'roleSave'
+                }];
+            this.roleToolbarControl = new EAP.UI.ToolbarControl(toolbaroption);
+
+            var option = new EAP.UI.TreeOption();
+            option.showCheckBox = true;
+            option.selector = "#roleTreeView";
+            this.roleTreeControl = new EAP.UI.TreeControl(option);
+            this._loadUserRoleTree();
+        },
+        _initAddEditWindow: function () {
+            var that = this;
+            this.kFormWindow = $('#aeUserForm').kendoWindow({
+                title: System.CultureInfo.GetDisplayText('Add') + System.CultureInfo.GetDisplayText('Edit'),
+                resizable: false,
+                actions: [
+                    "Close"
+                ],
+                modal: true,
+            }).data('kendoWindow');
+            var option = new EAP.UI.FormOption();
+            option.columnsAmount = 1;
+            option.Data = [
+                {
+                    type: 'input', title: System.CultureInfo.GetDisplayText("StaffNameCN") + ":", name: 'Name', validateOptions: { required: true }, style: { width: "180px" }
+                },
+                {
+                    type: 'input', title: System.CultureInfo.GetDisplayText("Account") + ":", name: 'Login_acc', validateOptions: { required: true }, style: { width: "180px" }
+                },
+                {
+                    type: 'checkbox', title: System.CultureInfo.GetDisplayText("ChangePwd") + ":", name: 'ChangePwd', style: { width: "220px" }
+                }
+            ];
+            option.selector = "#aeUserForm";
+            option.titleWidth = "80px";
+            option.sourceData = { Id: "", Name: "", Login_acc: "", ChangePwd: true  };
+            option.postUrl = { controller: "User", action: "UserEditSave" };
+            option.success = {
+                text: System.CultureInfo.GetDisplayText('save'), onSuccess: function () {
+                    that.kFormWindow.close();
+                    that._loadUserGrid();
+                }
+            };
+            option.cancle = {
+                text: System.CultureInfo.GetDisplayText('Cancel'), fn: function () {
+                    that.kFormWindow.close();
+                }
+            };
+            this.formControl = new EAP.UI.FormControl(option);
+
+        },
+        _loadUserGrid: function () {
+            var griddataRequest = {};
+            griddataRequest.url = { controller: "User", action: "GetUsersPage" };
+            griddataRequest.postdata = {};
+            griddataRequest.responseData = function (d) {
+                return d.rows;
+            }
+            this.userGridControl.setData(griddataRequest);
+        },
+        _loadUserPrivilageTree: function () {
+            var that = this;
+            kendo.ui.progress($('#privilageTreePanel'), true);
+            new EAP.EAMController("Privilege").ExecuteServerAction("GetAllPrivilegeTree", {}, function (data) {
+                that.privilageTreeControl.setTreeData(data);
+                kendo.ui.progress($('#privilageTreePanel'), false);
+                that.privilageTreeControl.tree.expand('.k-item:first');
+            });
+        },
+        _loadUserGroupTree: function () {
+            var that = this;
+            kendo.ui.progress($('#groupTreePanel'), true);
+            new EAP.EAMController("Group").ExecuteServerAction("GetAllGroupTree", {}, function (data) {
+                that.groupTreeControl.setTreeData(data);
+                kendo.ui.progress($('#groupTreePanel'), false);
+            });
+        },
+        _loadUserRoleTree: function () {
+            var that = this;
+            kendo.ui.progress($('#roleTreePanel'), true);
+            new EAP.EAMController("Role").ExecuteServerAction("GetAllRoleTree", {}, function (data) {
+                that.roleTreeControl.setTreeData(data);
+                kendo.ui.progress($('#roleTreePanel'), false);
+            });
+        },
+        _setUserCurrentPrivilage: function () {
+            var that = this;
+            if (!this.currentUser) {
+                return;
+            }
+
+            kendo.ui.progress($('#splitContainer'), true);
+            new EAP.EAMController("User").ExecuteServerAction("GetUserPrivilageIds", { userId: this.currentUser.id }, function (data) {
+                that.privilageTreeControl.tree.wrapper.find('input:checkbox').removeAttr("disabled")
+                if (data.rolePrivilageIds) {
+                    that.privilageTreeControl.tree.wrapper.find('span.k-in.roteClass').removeClass('roteClass');
+                    that.privilageTreeControl._treeSelect(data.rolePrivilageIds, true, false, true);
+                    that.privilageTreeControl.tree.wrapper.find('input:checked').attr("disabled", "").closest('.k-checkbox-wrapper').next().addClass('roteClass');
+
+                    //that.privilageTreeControl.tree.wrapper.find('input:checked').parents("li.k-item").find('> div input:checkbox').attr("disabled", "");
+                }
+                if (data.userPrivilageIds) {
+                    that.privilageTreeControl._treeSelect(data.userPrivilageIds, true, true, true);
+                }
+                kendo.ui.progress($('#splitContainer'), false);
+            });
+        },
+        _setUserCurrentGroup: function () {
+            var that = this;
+            if (!this.currentUser) {
+                return;
+            }
+            kendo.ui.progress($('#splitContainer'), true);
+            new EAP.EAMController("User").ExecuteServerAction("GetUserGroupIds", { userId: this.currentUser.id }, function (data) {
+                that.groupTreeControl._treeSelect(data, true);
+                kendo.ui.progress($('#splitContainer'), false);
+            });
+        },
+        _setUserCurrentRole: function () {
+            var that = this;
+            if (!this.currentUser) {
+                return;
+            }
+            kendo.ui.progress($('#splitContainer'), true);
+            new EAP.EAMController("User").ExecuteServerAction("GetUserRoleIds", { userId: this.currentUser.id }, function (data) {
+                that.roleTreeControl._treeSelect(data, true);
+                kendo.ui.progress($('#splitContainer'), false);
+            });
+        },
+        privilageCollapse: function () {
+            //根据节点收起
+            var selectedNode = this.privilageTreeControl.tree.select();
+            if (selectedNode)
+                this.privilageTreeControl._collapseNode(this.privilageTreeControl.tree.dataItem(selectedNode));
+            else
+                this.privilageTreeControl._collapseNode(selectedNode);
+        },
+        privilageExpand: function () {
+            //根据节点展开
+            var selectedNode = this.privilageTreeControl.tree.select();
+            if (selectedNode)
+                this.privilageTreeControl._expandNode(this.privilageTreeControl.tree.dataItem(selectedNode));
+            else
+                this.privilageTreeControl._expandNode(selectedNode);
+        },
+        privilageSave: function () {
+            var that = this;
+            if (!this._exitUser()) return;
+            //TODO 角色权限排除
+
+            checkedNodeIds = function (items, checkedNodes) {
+
+                for (var i = 0; i < items.length; i++) {
+                    var node = that.privilageTreeControl.tree.dataItem(items[i]);
+                    var $cb = $(items[i]).find("input:checkbox");
+                    if ($cb.is(":enabled") && $cb.is(":checked"))
+                        checkedNodes.push(node.id);
+                }
+            };
+            var checkedIds = [];
+            checkedNodeIds(this.privilageTreeControl.tree.items(), checkedIds);
+
+            kendo.ui.progress($('#splitContainer'), true);
+
+            new EAP.EAMController("User").ExecuteServerAction("UserPrivilageSave", { allowIds: checkedIds, userId: this.currentUser.id }, function (data) {
+                kendo.ui.progress($('#splitContainer'), false);
+                if (data == "success") {
+                    EAP.UI.MessageBox.alert(that.prompt, System.CultureInfo.GetDisplayText("saveSuccess") + '!')
+                } else {
+                    EAP.UI.MessageBox.alert(that.prompt, System.CultureInfo.GetDisplayText("SaveFail"));
+                    that._setUserCurrentPrivilage();
+                }
+            }, function (data) {
+                kendo.ui.progress($('#splitContainer'), false);
+                EAP.UI.MessageBox.alert(that.prompt, System.CultureInfo.GetDisplayText("SaveFail"));
+                that._setUserCurrentPrivilage();
+            })
+
+        },
+        groupCollapse: function () {
+            //根据节点收起
+            var selectedNode = this.groupTreeControl.tree.select();
+            if (selectedNode)
+                this.groupTreeControl._collapseNode(this.groupTreeControl.tree.dataItem(selectedNode));
+            else
+                this.groupTreeControl._collapseNode(selectedNode);
+        },
+        groupExpand: function () {
+            //根据节点展开
+            var selectedNode = this.groupTreeControl.tree.select();
+            if (selectedNode)
+                this.groupTreeControl._expandNode(this.groupTreeControl.tree.dataItem(selectedNode));
+            else
+                this.groupTreeControl._expandNode(selectedNode);
+        },
+        groupSave: function () {
+            var that = this;
+            if (!this._exitUser()) return;
+            var checkedIds = this.groupTreeControl.getCheckedItems().ids;
+            kendo.ui.progress($('#splitContainer'), true);
+            new EAP.EAMController("User").ExecuteServerAction('UserGroupSave', { allowIds: checkedIds, userId: this.currentUser.id }, function (data) {
+                kendo.ui.progress($('#splitContainer'), false);
+                if (data == "success") {
+                    EAP.UI.MessageBox.alert(that.prompt, System.CultureInfo.GetDisplayText("saveSuccess") + '!')
+                } else {
+                    EAP.UI.MessageBox.alert(that.prompt, System.CultureInfo.GetDisplayText("SaveFail"));
+                    that._setUserCurrentGroup();
+                }
+            }, function (data) {
+                kendo.ui.progress($('#splitContainer'), false);
+                EAP.UI.MessageBox.alert(that.prompt, System.CultureInfo.GetDisplayText("SaveFail"));
+                that._setUserCurrentGroup();
+            });
+        },
+        roleCollapse: function () {
+            //根据节点收起
+            var selectedNode = this.roleTreeControl.tree.select();
+            if (selectedNode)
+                this.roleTreeControl._collapseNode(this.roleTreeControl.tree.dataItem(selectedNode));
+            else
+                this.roleTreeControl._collapseNode(selectedNode);
+        },
+        roleExpand: function () {
+            //根据节点展开
+            var selectedNode = this.roleTreeControl.tree.select();
+            if (selectedNode)
+                this.roleTreeControl._expandNode(this.roleTreeControl.tree.dataItem(selectedNode));
+            else
+                this.roleTreeControl._expandNode(selectedNode);
+        },
+        roleSave: function () {
+            var that = this;
+            if (!this._exitUser()) return;
+            var checkedIds = this.roleTreeControl.getCheckedItems().ids;
+            kendo.ui.progress($('#splitContainer'), true);
+            new EAP.EAMController("User").ExecuteServerAction('UserRoleSave', { allowIds: checkedIds, userId: this.currentUser.id }, function (data) {
+                kendo.ui.progress($('#splitContainer'), false);
+                if (data == "success") {
+                    EAP.UI.MessageBox.alert(that.prompt, System.CultureInfo.GetDisplayText("saveSuccess") + '!')
+                } else {
+                    EAP.UI.MessageBox.alert(that.prompt, System.CultureInfo.GetDisplayText("SaveFail"));
+                    that._setUserCurrentRole();
+                }
+            }, function (data) {
+                kendo.ui.progress($('#splitContainer'), false);
+                EAP.UI.MessageBox.alert(that.prompt, System.CultureInfo.GetDisplayText("SaveFail"));
+                that._setUserCurrentRole();
+            });
+        },
+        add_User: function () {
+            this.formControl.reloadData({ Id: "", Name: "", Login_acc: "", ChangePwd: true});
+            this.formControl.hideMessages();
+            this.kFormWindow.center().open();
+        },
+        edit_User: function () {
+            if (!this._exitUser()) return;
+            this.currentUser.ChangePwd = this.currentUser.ChangePwd == null ? false : this.currentUser.ChangePwd;
+            this.formControl.reloadData(this.currentUser);
+            this.formControl.hideMessages();
+            this.kFormWindow.center().open();
+        },
+        delete_User: function () {
+            if (!this._exitUser())
+                return;
+            var that = this;
+
+            var confirmOption = {
+                title: this.prompt,
+                content: System.CultureInfo.GetDisplayText('SureDelete'), OK: function () {
+                    data = { userID: that.currentUser.id };
+                    kendo.ui.progress($('#splitContainer'), true);
+                    new EAP.EAMController("Role").ExecuteServerActionSync("UserDel", data, function (data) {
+                        kendo.ui.progress($('#splitContainer'), false);
+                        EAP.UI.MessageBox.alert(that.prompt, System.CultureInfo.GetDisplayText('saveSuccess'));
+                        that._loadUserGrid();
+                    });
+                }
+            }
+            EAP.UI.MessageBox.confirm(confirmOption);
+        },
+        refresh_Password: function () {
+            if (!this._exitUser())
+                return;
+            var that = this;
+
+            var confirmOption = {
+                title: this.prompt,
+                content: System.CultureInfo.GetDisplayText('OK') + System.CultureInfo.GetDisplayText('Reset') + System.CultureInfo.GetDisplayText('PassWord'), OK: function () {
+                    data = { userID: that.currentUser.id };
+                    kendo.ui.progress($('#splitContainer'), true);
+                    new EAP.EAMController("User").ExecuteServerActionSync("UserEdidSetPassword", data, function (data) {
+                        kendo.ui.progress($('#splitContainer'), false);
+                        that._loadUserGrid();
+                        EAP.UI.MessageBox.alert(that.prompt, System.CultureInfo.GetDisplayText('saveSuccess'));
+                    });
+                }
+            }
+            EAP.UI.MessageBox.confirm(confirmOption);
+        },
+        _exitUser: function () {
+            //判断是否选中role
+            if (!this.currentUser) {
+                EAP.UI.MessageBox.alert(this.prompt, System.CultureInfo.GetDisplayText('Choose') + System.CultureInfo.GetDisplayText('user'));
+                return false;
+            } else {
+                return true;
+            }
+        },
+        _resize: function () {
+            this.userGridControl.grid.setOptions({ height: $('#userGridPanel').innerHeight() - this.userGridToolbarControl.toolbar.wrapper.outerHeight() });
+        }
+    });
+
+    var Controller = new EAM.Permission.userPrivilage();
+    document.getElementById('treesPanel').onreset = function () {
+        console.error("123");
+    }
+</script>

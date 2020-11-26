@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html id="html">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <!--<link href="../Resource/Scripts/Kendo/Style/kendo.common-bootstrap.min.css?v=20180318" rel="stylesheet" />
+    <link href="../Resource/Scripts/Kendo/Style/kendo.bootstrap.min.css?v=20180318" rel="stylesheet" />-->
+    <!--<link href="3DJS/Scripts/css/style_His.css?v=20180318" rel="stylesheet" />-->
+    <!--<link href="3DJS/lib/font-awesome/css/font-awesome.min.css?v=20180318" rel="stylesheet" />-->
+    <link href="3DJS/lib/layer/skin/layer.css?v=20180318" rel="stylesheet" />
+    <link rel="stylesheet" href="3DJS/Scripts/css/bootstrap.min.css">
+
+    <!--<link href="../../Resource/Scripts/Kendo/Style/kendo.common.min.css?v=20180318" rel="stylesheet" />
+    <link href="../../Resource/Scripts/Kendo/Style/kendo.bootstrap.min.css?v=20180318" rel="stylesheet" />
+    <link href="../../Resource/Styles/eap.css?v=20180318" rel="stylesheet" />
+    <link href="../../Resource/Styles/eap.kendo.css?v=20180318" rel="stylesheet" />-->
+
+    <script src="../Resource/Scripts/Base/jquery-1.10.2.min.js?v=20180318"></script>
+    <script src="3DJS/Scripts/base/eap.core.js?v=20180318"></script>
+    <script src="3DJS/Scripts/self/SysConfig.js"></script>
+    <script src="3DJS/Scripts/self/SystemPackage.js"></script>
+    <script src="3DJS/Scripts/self/BasicData.js"></script>
+    <!--<script src="3DJS/Scripts/base/common.js?v=20180318"></script>-->
+    <script src="3DJS/lib/layer/layer.js?v=20180318"></script>
+    <link rel="stylesheet" href="./3DJS/Scripts/css/jquery-ui-1.10.4.custom.min.css">
+    <script src="./3DJS/Scripts/base/libs/jquery-ui-1.10.4.custom.js?v=20180318"></script>
+
+    <style>
+        #sysinfo {
+            padding: 80px;
+            margin: 10px;
+            text-align: center;
+            width: 80%;
+            height: auto;
+        }
+    </style>
+</head>
+<body onload="sysconfig.loadsys()">
+    
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span4">
+            </div>
+            <div class="span6">
+                <h4>
+                    车辆碰撞预警参数设置
+                </h4>
+                <form class="form-horizontal">
+                    <div class="control-group">
+                        <label class="control-label" for="inputDis">安全距离</label>
+                        <div class="controls">
+                            <input id="inputDis" placeholder="单位(cm)" title="单位(cm)" type="text" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="inputArc">扫描范围</label>
+                        <div class="controls">
+                            <input id="inputArc" placeholder="扫描角度范围" title="扫描角度范围" type="text" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="inputInterval">执行周期</label>
+                        <div class="controls">
+                            <input id="inputInterval" placeholder="碰撞预警单位:毫秒" title="时间间隔:毫秒" type="text" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <label class="checkbox"><input id="chklight" type="checkbox" />绿灯是否长亮</label>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="inputTagNo">预警标签</label>
+                        <div class="controls">
+                            <input id="inputTagNo" placeholder="输入模拟报警标签号"  type="text" />
+                        </div>
+                    </div>
+                </form>
+                <!--<h5>
+        Mqtt订阅键配置
+    </h5>
+    <form class="form-horizontal">
+        <div class="control-group">
+            <label class="control-label" for="mqttRt">实时位置</label>
+            <div class="controls">
+                <input id="mqttRt" type="text" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="mqttLocw">电子点名</label>
+            <div class="controls">
+                <input id="mqttLocw" type="text" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="mqttElew">电子围栏</label>
+            <div class="controls">
+                <input id="mqttElew" type="text" />
+            </div>
+        </div>
+
+    </form>
+    <h6>
+        视频跟踪WebSocket服务地址
+    </h6>
+    <form class="form-horizontal">
+        <div class="control-group">
+            <label class="control-label" for="wsIp">WsIp</label>
+            <div class="controls">
+                <input id="wsIp" placeholder="TaskServer IP" type="text" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="wsport">WsPort</label>
+            <div class="controls">
+                <input id="wsport" type="text" />
+            </div>
+        </div>
+    </form>-->
+                <button class="btn btn-primary" type="button" onclick="sysconfig.save()">保存</button>
+                <button class="btn btn-primary" type="button" onclick="sysconfig.refreshTask()">刷新TaskServer</button>
+                <button class="btn btn-primary" type="button" onclick="sysconfig.almdevtest()">报警测试</button>
+            </div>
+            <div class="span2">
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+

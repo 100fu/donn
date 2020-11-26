@@ -1,0 +1,243 @@
+﻿<!DOCTYPE html>
+<html id="html">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="../../Resource/Scripts/Kendo/Style/kendo.common-bootstrap.min.css?v=20180318" rel="stylesheet" />
+    <!--<link href="../Resource/Scripts/Kendo/Style/kendo.bootstrap.min.css?v=20180318" rel="stylesheet" />-->
+    <link href="./Scripts/css/style_His.css?v=20180318" rel="stylesheet" />
+    <link href="./lib/font-awesome/css/font-awesome.min.css?v=20180318" rel="stylesheet" />
+    <link href="./lib/layer/skin/layer.css?v=20180318" rel="stylesheet" />
+    <link href="../../Resource/Scripts/Kendo/Style/kendo.common.min.css?v=20180318" rel="stylesheet" />
+    <link href="../../Resource/Scripts/Kendo/Style/kendo.bootstrap.min.css?v=20180318" rel="stylesheet" />
+    <script src="../../Resource/Scripts/Base/jquery-1.10.2.min.js?v=20180318"></script>
+  <!--  <script src="../Resource/Scripts/Kendo/js/kendo.web.min.js?v=20180318"></script>-->
+    <script src="../../Resource/Scripts/Kendo/js/kendo.web.min.js?v=20180318"></script>
+
+
+    <script src="../../Resource/Scripts/Kendo/js/dataviz/kendo.dataviz.core.min.js?v=20180318"></script>
+    <script src="../../Resource/Scripts/Kendo/js/dataviz/kendo.dataviz.chart.min.js?v=20180318"></script>
+    <script src="../../Resource/Scripts/Kendo/js/dataviz/kendo.dataviz.themes.min.js?v=20180318"></script>
+
+    <script src="./Scripts/base/eap.core.js?v=20180318"></script>
+    <script src="./Scripts/base/common.js?v=20180318"></script>
+    <!--<script src="../Resource/Scripts/Base/eap.js"></script>-->
+    <script src="../../Resource/Scripts/Base/eap.ui1.js"></script>
+    <script src="../../Resource/Scripts/Base/eap.kendo1.js"></script>
+    <script src="./lib/My97DatePicker/WdatePicker.js?v=20180318"></script>
+    <script src="./Scripts/self/HisAlarm.js?v=20180318"></script>
+    <script src="./lib/layer/layer.js?v=20180318"></script>
+
+    <link rel="stylesheet" href="./Scripts/css/jquery-ui-1.10.4.custom.min.css">
+    <link rel="stylesheet" href="./Scripts/css/btncss.css?v=20180818">
+    <script src="./Scripts/base/libs/jquery-ui-1.10.4.custom.js?v=20180318"></script>
+
+    <link href="./Scripts/css/pagination.css" rel="stylesheet" />
+    <script src="./Scripts/base/libs/jquery.pagination.js"></script>
+    <script src="./Scripts/self/SystemPackage.js?v=20180318"></script>
+    <script src="./Scripts/self/trackvideo.js?v=20180318"></script>
+    <script src="./Scripts/base/player/liveplayer-element.min.js"></script>
+    <!--<script src="3DJS/Scripts/base/player/liveplayer-element.min.js"></script>-->
+
+
+    <style>
+        /** {
+            padding: 0px;
+            margin: 0px;
+        }*/
+
+        html {
+            width: 100%;
+            height: 100%;
+        }
+
+        #c1 {
+            width: 100%;
+            padding-top: 1px;
+        }
+
+        #c2 {
+            width: 100%;
+            height: 290px;
+        }
+
+        #container {
+            margin-top: -15px;
+            height: 2px;
+        }
+
+        #hisAlarm {
+            height: 100%;
+        }
+
+            #hisAlarm::-webkit-scrollbar {
+                display: none;
+            }
+
+        a {
+            color: blue;
+            text-decoration: none;
+        }
+
+            a:visited {
+                color: blue;
+            }
+
+            a:hover, a:active, a:focus {
+                color: #ff8400;
+                text-decoration: underline;
+            }
+
+        #btnFind {
+            height: 26px;
+        }
+
+        /*table tbody {
+            display: block;
+            height:calc(50%-40px);
+            overflow-y: scroll;
+        }
+            table tbody td {
+                text-align:left;
+            }
+
+        table thead, tbody tr {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+
+        }
+
+        table thead {
+            width: calc( 100% - 20px);
+
+        }
+            table thead th {
+                text-align: center;
+                background-color: #f5f5f5;
+            }*/
+
+        table-head {
+            width: 100%;
+        }
+
+        table-body {
+            width: 100%;
+            height: 300px;
+            overflow-y: scroll;
+        }
+
+        table-head table, .table-body table {
+            width: 100%;
+        }
+
+
+        table thead th {
+            text-align: center;
+            background-color: #f5f5f5;
+        }
+        /*奇数改变的颜色*/
+        tr:nth-child(odd) {
+            background-color: transparent;
+        }
+        /*偶数改变的颜色*/
+        tr:nth-child(even) {
+            background-color: #F0F0F0;
+        }
+    </style>
+</head>
+<body id="hisAlarm">
+    <!--<div id="all">-->
+    <!--<div id="top1">-->
+    <!--<div class="pd-20 header">-->
+    <div style="margin:2px;" class="text-c" id="c1">
+        <div class="radio-mode" id="radHtml"></div>
+        时间范围：
+        <input type="text" style="width:165px;height:18px;" onfocus="WdatePicker({ maxDate: '#F{$dp.$D(\'logmax\')||\'%y-%M-%d %HH:%mm:%ss\'}', dateFmt: 'yyyy-MM-dd HH:mm:ss' })" id="logmin" class="input-text Wdate">
+        -
+        <input type="text" style="width:165px;height:18px;" onfocus="WdatePicker({ minDate: '#F{$dp.$D(\'logmin\')}', maxDate: '%y-%M-%d', dateFmt: 'yyyy-MM-dd HH:mm:ss' })" id="logmax" class="input-text Wdate">
+
+        <span class="select-box" style="width:80px;">
+            <select id="selectState" class="select" name="selectState" size="1"></select>
+        </span>
+        <span class="select-box" style="width:110px">
+            <select id="selectType" class="select" name="selectType" size="1"></select>
+        </span>
+        <span class="select-box" style="width:110px">
+            <select id="selectDept" class="select" name="selectDept" size="1"></select>
+        </span>
+        <input style="width:80px;height:18px;" type="text" placeholder="标签号" id="tagNo" value="" class="input-text ui-autocomplete-input" autocomplete="off">
+        <input style="width:80px;height:18px;" type="text" placeholder="名称" id="empName" value="" class="input-text ui-autocomplete-input" autocomplete="off">
+        <!--<input style="width:80px;height:18px;" type="text" placeholder="部门" id="empCode" value="" class="input-text ui-autocomplete-input"  autocomplete="off">-->
+        <button id="btnFind" class="btn btn-success" data-title="查询" _href="article-add.html" type="button"><i class="fa fa-search fa-lg"></i> 查询</button>
+    </div>
+
+
+
+
+    <div id="c2">
+        <div class="content">
+            <div id="container" style="min-width:600px;height:275px;top:10px;"></div>
+        </div>
+    </div>
+    <div style="width:100%;height:calc(100% - 360px );">
+        <div class="table-head">
+            <table>
+                <colgroup>
+                    <col style="width:50px;">
+                    <col style="width:150px">
+                    <col style="width:200px;">
+                    <col style="width:250px;">
+                    <col style="width:150px;">
+                    <col style="width:240px;">
+                    <col style="width:240px;">
+                    <col style="width:150px;">
+                    <col style="width:300px;">
+                    <col style="width:300px;">
+                    <col style="width:300px;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>标签号</th>
+                        <th>名称</th>
+                        <th>部门</th>
+                        <th>报警类型</th>
+                        <th>开始时间</th>
+                        <th>结束时间</th>
+                        <th>处理状态</th>
+                        <th>处理结果</th>
+                        <th>备注</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="table-body" style="height:calc(100% - 70px); overflow-y: scroll;">
+            <table id="tMode" onmouseover="hisAlarmFun.mouseover()" onmouseout="hisAlarmFun.mouseout()" border="1" cellspacing="1" cellpadding="1">
+                <colgroup>
+                    <col style="width:50px;">
+                    <col style="width:150px">
+                    <col style="width:200px;">
+                    <col style="width:250px;">
+                    <col style="width:150px;">
+                    <col style="width:240px;">
+                    <col style="width:240px;">
+                    <col style="width:150px;">
+                    <col style="width:300px;">
+                    <col style="width:300px;">
+                    <col style="width:300px;">
+                </colgroup>
+                <tbody id="tbMain"></tbody>
+            </table>
+        </div>
+        <div id="Pagination" class="pagination "></div>
+        <div style="width:100%;height:40px;" id="tMode_pageLength">
+        </div>
+    </div>
+    <div id='formDialog'></div>
+ 
+</body>
+
+</html>
+

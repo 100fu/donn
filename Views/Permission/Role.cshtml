@@ -1,0 +1,603 @@
+﻿@{
+
+    ViewBag.LanguageName = Donn.EAM.Web.Core.EAMSettings.Language;
+    
+    Layout = "_Layout.cshtml";
+}
+
+<style type="text/css">
+    /*input, textarea {
+        width: 200px;
+        border: 1px solid #ccc;
+        padding: 2px;
+    }*/
+
+    #splitContainer {
+        height: 100%;
+        margin-top: 0;
+    }
+
+    #tabstrip-parent, #gridPanel, #Tabs {
+        height: 98%;
+    }
+
+    k-tabstrip-wrapper {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        border-width: 0;
+    }
+</style>
+
+
+<div id="splitContainer">
+    <div id="treePanel">
+        <div id="treeToolbar"></div>
+        <div id="treeView" style="height:94%"></div>
+
+    </div>
+
+
+    <div id="gridPanel">
+        <div id="Tabs">
+            <ul>
+                <li id="tab1"></li>
+                <li id="tab2"></li>
+            </ul>
+            <div>
+                <div id="roleusertoolbar"></div>
+                <div id="roleuser"></div>
+            </div>
+            <div>
+                <div id="addusertoolbar"></div>
+                <div id="adduser"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var languageName = '@ViewBag.LanguageName';
+
+    System.Declare('EAM.Permission');
+
+    EAM.Permission.RoleTree = System.Object.Extends({
+        tree: null,
+        roleUsers: null,
+        addUsers: null,
+        ctor: function () {
+            this._initLayout();
+            this._initTree();
+            this._initTabGrid();
+        },
+        _initLayout: function () {
+            jQuery("#splitContainer").kendoSplitter({
+                panes: [
+                    { collapsible: true, size: '25%', scrollable: false },
+                    { collapsible: false, size: "75%" },
+                ]
+            });
+        },
+        _initTabGrid: function () {
+
+            var that = this;
+            var onActivate = function (e) {
+                //if (e.item.id == 'tab1') {
+                //    that.initRoleUserGrid();
+                //}
+                //else if (e.item.id == 'tab2') {
+                //    that.initAddUserGrid();
+                //}
+            };
+
+
+            jQuery('#tab1').html(System.CultureInfo.GetDisplayText('INRoleUser'));
+            jQuery('#tab2').html(System.CultureInfo.GetDisplayText('AddUser'));
+
+
+
+            tabStripElement = jQuery('#Tabs').kendoTabStrip({
+                animation: {
+                    open: {
+                        effects: "fade"
+                    },
+                    close: {
+                        effects: "fadeOut"
+                    }
+                },
+                activate: onActivate
+            });
+
+            tabStripElement.parent().attr("id", "tabstrip-parent")
+
+            var expandContentDivs = function (divs) {
+                divs.height(tabStripElement.innerHeight() - tabStripElement.children(".k-tabstrip-items").outerHeight() - 16);
+                divs.css('height', '96%');
+            }
+            expandContentDivs(tabStripElement.children(".k-content"));
+
+            jQuery(window).resize(function () {
+                expandContentDivs(jQuery('#Tabs').children(".k-content"));
+            });
+
+            var tabstrip = jQuery('#Tabs').getKendoTabStrip();
+
+            tabstrip.one("activate", function () {
+                that.roleUsers.grid.resize();
+            });
+
+            this._initRoleUserGrid();
+            this._initAddUserGrid();
+
+            tabstrip.activateTab($("#tab1"));
+
+        },
+        _initRoleUserGrid: function () {
+
+            var peopleName = System.CultureInfo.GetDisplayText('StaffNameCN');
+            var empno = System.CultureInfo.GetDisplayText('EmployeeNo');
+
+            var toolbaroption = new EAP.UI.ToolbarOption();
+            toolbaroption.selector = '#roleusertoolbar';
+            toolbaroption.items = [
+                {
+                    text: System.CultureInfo.GetDisplayText('delete'), type: 'button', id: "delete_FromRole"
+                }
+                //,
+                //{ text: System.CultureInfo.GetDisplayText('SetAsAdmin'), type: 'button', id: 'SetAdmin', spriteCssClass: 'k-icon k-i-arrow-n' },
+                //{ text: System.CultureInfo.GetDisplayText('UnSetAsAdmin'), type: 'button', id: 'UnSetAdmin', spriteCssClass: 'k-icon k-i-arrow-s' },
+
+            ];
+            toolbaroption.owner = this;
+            var toolbar = new EAP.UI.ToolbarControl(toolbaroption);
+
+            var that = this;
+
+            jQuery('#role_user_searchbtn').on('click', function () {
+
+                that._loadroleUserData();
+
+
+            });
+
+            var gridoption = new EAP.UI.GridOption();
+            gridoption.selector = '#roleuser';
+            gridoption.height = "90%";
+            gridoption.showrowcheckbox = true;
+            gridoption.columns = [
+                   {
+                       field: 'Id', checkbox: true, template: function (value, row, i) {
+                           if (row)
+                               return row.IdUser;
+                       },
+                       hidden: true
+                   },
+                   {
+                       field: 'User.Name', title: peopleName, width: 100, 
+                       template: function (value, row, i) {
+                           if (value)
+                               return value.User.Name;
+                       }
+                   },
+                   {
+                       field: 'User.Login_acc', title: empno, width: 100, 
+                       template: function (value) {
+                           if (value)
+                               return value.User.Login_acc;
+                       }
+                   }
+            ];
+
+            this.roleUsers = new EAP.UI.GridControl(gridoption);
+            this.roleUsers.grid.setOptions({ filterable: { mode: "row" } });
+        },
+        _initAddUserGrid: function () {
+
+            var peopleName = System.CultureInfo.GetDisplayText('StaffNameCN');
+            var empno = System.CultureInfo.GetDisplayText('EmployeeNo');
+
+            var toolbaroption = new EAP.UI.ToolbarOption();
+            toolbaroption.selector = '#addusertoolbar';
+            toolbaroption.items = [
+                { text: System.CultureInfo.GetDisplayText('AddRole'), type: 'button', id: "add_ToRole" },
+
+            ];
+            toolbaroption.owner = this;
+            var toolbar = new EAP.UI.ToolbarControl(toolbaroption);
+
+            var that = this;
+            jQuery('#adduser_searchbtn').on('click', function () {
+
+                that._loadaddUserData();
+            });
+
+            var gridoption = new EAP.UI.GridOption();
+            gridoption.selector = '#adduser';
+            gridoption.height = "90%";
+            gridoption.showrowcheckbox = true;
+            gridoption.columns = [
+                    {
+                        field: 'Id',
+                        template: function (value) {
+                            return value.Id;
+                        },
+                        hidden: true
+                    },
+                    {
+                        field: 'Name', title: peopleName, width: 100, sortable: true,
+                        template: function (value) {
+                            return value.Name;
+                        }
+                    },
+                    {
+                        field: 'Login_acc', title: empno, width: 100, sortable: true,
+                        template: function (value) {
+                            return value.Login_acc;
+                        }
+                    },
+                    {
+                        field: 'Job',
+                        title: System.CultureInfo.GetDisplayText('Job'),
+                        width: 100,
+                        sortable: true,
+                        hidden: true
+                    },
+                    {
+                        field: 'Group.Name', title: System.CultureInfo.GetDisplayText('Group'), width: 100, sortable: true,
+                        template: function (value) {
+                            if (value.Group) {
+                                return value.Group.Name;
+                            }
+                            return '';
+                        },
+                        hidden: true
+                    }
+            ];
+
+            this.addUsers = new EAP.UI.GridControl(gridoption);
+            this.addUsers.grid.setOptions({ filterable: { mode: "row" } });
+
+        },
+        _initTree: function () {
+
+            var that = this;
+            var toolbaroption = new EAP.UI.ToolbarOption();
+            toolbaroption.selector = '#treeToolbar';
+            toolbaroption.items = [
+                { text: System.CultureInfo.GetDisplayText('Add'), type: 'button', id: "add_Role" },
+                { text: System.CultureInfo.GetDisplayText('Edit'), type: 'button', id: "edit_Role" },
+                { text: System.CultureInfo.GetDisplayText('delete'), type: 'button', id: "delete_Role" },
+                { text: System.CultureInfo.GetDisplayText('Refresh'), type: 'button', id: "refresh_RoleTree" }
+            ];
+            toolbaroption.owner = this;
+
+            var toolbar = new EAP.UI.ToolbarControl(toolbaroption);
+
+
+            var treeoption = {};
+            treeoption.selector = '#treeView';
+            treeoption.nodeClick = function (ev) {
+                that.currentRole = ev.sender.dataItem(ev.node);
+
+                var roleid = that.currentRole.id;
+
+                that._loadroleUserData(roleid);
+                that._loadaddUserData(roleid);
+            };
+            treeoption.showIcon = true;
+            treeoption.dragable = true;
+            treeoption.ondraging = function (e) {
+                if (e.dropPosition != 'over') {
+                    e.setValid(false);
+                }
+
+                var de = e.sender.dataItem(e.destinationNode);
+                var so = e.sender.dataItem(e.sourceNode);
+                if (so.IdParent == de.id) {
+                    e.setValid(false);
+                }
+            }
+            treeoption.dragend = function (e) {
+
+                var de = e.sender.dataItem(e.destinationNode);
+                var so = e.sender.dataItem(e.sourceNode);
+                if (so.IdParent == de.id) {
+                    return;
+                }
+
+                var confirmoption = new EAP.UI.DialogOption();
+                confirmoption.OK = function () {
+
+                    var role = {};
+                    role.Id = so.id;
+                    if (e.dropPosition == 'over') {
+                        //子
+                        role.IdParent = de.id;
+                    }
+                    else {
+                        //平级
+                        role.IdParent = de.IdParent;
+                    }
+
+                    role.Name = so.text;
+                    role.ObjectState = 4;
+                    that._saveRole(role);
+
+                };
+
+                confirmoption.title = System.CultureInfo.GetDisplayText('Confirm');
+                confirmoption.content = System.CultureInfo.GetDisplayText('SureMoveRole');
+
+
+                EAP.UI.MessageBox.confirm(confirmoption);
+
+            }
+
+            this.tree = new EAP.UI.TreeControl(treeoption);
+
+            this.refresh_RoleTree();
+        },
+        _loadroleUserData: function (roleid) {
+
+            var currentNode = this.currentRole;
+            var tip = System.CultureInfo.GetDisplayText('Prompt');
+            if (!currentNode) {
+                EAP.UI.MessageBox.alert(tip, System.CultureInfo.GetDisplayText('SelectRoleFirst'));
+                return false;
+            }
+
+            var griddataRequest = {};
+            griddataRequest.url = { controller: 'Role', action: 'RoleUserList' };
+            griddataRequest.postdata = { id: currentNode.id };
+            griddataRequest.responseData = function (d) {
+                return d.rows;
+            }
+
+            this.roleUsers.setData(griddataRequest);
+        },
+        _loadaddUserData: function (roleid) {
+
+            var currentNode = this.currentRole;
+            var tip = System.CultureInfo.GetDisplayText('Prompt');
+            if (!currentNode) {
+                EAP.UI.MessageBox.alert(tip, System.CultureInfo.GetDisplayText('SelectRoleFirst'));
+                return false;
+            }
+
+
+            var griddataRequest = {};
+            griddataRequest.url = { controller: 'Role', action: 'RoleUserAddList' };
+            griddataRequest.postdata = { roleID: currentNode.id };
+            griddataRequest.responseData = function (d) {
+                return d.rows;
+            }
+
+            this.addUsers.setData(griddataRequest);
+        },
+        add_Role: function () {
+            var currentNode = this.currentRole;
+            var tip = System.CultureInfo.GetDisplayText('Prompt');
+            if (!currentNode) {
+                EAP.UI.MessageBox.alert(tip, System.CultureInfo.GetDisplayText('SelectRoleFirst'));
+                return false;
+            }
+            var that = this;
+            var dialogOption = new EAP.UI.InputDialogOption();
+            dialogOption.OK = function (text) {
+                
+                var role = {};
+                role.Id = Guid.NewId();
+                role.IdParent = currentNode.id;
+                role.Name = text;
+                role.ObjectState = 2;
+
+                that._saveRole(role);
+
+            };
+            dialogOption.inputRequired = true;
+            dialogOption.errorMessage = "请输入角色名称";
+            dialogOption.title = System.CultureInfo.GetDisplayText('Add');
+            dialogOption.content = System.CultureInfo.GetDisplayText('RoleName');
+
+            EAP.UI.MessageBox.showInput(dialogOption);
+
+
+        },
+        delete_Role: function () {
+
+
+            var currentNode = this.currentRole;
+            var tip = System.CultureInfo.GetDisplayText('Prompt');
+            if (!currentNode) {
+                EAP.UI.MessageBox.alert(tip, System.CultureInfo.GetDisplayText('SelectRoleFirst'));
+                return false;
+            }
+
+            if (currentNode.items.length > 0) {
+                EAP.UI.MessageBox.alert(tip, System.CultureInfo.GetDisplayText('RoleChildrendel'));
+                return;
+            }
+            var that = this;
+            var confirmoption = new EAP.UI.DialogOption();
+            confirmoption.OK = function () {
+                var client = new System.Net.HttpClient();
+                client.post("/Role/RoleDel/" + currentNode.id, {}, function (data) {
+                    //EAP.UI.MessageBox.alert(tip, System.CultureInfo.GetDisplayText("OperateSuccess"));
+                    that.refresh_RoleTree();
+                }, false)
+            };
+
+            confirmoption.title = System.CultureInfo.GetDisplayText('Confirm');
+            confirmoption.content = System.CultureInfo.GetDisplayText('SureDelete');
+
+
+            EAP.UI.MessageBox.confirm(confirmoption);
+
+        },
+        _saveRole: function (role) {
+            var url = "/Role/RoleSave";
+            var client = new System.Net.HttpClient();
+            var that = this;
+            client.post(url, role, function () {
+
+                that.refresh_RoleTree();
+            });
+        },
+        edit_Role: function () {
+            var currentNode = this.currentRole;
+            var tip = System.CultureInfo.GetDisplayText('Edit');
+            if (!currentNode) {
+                EAP.UI.MessageBox.alert(tip, System.CultureInfo.GetDisplayText('SelectRoleFirst'));
+                return false;
+            }
+            var that = this;
+            var option = new EAP.UI.InputDialogOption();
+            option.text = currentNode.text;
+            option.OK = function (text) {
+
+                var role = {};
+                role.Id = currentNode.id;
+                role.Name = text;
+                role.ObjectState = 4;
+                role.IdParent = currentNode.IdParent;
+                that._saveRole(role);
+
+            };
+            option.inputRequired = true;
+            option.errorMessage = "请输入角色名称";
+            option.title = tip;
+            option.content = System.CultureInfo.GetDisplayText('RoleName');
+
+            EAP.UI.MessageBox.showInput(option);
+        },
+        refresh_RoleTree: function () {
+            var that = this;
+            var url = '/Role/GetRoleTree/' + Guid.Empty;
+
+            var client = new System.Net.HttpClient();
+            client.post(url, {}, function (data) {
+
+                that.tree.setTreeData(data);
+                that.tree.expandall();
+            });
+        },
+        add_ToRole: function () {
+
+            var tip = System.CultureInfo.GetDisplayText('Prompt');
+
+
+            var currentNode = this.currentRole;
+
+            if (!currentNode || currentNode.id == Guid.Empty) {
+                EAP.UI.MessageBox.alert(tip, System.CultureInfo.GetDisplayText('SelectRoleFirst'));
+                return false;
+            }
+
+            var rows = this.addUsers.getSelectedId();
+            if (rows.length == 0) {
+                EAP.UI.MessageBox.alert(tip, System.CultureInfo.GetDisplayText("WarnAddMember"));
+                return false
+            }
+
+            var that = this;
+
+            var confirmoption = new EAP.UI.DialogOption();
+            confirmoption.OK = function () {
+                var client = new System.Net.HttpClient();
+                client.post("/Role/RoleUserEdit", { OPER: "ADD", RoleID: currentNode.id, CHECKIDS: rows },
+                    function (data) {
+                        //EAP.UI.MessageBox.alert(tip, System.CultureInfo.GetDisplayText("OperateSuccess"));
+
+                        that.addUsers.remoteRefresh();
+                        that.roleUsers.remoteRefresh();
+                    }
+                    );
+            };
+
+            confirmoption.title = System.CultureInfo.GetDisplayText("Confirm");
+            confirmoption.content = '确认添加选中的人员到角色' + currentNode.text + "?";
+
+
+            EAP.UI.MessageBox.confirm(confirmoption);
+
+        },
+        delete_FromRole: function () {
+            var that = this;
+            var confirmtext = System.CultureInfo.GetDisplayText('Confirm');
+            var warntext = System.CultureInfo.GetDisplayText('warn');
+
+            var rows = this.roleUsers.getSelectedId();
+            var currentNode = this.currentRole;
+            if (rows.length == 0) {
+                EAP.UI.MessageBox.alert(System.CultureInfo.GetDisplayText('warn'), System.CultureInfo.GetDisplayText('WarndDeleteRoleMember'));
+                return false;
+            }
+
+            var dialogOption = new EAP.UI.DialogOption();
+            dialogOption.title = confirmtext;
+            dialogOption.OK = function () {
+                var client = new System.Net.HttpClient();
+                client.post("/Role/RoleUserEdit", { OPER: "DELETE", RoleID: currentNode.id, CHECKIDS: rows },
+                    function (data) {
+                        EAP.UI.MessageBox.alert(System.CultureInfo.GetDisplayText('Prompt'), System.CultureInfo.GetDisplayText("OperateSuccess"));
+                        that.addUsers.remoteRefresh();
+                        that.roleUsers.remoteRefresh();
+                    }
+                    )
+            };
+
+            dialogOption.content = System.CultureInfo.GetDisplayText('DeleteInnerMember');
+
+            EAP.UI.MessageBox.confirm(dialogOption);
+
+        },
+        SetAdmin: function () {
+            this._roleAdmin('SETADMIN');
+
+        },
+        UnSetAdmin: function () {
+            this._roleAdmin('UNSETADMIN');
+        },
+        _roleAdmin: function (flag) {
+            var that = this;
+            var rows = this.roleUsers.getSelectedId();
+
+            if (rows.length == 0) {
+                EAP.UI.MessageBox.alert(System.CultureInfo.GetDisplayText('warn'), System.CultureInfo.GetDisplayText('chooseInnerMember'));
+                return false;
+            }
+            var currentNode = this.currentRole;
+            var dialogOption = new EAP.UI.DialogOption();
+            dialogOption.title = System.CultureInfo.GetDisplayText('Confirm');
+            dialogOption.OK = function () {
+                var url = '/Role/RoleUserEdit';
+                var data = { OPER: flag, RoleID: currentNode.id, CHECKIDS: rows };
+                var callback = function (data) {
+                    EAP.UI.MessageBox.alert(System.CultureInfo.GetDisplayText('Prompt'), System.CultureInfo.GetDisplayText("OperateSuccess"));
+                    that.roleUsers.remoteRefresh();
+                }
+
+                var client = new System.Net.HttpClient();
+                client.post(url, data, callback);
+            };
+
+            dialogOption.content = flag == 'SETADMIN' ? System.CultureInfo.GetDisplayText('SetUserAsAdmin') : System.CultureInfo.GetDisplayText('CancelUserAsAdmin');
+
+            EAP.UI.MessageBox.confirm(dialogOption);
+
+
+        }
+
+    });
+
+    var Controller;
+
+    $(document).ready(function () {
+        System.CultureInfo.LanguageName = languageName;
+
+        Controller = new EAM.Permission.RoleTree();
+    });
+
+</script>

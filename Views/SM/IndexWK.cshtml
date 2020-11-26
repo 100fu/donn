@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewBag.Title = "";
+    Layout = "_Layout.cshtml";
+}
+<script src="~/Resource/Scripts/Base/Applications.js"></script>
+<style>
+</style>
+
+<div id="gridContainer">
+    <div id="gridToolbar"></div>
+    <div id="gridFilter" name="gridFilter"></div>
+    <div id="gridView"></div>
+</div>
+
+
+<script type="text/javascript">
+   
+
+    @*var moduleName = '@ViewBag.moduleName';
+    var privilageId = '@ViewBag.privilageId';
+    var toolbaroption = new EAP.UI.GridAppToolbarOption();
+    toolbaroption.selector = "#gridToolbar";
+    toolbaroption.viewsReadUrl = { controller: "Commpage", action: "ViewListWK", parameters: { moduleName: moduleName } };
+    toolbaroption.buttonReadUrl = { controller: "Commpage", action: "GetButtons", parameters: { id: privilageId } };
+    toolbaroption.exportUrl = { controller: "Commpage", action: "ExportToExcelWK" };
+    toolbaroption.filterReadUrl = { controller: "Commpage", action: "GetUserQueryListWK" };
+
+    var gridoption = new EAP.UI.GridApplicationOption();
+    gridoption.selector = "#gridView";
+    gridoption.filterSelector = '#gridFilter';
+    gridoption.readurl = { controller: "Commpage", action: "GetListPageWK" };  //
+    // gridoption.postdata = { moduleName: moduleName };  可以设置post参数
+    gridoption.viewReadUrl = { controller: "Commpage", action: "GetViewColumnsWK" };
+    gridoption.saveViewUrl = { controller: "Commpage", action: "AppendUserView" };
+    //filgerSaveUrl,前提filterSelector 会产生一个保存按钮
+    gridoption.filterSaveUrl = { controller: "Commpage", action: "UserQueryAddWK" };
+    gridoption.filterEditUrl = { controller: "Commpage", action: "UserQueryEditWK" };
+    //filterDeleteUrl 会产生一删除按钮
+    gridoption.filterDeleteUrl = { controller: "Commpage", action: "UserQueryDelWK" };
+
+
+    var formoption = new EAP.UI.GridAppFormOption();
+    formoption.GetViewUrl = { controller: "Commpage", action: 'GetFormView' };  //或直接给出formViewModelId
+    formoption.GetViewColsUrl = { controller: "Commpage", action: 'GetFormViewColumns' };
+    formoption.FormProcessUrl = { controller: "Commpage", action: 'FormProcess' };
+    formoption.postUrl = { controller: 'Commpage', action: 'FormProcess' };
+    formoption.titleWidth = '120px';*@
+
+
+  
+
+    var toolbaroption = new EAP.UI.ToolbarOption();
+    toolbaroption.selector = "#gridToolbar";
+
+    var formoption = new EAP.UI.FormApplicationOption();
+    formoption.titleWidth = '120px';
+    //formoption.formView = false;
+
+    var gridoption = new EAP.UI.GridOption();
+    gridoption.selector = "#gridView";
+
+    var gridAppOption = new EAP.UI.GridApplicationOption();
+    gridAppOption.toolbarOption = toolbaroption;
+    gridAppOption.formOption = formoption;
+    gridAppOption.gridOption = gridoption;
+    gridAppOption.entityId = "Donn.EAM.PM.Entity.Outstanding";
+    gridAppOption.serviceId = "Donn.EAM.PM.Interface.IOutstandingService";
+    gridAppOption.viewCode = "Outstanding";
+    gridAppOption.formDataProcess = function (data) {
+        console.log("formDataProcess is called");
+        return data;
+    };
+
+    System.CultureInfo.LanguageName = '@ViewBag.language';
+</script>
+
+<script src="~/Scripts/Bussiness/@(ViewBag.moduleName).js"></script>
+
+<script>
+    gridAppOption.enums = [
+{
+    field: "RMStatus", values: [
+      { value: "Completed", text: System.CultureInfo.GetDisplayText('Completed') },//
+      { value: "NonComplete", text: System.CultureInfo.GetDisplayText('NonComplete') }]//
+},
+    ];
+    var control = new EAP.UI.GridApplication(gridAppOption);
+</script>

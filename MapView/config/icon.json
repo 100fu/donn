@@ -1,0 +1,81 @@
+[
+  {
+    "type": "camera",
+    "name": "监控点",
+    "tuli":"img/video.svg",
+    "size": 1,
+    "layer": true,
+    "url": "img/video.svg",
+    "anchor": [ 0.5, 38 ],
+    "info": [
+      {
+        "coordinates": [ 12832329.737785626, 3521321.8991833637 ],
+        "tag": "监控点1",
+		    "Id":"1121241"
+      },
+      {
+        "coordinates": [ 12832702.222502481, 3520822.3368571177 ],
+        "tag": "监控点2",
+		    "Id":"1122345"
+      }
+    ]
+  },
+  {
+    "type": "station",
+    "name": "差分基站",
+    "tuli": "img/diffstation.svg",
+    "size": 1,
+    "layer": true,
+     "url": "img/diffstation.svg",
+	 "anchor": [ 0.5, 38 ],
+    "info": [
+      {
+        "coordinates": [ 12833008.169534598,3520842.5946249655 ],
+        "tag": "差分基站1",
+		"Id":"234523"
+      }
+    ]
+  },
+  {
+    "type": "mobileterminal",
+    "name": "移动终端",
+    "layer": false,
+    "tuli": "img/truck.svg",
+    "size": 1,
+    "url": "img/truck.svg",
+	 "anchor": [ 0.5, 38 ],
+    "info": [
+    ]
+  },
+  {
+    "type": "poundhouse",
+    "layer": true,
+    "name": "无人磅房",
+    "tuli": "img/poundhouse.svg",
+    "size": 1,
+    "url": "img/poundhouse.svg",
+    "info": [
+    ]
+  },
+  {
+    "type": "smartgate",
+    "layer": true,
+    "name": "智能闸口",
+    "tuli": "img/smartgate.svg",
+    "size": 1,
+    "url": "img/smartgate.svg",
+    "info": [
+    ]
+  },
+  {
+    "type": "vehicleterminal",
+    "layer": false,
+    "name": "车载终端",
+    "tuli": "img/loader.svg",
+    "size": 1,
+    "url": "img/loader.svg",
+	 "anchor": [ 0.5, 38 ],
+    "info": [
+    ]
+  }
+]

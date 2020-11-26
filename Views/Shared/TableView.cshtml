@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "TableView";
+    Layout = "~/Views/Shared/_LayoutWK.cshtml";
+
+    var scriptitems = ViewBag.Scripts as List<string>;
+    if (scriptitems == null)
+    {
+        scriptitems = new List<string>();
+    }
+}
+
+
+<div id="tableView">
+</div>
+
+<div id="popupView"></div>
+<script src="~/Resource/Scripts/Base/KendoPlugin.js"></script>
+<script src="~/Resource/Scripts/Base/Applications.js"></script>
+<script>
+
+    System.CultureInfo.LanguageName = System.Cookies.get('EAMLANGUAGE')
+
+    window.ViewBag = {
+        "EntityId": '@ViewBag.EntityId',
+        "ServiceId": '@ViewBag.Service',
+        "ViewCode": '@ViewBag.ViewCode',
+        "FunCode": '@ViewBag.FuncCode'
+    };
+</script>
+
+
+@foreach (var item in scriptitems)
+{
+    <script src="@item"></script>
+}

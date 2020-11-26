@@ -1,0 +1,89 @@
+﻿
+<div id="list_o" class="rttableStyle1">
+    <table class="ttr" width="100% " id="able">
+        <tbody>
+            <tr class="trFirst"><td class="tdFirst" colspan="2" id="sett"><span style="float:left;padding-left:5px;margin-top: 4px;">系统设置</span><i id="itu" onclick="sys.busi2D.close()" class="fa fa-times fa-lg" aria-hidden="true"></i></td></tr>
+        </tbody>
+    </table>
+</div>
+<div id="list_s" class="rttableStyle3">
+    <div id="message"></div><div id="s_input">
+        <input id="s_button" type="button" value="保存" onclick="editbase.saveSysConfig()">
+    </div>
+</div>
+<div id="list_e" class="rttableStyle2">
+    <table class="ttr" width="100%" id="able">
+        <tbody>
+            <tr class="trMode"><td class="tdMode" colspan="2">底图设置</td></tr>
+            <tr class="trMode">
+                <td class="tdMode1"></td>
+                <td class="tdMode2">
+                    <input type="radio" id="jpg" name="map" onchange="sys.busi2D.radioChange()" value="jpg" checked="checked">.jpg <input type="radio" id="png" name="map" onchange="sys.busi2D.radioChange()" value="png">.png<input type="radio" id="dxf" name="map" onchange="sys.busi2D.radioChange()" value="dxf">.dxf
+                </td>
+            </tr>
+            <tr class="trMode">
+                <td class="tdMode1"></td>
+                <td class="tdMode2">    <label id="idmapPath" onclick="sys.busi2D.labelOnClick()" style="display: block;">fushitu.png</label> <input type="file" id="fileMaptype" onchange="editbase.sendFileMap()" accept=".jpg" style="display:none;width:50px"></td>
+            </tr>
+            <tr class="trMode"><td class="tdMode" colspan="2">底图纠偏值(cm)</td></tr>
+            <tr class="trMode">
+                <td class="tdMode1"></td>
+                <td class="tdMode2">
+                    X:<input type="text" onchange="editbase.onDiffXChange()" id="diffX" class="diff_text" value="-420">
+                    Y:<input type="text" onchange="editbase.onDiffYChange()" id="diffY" class="diff_text" value="-600">
+                </td>
+            </tr>
+            <tr class="trMode"><td class="tdMode" colspan="2">底图大小设置(cm)</td></tr>
+            <tr class="trMode">
+                <td class="tdMode1"></td>
+                <td class="tdMode2">
+                    W:<input type="text" onchange="editbase.onMapWHChange()" id="mapWidth" class="diff_text" value="900">
+                    H:<input type="text" onchange="editbase.onMapWHChange()" id="mapHeight" class="diff_text" value="600">
+                </td>
+            </tr>
+            <tr class="trMode"><td class="tdMode" colspan="2">电子围栏区域颜色</td></tr>
+            <tr class="trMode">
+                <td class="tdMode1"></td>
+                <td class="tdMode2">
+                    正常:<input type="color" onchange="editbase.onANColorChange()" id="aRegNormal" class="favcolor">
+                    报警:<input type="color" onchange="editbase.onAAColorChange()" id="aRegAlarm" class="favcolor">
+                </td>
+            </tr>
+            <tr class="trMode"><td class="tdMode" colspan="2">电子点名区域颜色</td></tr>
+            <tr class="trMode">
+                <td class="tdMode1"></td>
+                <td class="tdMode2">
+                    正常:<input type="color" onchange="editbase.onRNColorChange()" id="rRegNormal" class="favcolor">
+                    <input type="color" onchange="editbase.onRAColorChange()" id="rRegAlarm" style="display:none;" class="favcolor">
+                </td>
+            </tr>
+            <tr class="trMode"><td class="tdMode" colspan="2">电子考勤区域颜色</td></tr>
+            <tr class="trMode">
+                <td class="tdMode1"></td>
+                <td class="tdMode2">
+                    正常:<input type="color" onchange="editbase.onAttColorChange()" id="rRegAtt" class="favcolor">
+                </td>
+            </tr>
+            <tr class="trMode">
+                <td class="tdMode" colspan="2">
+                    区域透明度:<input type="text" onchange="editbase.ontextChange()" id="opacityReg" class="diff_text" value="50">(1%-100%)
+                </td>
+            </tr>
+            <tr class="trMode">
+                <td class="tdMode" colspan="2">
+                    是否显示基站:<input type="checkbox" onchange="editbase.onChkStationchange()" name="chk" id="isShowStation" checked="checked">
+                </td>
+            </tr>
+            <tr class="trMode">
+                <td class="tdMode" colspan="2">
+                    是否显示摄像头:<input type="checkbox" onchange="editbase.onChkchange()" name="chk" id="isShowView" checked="checked">
+                </td>
+            </tr>
+            <tr class="trMode">
+                <td class="tdMode" colspan="2">
+                    是否显示网格:<input type="checkbox" onchange="editbase.onChkGridchange()" name="chk" id="isShowGrid" checked="checked">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

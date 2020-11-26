@@ -1,0 +1,8 @@
+﻿{
+  "HOST": "192.168.8.66",
+  "Sender": "eam@donntech.com.cn",
+  "DisplayName": "notify",
+  "User": "notify@donntech.com",
+  "Password": "a",
+  "UserNetworkCredential": false
+}

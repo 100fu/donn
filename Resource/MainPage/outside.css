@@ -1,0 +1,323 @@
+.app-head{
+    height:51px;
+    background-image:url("./assets/pictures/login.png");
+
+}
+
+.brand {
+    width: 270px;
+    height: 85px;
+    margin-top: 2px;
+    transform: scale(0.5);
+    transform-origin: left top;
+    position: absolute;
+    background-image: url("./assets/pictures/logo_w.png");
+}
+
+
+.userInfo{
+    color:white;
+    text-align:right;
+    margin-right:12px;
+}
+
+.signOut {
+    width: 90px;
+    /*height: 30px;*/
+    float: right;
+    text-align: right;
+    font-size: 15px;
+    /*margin-left: 12px;*/
+    margin-right: 30px;
+    border-radius: 5px;
+    transform: scale(0.9);
+    background-image: url("./assets/pictures/06-04.png");
+}
+
+
+.signOut:hover {
+    background-image: url("./assets/pictures/p_06-05.png");
+}
+
+
+.signOut:active{
+    background-image: url("./assets/pictures/p_06-05.png");
+    
+}
+
+.signOutBtn {
+    margin-top: 3px;
+    padding-top: 2px;
+    padding-right: 3px;
+    /*color: blue;*/
+    width: 80px;
+    height: 30px;
+}
+
+.app-menu {
+    height: 52px;
+    background-color:aliceblue;
+}
+
+.menuItem {
+    text-align: center;
+    /* height: 52px; */
+    /* margin-left:2px; */
+    /* margin-right:1px; */
+    /* padding-top:2px; */
+    /*border-radius: 5px;*/
+    /* transform: scale(0.75); */
+    background-image: url("./assets/pictures/p_92-28.png");
+}
+
+.menuItem:active {
+    background-image: url("./assets/pictures/p_92.png");
+}
+
+.menuItem:hover {
+    background-image: url("./assets/pictures/p_92.png");
+}
+
+.monitor {
+    border-style: none;
+    background-image: url("./assets/pictures/p_97-33.png");
+}
+
+
+.tagManager {
+    background-image: url("./assets/pictures/p_97-35.png");
+}
+
+.history {
+    border: none;
+    background-image: url("./assets/pictures/p_97-34.png");
+}
+
+.warnning {
+    background-image: url("./assets/pictures/p_97-36.png");
+}
+
+.dataAnalysis {
+    background-image: url("./assets/pictures/p_97-30.png");
+}
+.vadio {
+    background-image: url("./assets/pictures/p_97-31.png");
+}
+.eleMention {
+    background-image: url("./assets/pictures/p_97-32.png");
+}
+
+.subMenu {
+    width: 120px !important;
+    padding-left: 8px;
+    /* text-align: center; */
+    margin-right: 8px;
+}
+
+    .subMenu li.select {
+        background-color: #D8E2FD;
+       
+    }
+
+    /*.subMenu li .rightArrow::after{
+        content: ">"
+
+    }*/
+
+.tag {
+  
+    display: inline-block;
+    width: 24px;
+    height: 22px;
+    transform: scale(0.8);
+    background-image: url("./assets/pictures/2018__06.png");
+    background-size: 22px 22px;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+}
+
+.dept {
+ 
+    display: inline-block;
+    width: 24px;
+    height: 22px;
+    transform: scale(0.8);
+    background-image: url("./assets/pictures/2018__17.png");
+    background-size: 22px 22px;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+}
+
+.posi {
+ 
+    display: inline-block;
+    width: 24px;
+    height: 22px;
+    transform: scale(0.8);
+    background-image: url("./assets/pictures/2018__34.png");
+    background-size: 22px 22px;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+}
+
+.emp {
+ 
+    display: inline-block;
+    width: 24px;
+    height: 22px;
+    transform: scale(0.8);
+    background-image: url("./assets/pictures/2018__29.png");
+    background-size: 22px 22px;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+}
+
+
+.device {
+ 
+    display: inline-block;
+    width: 24px;
+    height: 22px;
+    transform: scale(0.8);
+    background-image: url("./assets/pictures/2018__09.png");
+    background-size: 22px 22px;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+}
+
+.loca {
+
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    transform: scale(0.8);
+    background-image: url("./assets/pictures/2018__46.png");
+    background-size: 22px 22px;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+}
+.map {
+
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    transform: scale(0.8);
+    background-image: url("./assets/pictures/2018__40.png");
+    background-size: 22px 22px;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+}
+.alarm {
+   
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    transform: scale(0.8);
+    background-image: url("./assets/pictures/2018_03.png");
+    background-size: 22px 22px;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+}
+.enclosure {
+   
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    transform: scale(0.8);
+    background-image: url("./assets/pictures/2018__19.png");
+    background-size: 22px 22px;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+}
+.mon {
+  
+    display: inline-block;
+    width: 24px;
+    height: 22px;
+    transform: scale(0.8);
+    background-image: url("./assets/pictures/2018__26.png");
+    background-size: 22px 22px;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+}
+
+.hisname {
+
+    display: inline-block;
+    width: 24px;
+    height: 22px;
+    transform: scale(0.8);
+    background-image: url("./assets/pictures/2018__17.png");
+    background-size: 22px 22px;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+}
+.hischeck {
+   
+    display: inline-block;
+    width: 24px;
+    height: 22px;
+    transform: scale(0.8);
+    background-image: url("./assets/pictures/2018__45.png");
+    background-size: 22px 22px;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+}
+.histable {
+   
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    transform: scale(0.8);
+    background-image: url("./assets/pictures/2018__51.png");
+    background-size: 22px 22px;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+}
+.hiscount {
+  
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    transform: scale(0.8);
+    background-image: url("./assets/pictures/2018__36.png");
+    background-size: 22px 22px;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+}
+
+.RoleTree {
+ 
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    transform: scale(0.8);
+    background-image: url("./assets/pictures/2018__42.png");
+    background-size: 22px 22px;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+}
+
+.NewRolePrivilege {
+
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    transform: scale(0.8);
+    background-image: url("./assets/pictures/2018__21.png");
+    background-size: 22px 22px;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+}
+
+.NewUserPrivilege {
+
+    display: inline-block;
+    width: 24px;
+    height: 22px;
+    transform: scale(0.8);
+    background-image: url("./assets/pictures/2018__49.png");
+    background-size: 22px 22px;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+}

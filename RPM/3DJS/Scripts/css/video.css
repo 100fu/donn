@@ -1,0 +1,293 @@
+
+
+.fillLeftclass {
+    position: absolute;
+    z-index: 100;
+    left: 250px;
+    bottom: 20px;
+    border-radius: 10px;
+    border: 2px solid black;
+    width: 1100px;
+    height: 352px;
+    /* max-width: 800px; */
+    overflow-x: auto;
+    /* overflow:hidden;
+    overflow-x: auto;  */
+}
+
+.fillclass {
+    position: absolute;
+    z-index: 100;
+    left: 175px;
+    top: 20px;
+    border-radius: 10px;
+    /*border: 2px solid black;*/
+    width: 525px;
+    height: 700px;
+    /* max-width: 800px; */
+    overflow-y: auto;
+    display: none;
+}
+
+.vidoClass {
+    position: absolute;
+    z-index: 10000;
+    left: 2px;
+    /* top: 3px; */
+    margin: 0 0 0 0;
+    border-top-left-radius: 10px; /*四角圆滑;*/
+    border-top-right-radius: 10px; /*四角圆滑;*/
+    border: 1px solid rgb(214, 109, 109);
+    width: auto;
+    height: 322px;
+}
+
+.divTopclass {
+    /* border:1px solid greenyellow; */
+    width: 500px;
+    height: 22px;
+    border-top-left-radius: 10px; /*四角圆滑;*/
+    border-top-right-radius: 10px; /*四角圆滑;*/
+}
+
+.divclass {
+    position: absolute;
+    z-index: 10001;
+    /* border:1px solid blue; */
+    width: 500px;
+    height: auto;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+
+.secondright {
+    position: absolute;
+    /*z-index: 1001;*/
+    right: 5px;
+    top: 0px;
+    width: 80px;
+    padding-left: 15px;
+    margin-top: 0px;
+    /* border:1px solid black; */
+    /* display: none; */
+}
+
+.secmenuLeft {
+    position: absolute;
+    /*z-index: 1001;*/
+    left: 10px;
+    top: 0px;
+    width: 400px;
+    margin-top: 1px;
+    color: blue;
+    font-size: 16px;
+    /* border:1px solid black; */
+    /* display: none; */
+}
+
+
+.btn2 {
+    display: inline-block;
+    padding: 1px 2px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+    .btn2:focus,
+    .btn2:active:focus,
+    .btn2.active:focus,
+    .btn2.focus,
+    .btn2:active.focus,
+    .btn2.active.focus {
+        outline: 5px auto -webkit-focus-ring-color;
+        outline-offset: -2px;
+    }
+
+    .btn2:hover,
+    .btn2:focus,
+    .btn2.focus {
+        color: #333;
+        text-decoration: none;
+    }
+
+    .btn2:active,
+    .btn2.active {
+        background-image: none;
+        outline: 0;
+        -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+        box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+    }
+
+    .btn2.disabled,
+    .btn2[disabled],
+    a.btn2.disabled,
+    .btn2-default {
+        color: #333;
+        background-color: #fff;
+        border-color: #ccc;
+    }
+
+        .btn2-default:focus,
+        .btn2-default.focus {
+            color: #333;
+            background-color: #e6e6e6;
+            border-color: #8c8c8c;
+        }
+
+        .btn2-default:hover {
+            color: #333;
+            background-color: #e6e6e6;
+            border-color: #adadad;
+        }
+
+        .btn2-default:active,
+        .btn2-default.active,
+        .btn2-default:active:hover,
+        .btn2-default.active:hover,
+        .btn2-default:active:focus,
+        .btn2-default.active:focus,
+        .btn2-default:active.focus,
+        .btn2-default.active.focus,
+        .btn2-default:active,
+        .btn2-default.active,
+        .open > .dropdown-toggle.btn2-default {
+            background-image: none;
+        }
+
+        .btn2-default.disabled:hover,
+        .btn2-default[disabled]:hover,
+        .btn2-default.disabled:focus,
+        .btn2-default[disabled]:focus,
+        .btn2-default.disabled.focus,
+        .btn2-default[disabled].focus,
+        .btn2-default .badge {
+            color: #fff;
+            background-color: #333;
+        }
+
+
+
+
+        /*************************摄像机显示样式*******************************/
+.CsOuterDiv {
+    height: 307px;
+    /*background-color: rgba(241, 242, 248, 0.9);*/
+    background-color: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    z-index: 10001;
+    /*top: 50px;
+    left: 100px;*/
+    /*border-radius: 2px;*/
+    border-top-left-radius: 8px;
+    /*四角圆滑;*/
+    border-top-right-radius: 8px;
+    box-shadow: 3px 3px 10px rgba(232, 235, 229, 0.8);
+    /*border: 1px solid white;*/
+}
+
+.divTopclass2 {
+    width: 500px;
+    height: 25px;
+    z-index: 10001;
+    background-color: rgba(241, 242, 248, 0.9);
+    border-top-left-radius: 5px;
+    /*四角圆滑;*/
+    border-top-right-radius: 5px;
+    /*四角圆滑;*/
+    display: flex;
+    justify-content: space-between;
+}
+
+.divclass2 {
+    position: absolute;
+    z-index: 10001;
+    /* border:1px solid blue; */
+    width: 500px;
+    /*height: 450px*/
+    /*border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;*/
+
+
+}
+
+
+.txtvideo1 {
+    font-size: 15px;
+    font-family: MicrosoftYaHei;
+    font-weight: bold;
+    /* color: rgba(255, 255, 255, 1); */
+    opacity: 0.9;
+    padding-top: 2px;
+    padding-left: 10px;
+}
+
+
+/***************************************************/
+
+.divTopclass1 {
+    width: 500px;
+    height: 25px;
+    z-index: 10001;
+    background-color: rgba(241, 242, 248, 0.9);
+    border-top-left-radius: 5px;
+    /*四角圆滑;*/
+    border-top-right-radius: 5px;
+    /*四角圆滑;*/
+    display: flex;
+    justify-content: space-between;
+}
+
+.divclass1 {
+    float: left;
+    z-index: 10001;
+    width: 400px;
+}
+
+.divMain {
+    display: flex;
+    justify-content: space-between;
+}
+
+.divRight {
+    float: left;
+    width: 100px;
+    background-color: rgba(241, 242, 248, 1);
+}
+
+.ptzleftright {
+    display: flex;
+    justify-content: center;
+}
+
+.ptzminmax {
+    display: flex;
+    justify-content: space-around;
+}
+
+#ptz {
+    align-content: center;
+    text-align: center;
+    padding-top: 30px;
+}
+
+    #ptz img {
+        width: 32px;
+        height: 32px;
+    }
+
+

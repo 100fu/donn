@@ -1,0 +1,42 @@
+﻿
+<div id="list_o" class="rttableStyle1">
+    <table class="ttr" width="100% " id="able">
+        <tbody>
+            <tr class="trFirst"><td class="tdFirst" colspan="2" id="sett"><span style="float:left;padding-left:5px;margin-top: 4px;">楼层设置</span><i id="itu" onclick="editbase.closeLayer()" class="fa fa-times fa-lg" aria-hidden="true"></i></td></tr>
+        </tbody>
+    </table>
+</div>
+<div id="list_s" class="rttableStyle3">
+    <div id="showmsg" class="message" ></div>
+</div>
+<div id="list_floor" class="rttableStyle2">
+    <table class="ttr"  id="able">
+        <tbody>
+            <tr class="trMode" ><td class="tdMode" colspan="2">定位区域名称:</td></tr>
+            <tr class="trMode">
+                <td class="tdMode1" colspan="2">
+                    <input type="text" id="txtlyname" style="width:190px;" maxlength="50" value="">
+                </td>
+            </tr>
+            <tr class="trMode" >
+                <td class="tdMode1 txtFont" colspan="2">注:该名称应和定位解算服务器中的一致</td>
+            </tr>
+            <tr class="trMode" >
+                <td class="tdMode" colspan="2">
+                    <input type="button" id="btnAdd" value="添加" onclick="editbase.addLayer()">&nbsp;
+                    <input type="button" id="btnDel" value="删除" onclick="editbase.delLayer()">&nbsp;          
+                </td>
+            </tr>          
+            <tr class="trMode">
+                <td class="tdMode" colspan="2">
+                    <select style="width:100%; height:262px;" id="ls2" multiple ondblclick="editbase.selectchange()" name="list2" size="12"></select>
+                </td>
+            </tr>
+
+
+        </tbody>
+    </table>
+</div>
+
+
+

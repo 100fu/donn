@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Floor</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <style>
+        body {
+            background: #fff;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            font-family: georgia;
+            text-align: center;
+        }
+
+        a {
+            color: skyblue
+        }
+    </style>
+
+    <script type="x-shader/x-vertex" id="vertexShader">
+
+        varying vec3 vWorldPosition;
+
+        void main() {
+
+        vec4 worldPosition = modelMatrix * vec4( position, 1.0 );
+        vWorldPosition = worldPosition.xyz;
+
+        gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+
+        }
+
+    </script>
+
+    <script type="x-shader/x-fragment" id="fragmentShader">
+
+        uniform vec3 topColor;
+        uniform vec3 bottomColor;
+        uniform float offset;
+        uniform float exponent;
+        varying vec3 vWorldPosition;
+
+        void main() {
+
+        float h = normalize( vWorldPosition + offset ).y;
+        gl_FragColor = vec4( mix( bottomColor, topColor, max( pow( max( h, 0.0 ), exponent ), 0.0 ) ), 1.0 );
+
+        }
+
+    </script>
+    <script src="./Scripts/base/libs/jquery.js?v=20180418"></script>
+    <script src="./Scripts/base/libs/jquery-ui-1.10.4.custom.js?v=20180418"></script>
+
+    <script src="./Scripts/base/three.js?v=20180318"></script>
+    <script src="./Scripts/base/controls/OrbitControls.js?v=20180318"></script>
+    <script src="./Scripts/base/controls/Detector.js?v=20180318"></script>
+    <script src="./Scripts/base/libs/ammo.js"></script>
+
+    <script src="./Scripts/Base/eap.core.js?v=20180316"></script>
+    <script src="./Scripts/Base/common.js?v=20180316"></script>
+
+    <script src="./Scripts/self/SystemPackage.js?v=20180418"></script>
+    <!--<script src="./Scripts/self/DrawingNewMap.js?v=20180418"></script>-->
+    <script src="./Scripts/self/DrawMap3DCli.js?v=20180418"></script>
+    <script src="./Scripts/self/MapData.js?v=20180418"></script>
+    <script src="./Scripts/self/Map3DLayer.js?v=20180418"></script>
+
+    <script src="Scripts/base/nodes/mqttws31.js?v=20180518"></script>
+
+    <script src="./Scripts/base/controls/DDSLoader.js"></script>
+    <script src="./Scripts/base/controls/MTLLoader.js"></script>
+    <script src="./Scripts/base/controls/OBJLoader.js"></script>
+
+
+</head>
+
+<body style="overflow:auto" onload='map3DLayer.LoadMap()' >
+    <div id="newmap3d">
+        <div>
+            <input type="button" value="视角切换" id="btnfirst" />
+        </div>
+    </div>
+    <div id='formEditDialog'></div>
+</body>
+
+</html>

@@ -1,0 +1,250 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>黄石新港</title>
+    <link rel="stylesheet" href="css/ol.css" />
+    <link rel="stylesheet" href="css/ol3-layerswitcher.css" />
+    <link rel="stylesheet" href="css/ol3-loadingpanel.css" />
+    <link rel="stylesheet" href="css/mapMonitor_white.css" id="defaultcss" />
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/ol.js"></script>
+    <script type="text/javascript" src="js/ol3-layerswitcher.js"></script>
+    <script type="text/javascript" src="js/ol3-loadingpanel.js"></script>
+    <script type="text/javascript" src="js/mapMonitor.js"></script>
+    <script type="text/javascript" src="js/mapOpration.js"></script>
+    <script type="text/javascript" src="js/TweenMax.min.js"></script>
+
+    <!--<base href="~/RPM/3DJS/Scripts/" />-->
+    <script type="text/javascript" src="../RPM/3DJS/Scripts/base/nodes/mqttws31.js"></script>
+    <script type="text/javascript" src="../RPM/3DJS/Scripts/base/eap.core.js"></script>
+    <script type="text/javascript" src="../RPM/3DJS/Scripts/base/common.js"></script>
+    <script type="text/javascript" src="../RPM/3DJS/Scripts/self/SystemPackage.js"></script>
+    <script type="text/javascript" src="../RPM/3DJS/Scripts/self/BasicData.js"></script>
+    <!--<script type="text/javascript" src="../RPM/3DJS/Scripts/self/Map2DLayer.js"></script>-->
+
+    <!--<script src="js/mqttws31.js"></script>
+    <script src="js/eap.core.js"></script>
+    <script src="js/common.js"></script>-->
+    <script src="js/mqttService.js"></script>
+    <script type="text/javascript" src="js/mapview.js"></script>
+</head>
+
+<body>
+    <div class="search" style="display:none;z-index:990;">
+        <div>
+            <input type="text" placeholder="请输入..." class="seach_name" name="" />
+        </div>
+
+        <div style="overflow-y:auto;max-height:300px;width:220px;overflow-x:hidden;"><ul class="searchContent"></ul></div>
+
+    </div>
+    <div id="map" class="map" style="height:100%"></div>
+    <div class="righttool" style="top:30px;">
+        <div class="blackbackgd" style="display:none">
+            <div class="searchBtn"><img onclick="toolBar.opration('search')" title="搜索" src="img/search.svg" /></div>
+            <div><img onclick="toolBar.opration('mapMeasure')" title="地图工具" src="img/measure.svg" /></div>
+            <div><img onclick="toolBar.opration('mapLayeredit')" title="地图图层" src="img/layeredit.svg" /></div>
+            <div><img onclick="toolBar.opration('terminalOffline')" title="离线信息" src="img/offline.svg" /></div>
+            <div><img onclick="toolBar.opration('dataResource')" title="历史回放" src="img/resource.svg" /></div>
+            <div><img onclick="toolBar.opration('workMisson')" title="当前作业" src="img/zuoye.svg" /></div>
+            <div><img onclick="toolBar.opration('warningContent')" title="告警信息" src="img/warning.svg" /></div>
+        </div>
+        <div class="hightbackgd" style="display:none">
+            <div class="searchBtn"><img onclick="toolBar.opration('search')" title="搜索" src="img/h_search.svg" /></div>
+            <div><img onclick="toolBar.opration('mapMeasure')" title="地图工具" src="img/h_measure.svg" /></div>
+            <div><img onclick="toolBar.opration('mapLayeredit')" title="地图图层" src="img/h_layeredit.svg" /></div>
+            <div><img onclick="toolBar.opration('terminalOffline')" title="离线信息" src="img/h_offline.svg" /></div>
+            <div><img onclick="toolBar.opration('dataResource')" title="历史回放" src="img/h_resource.svg" /></div>
+            <div><img onclick="toolBar.opration('workMisson')" title="当前作业" src="img/h_zuoye.svg" /></div>
+            <div><img onclick="toolBar.opration('warningContent')" title="告警信息" src="img/h_warning.svg" /></div>
+        </div>
+    </div>
+    <div class="toolContent mapMeasure" style="display: none;top: 80px;">
+        <table style="width:100%;padding-left:10px;">
+            <tr><td>测量</td><td><a href="javascript:void(0)" onclick="toolbarOpration.clear()">清空</a></td></tr>
+        </table>
+        <div class="radio">
+            <input id="radio-1" name="radio" type="radio" data-type="Polygon" onchange="toolbarOpration.measure('Polygon')" />
+            <label for="radio-1" class="radio-label">测面积</label>
+        </div>
+        <div class="radio">
+            <input id="radio-2" name="radio" type="radio" data-type="LineString" onchange="toolbarOpration.measure('LineString')" />
+            <label for="radio-2" class="radio-label">测距离</label>
+        </div>
+    </div>
+    <div class="toolContent mapLayeredit" style=" top: 145px;display: none;">
+        <table style="width:100%;border-collapse:separate; border-spacing:0px 10px;padding-left:10px;font-size:14px;" id="tblayer"></table>
+
+    </div>
+    <div class="toolContent terminalOffline" style=" top:210px;display: none;width:250px;height:340px;padding:5px">
+        离线信息
+        <div class="toolOverFlow">
+            <ul class="uloffine"></ul>
+        </div>
+    </div>
+    <div class="toolContent workMisson" style=" top:335px;display: none;width:400px;height:340px;padding:5px">
+        当前作业信息
+        <div class="toolOverFlow toolworkMisson">
+        </div>
+    </div>
+    <!--<div class="righttool" style="bottom:250px;">
+        <div><img onclick="toolBar.opration('warningInfo')" title="报警信息" src="img/warning.png" /></div>
+    </div>-->
+    <div class="toolContent warningContent warningInfo" style="top:400px;display: none;width:350px;height:330px;padding:5px;">
+        告警信息
+        <div class="toolOverFlow" style="height:300px;overflow-y:auto;">
+            <ul class="ulwarning"></ul>
+        </div>
+    </div>
+    <div style="border-radius:4px; bottom: 22px;right: 23px;z-index: 999;position: absolute;padding:0 5px 0 5px;height:24px;max-width:400px;font-size:10px;line-height: 20px;" class="titleContent">
+        <table id="terminalStatistics"><tr><td>当前坐标：</td><td id="mousePosition" style="width:120px;"></td><td class="tabel_td">手持终端：</td><td id="handheldterminal"></td><td class="tabel_td">车载终端：</td><td id="vehicleterminal"></td></tr></table>
+    </div>
+    <div style="bottom:14px;left:10px;z-index: 999;position: absolute;">
+        <ul class="ultuli" id="tuli"></ul>
+    </div>
+    <div class="marktooltip" style="min-width:200px;z-index:999;border-radius:15px;">
+
+    </div>
+    <ul class="ui-context-menu" id="uiContextMenu_" style="display: none; width: 120px; left: 393px; top: 85px;border-radius: 10px;">
+        <li class="ui-context-menu-item"><a href="javascript:void(0);" onclick="toolbarOpration.measure('LineString')"><span>测距离</span></a></li>
+        <li class="ui-context-menu-item"><a href="javascript:void(0);" onclick="toolbarOpration.measure('Polygon')"><span>测面积</span></a></li>
+        <li class="ui-context-menu-item"><a href="javascript:void(0);" onclick="toolbarOpration.clear()"><span>清除图形</span></a></li>
+    </ul>
+    <div id="workpopup" style="width:250px;position:absolute;bottom:60px;right:23px;height:184px;padding:10px;display:none;font-size:14px;border-radius: 10px;" class="titleContent"> <div style=" float:left">作业详细信息</div><div style="float:right;cursor:pointer;" onclick="toolbarOpration.workDetailClose()">×</div><br /><hr style="height:0px; border-top:1px solid #999; border-right:0px; border-bottom:0px; border-left:0px;" /><div id="workdetail" style="line-height:200%;"></div></div>
+    <script>
+        $(function () {
+            var configString = $.ajax({
+                url: "config/map.json",
+                async: false
+            });
+            config = JSON.parse(configString.responseText);
+            var map = new mapMonitor("map");
+            map.show(config);
+            // var pologyn = $.ajax({
+            //     url: "config/pologyn.json",
+            //     async: false
+            // });
+            // map.addFeatures("region", "区域", pologyn.responseText);
+
+            var fences = $.ajax({
+                url: "config/fence.json",
+                async: false
+            });
+            map.addFenceList(fences.responseText);
+
+            map.setLayerVisible("region", false);
+            map.setLayerVisible("fence", false);
+
+            var icons = $.ajax({
+                url: "config/icon.json",
+                async: false
+            });
+            iconItems = JSON.parse(icons.responseText);
+            map.addIcon(icons.responseText);
+            map.addClickListener('camera', clickevent);
+            map.addMouseMoveListener('station', inevent, outevent);
+
+            map.mapToolbar();
+            window.map = map;
+            toolBar.layerInit();
+            toolBar.refreshLayer();
+            toolbarOpration.load();
+           // mqttService.initMqtt();
+            //初始化基础数据
+            mapview.loadData();
+            $(".ulworkMisson").live("click", function () {
+                var id = $(this).attr("id");
+                for (var i = 0; i < workItems.length; i++) {
+                    if (workItems[i].id == id) {
+                        currentTask = workItems[i];
+                        break;
+                    }
+                }
+                if (currentTask == undefined) {
+                    alert("can not find the work!");
+                    return;
+                }
+                toolbarOpration.setWorkHighLight(true);
+
+                $(".workMisson").hide("slow");
+                var Id = $(this).attr("id");
+                $.each(workItems, function (i, item) {
+                    if (item.id === Id) {
+                        var status = item.terminalStatus === "OnLine" ? "在线" : "离线";
+                        $("#workdetail").html('车辆：' + item.assetName + '<br>终端编号：' + item.terminalName + '<br>作业区域：' + item.regionName + '<br>终端状态：' + status + '<br>当前时速：25.12km/h');
+                        $("#workpopup").show("slow");
+                    }
+                });
+            });
+			//人员设备
+            var m1 = map.addSingleIcon('mobileterminal', '人员', 'img/loader.svg', 1, [.5, 38], [12832255.710231094, 3520534.3501345143], { "tag": "理货员", "id": "1666894", "type": "mobileterminal" });
+            var m3 = map.addSingleIcon('vehicleterminal', '人员', 'img/truck.svg', 1, [.5, 38], [12832455.710231094, 3520534.3501345143], { "tag": "苏D1AC346", "id": "1212432", "type": "vehicleterminal" });
+            var m2 = map.addSingleIcon('vehicleterminal', '移动终端', 'img/truck.svg', 1, [.5, 38], [12832677.329336673, 3519985.594803843], { "tag": "苏DJT1029", "Name": "D123456", "type": "vehicleterminal" });
+            map.addMouseMoveListener('vehicleterminal', inevent, outevent);
+            windowWidth = $(window).width();
+            windowHeight = $(window).height();
+            $(window).resize(
+                function winSize() {
+                    windowWidth = $(window).width();
+                    windowHeight = $(window).height();
+                }
+            );
+            toolBar.Highlight();
+            $(window.map.map.getViewport()).on("contextmenu",
+                function (n) {
+                    n.preventDefault()
+                    $("#uiContextMenu_").css({
+                        left: n.clientX + 2,
+                        top: n.clientY + 2
+                    }).show();
+                }),
+                $(this).on("click", function () {
+                    $(".ui-context-menu").hide();
+                });
+            $(".seach_name").on("keyup", function (e) {
+                toolbarOpration.searchContent(e);
+            });
+            $(".seach_name").focus(function (e) {
+                toolbarOpration.searchContent(e);
+            });
+            $('.searchContent li').live("dblclick", function () {
+                $(".seach_name").val($(this).text());
+                $('.searchContent li').hide();
+            });
+            $("#searchbutton").on("click", function () {
+                $(".search").hide();
+            });
+        });
+        function clickevent(tag) {
+            alert(tag);
+        }
+        function inevent(ter, event) {
+            if (ter.type === "vehicleterminal") {
+                var tooltipHeight = $(".marktooltip").outerHeight();
+                var tooltipWidth = $(".marktooltip").width();
+                $(".marktooltip").css({
+                    'left': event.pixel[0],
+                    'top': event.pixel[1] + 10
+                });
+                if (event.pixel[0] + tooltipWidth + 20 >= windowWidth) {
+                    $(".marktooltip").css({
+                        'left': event.pixel[0] - tooltipWidth - 10
+                    })
+                }
+                if (event.pixel[1] + tooltipHeight + 20 >= windowHeight) {
+                    $(".marktooltip").css({
+                        'top': event.pixel[1] - tooltipHeight - 10
+                    })
+                }
+                $(".marktooltip").html('车辆：' + ter.tag + '<br>终端编号：1381231111<br>作业区域：作业区域作业区域堆场A<br>终端状态：在线<br>当前时速：25.12km/h').show();
+            }
+        }
+        function outevent(tag, event) {
+            $(".marktooltip").hide();
+        }
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html id="html">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="../Resource/Scripts/Kendo/Style/kendo.common-bootstrap.min.css" rel="stylesheet" />
+    <link href="../Resource/Scripts/Kendo/Style/kendo.bootstrap.min.css" rel="stylesheet" />
+    <link href="3DJS/Scripts/css/style_His.css" rel="stylesheet" />
+
+    <script src="../Resource/Scripts/Base/jquery-1.10.2.min.js"></script>
+    <script src="../../RPM/3DJS/Scripts/base/nodes/mqttws31.js"></script>
+
+    <script src="3DJS/Scripts/base/eap.core.js"></script>
+    <script src="3DJS/Scripts/base/common.js"></script>
+    <script src="../Resource/Scripts/Kendo/js/kendo.web.min.js"></script>
+    <script src="3DJS/Scripts/self/RtEleNaming.js"></script>
+
+
+    <script src="../Resource/Scripts/Kendo/js/dataviz/kendo.dataviz.core.min.js"></script>
+    <script src="../Resource/Scripts/Kendo/js/dataviz/kendo.dataviz.chart.min.js"></script>
+    <script src="../Resource/Scripts/Kendo/js/dataviz/kendo.dataviz.themes.min.js"></script>
+    <script src="3DJS/lib/layer/layer.js?v=20180318"></script>
+    <link href="3DJS/lib/layer/skin/layer.css?v=20180318" rel="stylesheet" />
+    <style>
+        * {
+            border: 0px;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .left {
+            width: 100%;
+            /*border:1px solid red;*/
+            overflow-y: scroll;
+            height: 50%;
+            border: 1px solid #DDDDDD;
+            /*width:32%;*/
+        }
+
+        .right {
+            /*margin-right:80px;*/
+            width: 100%;
+            height: 250px;
+            /*border:1px solid #00ff21;*/
+        }
+
+        tr, td {
+            border: 1px solid #999999
+        }
+
+        #top1 {
+            /*border:1px solid #ffd800;*/
+            width: 99.85%;
+            height: 99%;
+        }
+
+        #rtEleNaming {
+            height: 100%;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        #rtEleNaming::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body id="rtEleNaming">
+    <div id="top1">
+
+        <div id="chart" class="right"></div>
+        <div id="rtDivlist" class="left"></div>
+    </div>
+
+</body>
+
+</html>
+

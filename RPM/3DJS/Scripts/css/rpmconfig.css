@@ -1,0 +1,141 @@
+﻿
+
+
+
+
+
+/*****************************系统设置***************************************/
+
+.maindiv {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    display: flex;
+    /*设为 Flex 布局以后，子元素的float、clear和vertical-align属性将失效*/
+    display: -webkit-flex;
+    /* Safari */
+    flex-direction: column;
+    /*容器内项目的排列方向(默认横向排列 row)*/
+    flex-wrap: nowrap;
+    /*容器内项目换行方式*/
+    justify-content: center;
+    /*项目在主轴上的对齐方式*/
+    align-items: center;
+    /*项目在交叉轴上如何对齐*/
+    align-content: center;
+    /*定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用*/
+    margin-top:50px;
+}
+
+.MenuPanel {
+    padding-bottom: 20px;
+    width: 80%;
+}
+
+.MenuTitle {
+    width: 100%;
+    height: 30px;
+    font-size: 20px;
+    background-color: #f4f8fa;
+    /*margin-left: 10px;
+             padding-left:10px;   */
+    padding-top: 5px;
+    cursor: pointer;
+    border: #f4f8fa 1px solid;
+    border-radius: 15px 15px 0px 0px;
+}
+
+.titlediv {
+    /* margin-left: 10px;
+            text-align: left; */
+    margin-left: 10px;
+    margin-right: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.MenuContent {
+    width: 100%;
+    font-size: 16px;
+    border: #eef1f1 1px solid;
+    background-color: rgb(253, 255, 255);
+    border-radius: 0px 0px 20px 20px;
+    display: flex;
+}
+
+/*.divMessage {
+    margin-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: space-around;
+}*/
+
+.divMessage {
+    margin-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    /* display: flex;
+            justify-content: space-around; */
+    float: left;
+}
+
+    .divMessage div {
+        margin-left: 25px;
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+
+.titlehide {
+    font-weight: bold;
+}
+
+.divlist {
+    margin-left: 30px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+    .divlist div {
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+
+.titlemain {
+    font-weight: bold;
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 25px;
+    color: blue;
+}
+.gbt28181 {
+    display: none;
+}
+.hisconfig {
+    display: none;
+}
+.hisonlineset {
+    display: none;
+}
+.trackvs {
+    display: none;
+}
+.rtalmopenset {
+    display: none;
+}
+.pzyj {
+    display: none;
+}
+
+.extefun {
+    display: none;
+}
+.attfun {
+    display: none;
+}
+
+
+.txtcss {
+    height: 25px;
+    margin-left: 5px;
+}

@@ -1,0 +1,61 @@
+﻿@{
+    Layout = "~/Views/shared/_LayoutWK.cshtml";
+
+    var scriptitems = ViewBag.Scripts as List<string>;
+    if (scriptitems == null)
+    {
+        scriptitems = new List<string>
+    ();
+    }
+ }
+
+    <div id="ContainerDept" style="height:100%;">
+        <div id="assetPanel" style="border: 1px solid rgb(204,204,204);">
+        </div>
+        <div id="gridContainer" style="overflow-y:hidden;">
+            <div id="gridContainerToolbar"></div>
+            <div style="height:100%;box-sizing:border-box;width:100%;">
+                <div id="gridContainerView" style="height:100%;width:100%;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Resource/Scripts/ts/eap.uicore.js"></script>
+    <script src="~/Resource/Scripts/ts/Applications.js"></script>
+    <script src="~/Resource/Scripts/ts/Controller.js"></script>
+
+    <script>
+        System.CultureInfo.LanguageName = System.Cookies.get('EAMLANGUAGE')
+        //window.ViewBag = {
+        //    "EntityId": '@ViewBag.EntityId',
+        //    "ServiceId": '@ViewBag.Service',
+        //    "ViewCode": '@ViewBag.ViewCode',
+        //    "FunCode": '@ViewBag.FuncCode'
+        //};
+        window.ViewBag = {
+            entityId: '@ViewBag.EntityId',
+            serviceId: '@ViewBag.Service',
+            viewCode: '@ViewBag.ViewCode',
+            funCode: '@ViewBag.FuncCode'
+        };
+    </script>
+    <style>
+        #foot {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .gAppOtherTool_div {
+            display: none;
+        }
+
+        .formFilter {
+            display: none;
+        }
+    </style>
+    @foreach (var item in scriptitems)
+    {
+    <script src="@item"></script>
+    }
+
+
